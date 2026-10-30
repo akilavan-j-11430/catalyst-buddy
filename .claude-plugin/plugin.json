@@ -1,0 +1,11 @@
+{
+  "name": "catalyst-buddy",
+  "version": "0.1.0",
+  "description": "A senior Zoho Catalyst dev and architect that interviews you, picks a starter kit and architecture, scaffolds the app, designs it with hallmark, and keeps building it with you.",
+  "author": {
+    "name": "Akilavan J",
+    "email": "akilavan.j@zohocorp.com"
+  },
+  "keywords": ["catalyst", "zoho", "starter-kit", "architecture", "node", "typescript"],
+  "dependencies": ["catalyst-by-zoho@catalyst-by-zoho", "hallmark@hallmark"]
+}

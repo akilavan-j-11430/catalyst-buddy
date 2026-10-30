@@ -1,0 +1,44 @@
+import { execFileSync } from "node:child_process";
+import { readFileSync } from "node:fs";
+import { homedir } from "node:os";
+import { join } from "node:path";
+
+const UPSTREAM_PLUGINS = [
+  { id: "catalyst-by-zoho@catalyst-by-zoho", repoUrl: "https://github.com/catalystbyzoho/agent-skills" },
+  { id: "hallmark@hallmark", repoUrl: "https://github.com/nutlope/hallmark" },
+];
+
+function readInstalledPlugins() {
+  const registryPath = join(homedir(), ".claude", "plugins", "installed_plugins.json");
+  try {
+    return JSON.parse(readFileSync(registryPath, "utf8")).plugins ?? {};
+  } catch {
+    return {};
+  }
+}
+
+function readUpstreamHead(repoUrl) {
+  const output = execFileSync("git", ["ls-remote", repoUrl, "HEAD"], { encoding: "utf8", timeout: 15000 });
+  return output.split(/\s+/)[0];
+}
+
+function describeFreshness(plugin, installedPlugins) {
+  const installs = installedPlugins[plugin.id] ?? [];
+  if (installs.length === 0) {
+    return { plugin: plugin.id, status: "missing" };
+  }
+  const installed = installs[0];
+  const upstreamSha = readUpstreamHead(plugin.repoUrl);
+  const isCurrent = installed.gitCommitSha === upstreamSha;
+  return {
+    plugin: plugin.id,
+    status: isCurrent ? "current" : "behind",
+    installedVersion: installed.version,
+    installedSha: installed.gitCommitSha?.slice(0, 7) ?? "unknown",
+    upstreamSha: upstreamSha.slice(0, 7),
+  };
+}
+
+const installedPlugins = readInstalledPlugins();
+const report = UPSTREAM_PLUGINS.map((plugin) => describeFreshness(plugin, installedPlugins));
+console.log(JSON.stringify(report, null, 2));
