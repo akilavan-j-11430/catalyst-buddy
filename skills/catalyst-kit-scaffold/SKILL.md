@@ -5,7 +5,7 @@ description: Catalyst Buddy's build-out step - clone the chosen starter kit into
 
 # Scaffold the solution
 
-Input: the confirmed solution brief from `catalyst-buddy:catalyst-solution-design`. If any
+Input: the confirmed solution brief from `zcatalystai:catalyst-solution-design`. If any
 of these is missing, go back and ask - never fill one in yourself: kit, repo name, title,
 description, directory, Catalyst org ID and project ID, remote choice.
 
@@ -125,6 +125,6 @@ Push only if the dev asks.
 Tell the dev, in a short list:
 - `cd <dir> && pnpm dev`, then open the `proxy:` URL it prints (usually
   `http://localhost:3001`, not :3000 or :4000).
-- To keep building: `claude --agent catalyst-buddy:buddy` from `<dir>`. Buddy reads the brief
+- To keep building: `claude --agent buddy` from `<dir>`. Buddy reads the brief
   in `.claude/CLAUDE.md` and picks up from there.
 - Anything still open (Console steps, env values, the remote).

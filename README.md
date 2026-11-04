@@ -1,4 +1,4 @@
-# catalyst-buddy
+# Catalyst Buddy
 
 A Claude Code plugin that gives you a senior Zoho Catalyst developer and architect to
 work with. Tell it what you want to build. It interviews you, picks the right starter kit
@@ -31,14 +31,14 @@ Once per machine:
 claude plugin marketplace add catalystbyzoho/agent-skills
 claude plugin marketplace add nutlope/hallmark
 claude plugin marketplace add akilavan-j-11430/catalyst-buddy
-claude plugin install catalyst-buddy@catalyst-buddy
+claude plugin install zcatalystai@buddy
 ```
 
-Installing `catalyst-buddy` also installs its two dependencies: the official Catalyst
+Installing `zcatalystai` also installs its two dependencies: the official Catalyst
 skills (`catalyst-by-zoho`) and `hallmark`.
 
 Then open `/plugin` in Claude Code, go to **Marketplaces**, and turn on **auto-update**
-for `catalyst-by-zoho`, `hallmark` and `catalyst-buddy`. Third-party marketplaces don't
+for `catalyst-by-zoho`, `hallmark` and `buddy`. Third-party marketplaces don't
 auto-update by default. Buddy also checks for newer versions every time it starts and offers
 to update.
 
@@ -55,17 +55,20 @@ Start a new app from an empty folder:
 
 ```bash
 mkdir -p ~/Documents/Solutions && cd ~/Documents/Solutions
-claude --agent catalyst-buddy:buddy
+claude --agent buddy
 ```
 
 Keep building an app Buddy started:
 
 ```bash
 cd ~/Documents/Solutions/<your-app>
-claude --agent catalyst-buddy:buddy
+claude --agent buddy
 ```
 
 Buddy works out which of the two it is from the folder.
+
+If another plugin also ships an agent named `buddy`, use the scoped name:
+`claude --agent zcatalystai:buddy`.
 
 ## What it does
 
@@ -96,7 +99,7 @@ The knowledge of where each kit names itself lives in the kit, at
 
 ```bash
 claude plugin validate .
-claude --plugin-dir . --agent catalyst-buddy:buddy
+claude --plugin-dir . --agent buddy
 ```
 
 Bump `version` in `.claude-plugin/plugin.json` for each release, or teammates won't

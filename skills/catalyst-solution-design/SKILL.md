@@ -1,6 +1,6 @@
 ---
 name: catalyst-solution-design
-description: Catalyst Buddy's discovery step - interview a dev about the app they want, choose the starter kit, propose two or three Catalyst solution options, suggest names, and produce a confirmed solution brief. Used by the catalyst-buddy agent before scaffolding.
+description: Catalyst Buddy's discovery step - interview a dev about the app they want, choose the starter kit, propose two or three Catalyst solution options, suggest names, and produce a confirmed solution brief. Used by the Buddy agent before scaffolding.
 ---
 
 # Solution design

@@ -1,6 +1,6 @@
 ---
 name: catalyst-feature-build
-description: Catalyst Buddy's build loop - inside a solution started from a Catalyst starter kit, take one feature from idea to verified code - plan it, create its Catalyst resources over MCP, implement it to the kit rules, design its screens with hallmark, and verify it running. Used by the catalyst-buddy agent in build mode.
+description: Catalyst Buddy's build loop - inside a solution started from a Catalyst starter kit, take one feature from idea to verified code - plan it, create its Catalyst resources over MCP, implement it to the kit rules, design its screens with hallmark, and verify it running. Used by the Buddy agent in build mode.
 ---
 
 # Build one feature

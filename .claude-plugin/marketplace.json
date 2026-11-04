@@ -1,5 +1,5 @@
 {
-  "name": "catalyst-buddy",
+  "name": "buddy",
   "description": "Catalyst Buddy - a senior Zoho Catalyst dev and architect for Claude Code.",
   "owner": {
     "name": "Akilavan J",
@@ -11,7 +11,7 @@
   ],
   "plugins": [
     {
-      "name": "catalyst-buddy",
+      "name": "zcatalystai",
       "source": "./",
       "description": "A senior Zoho Catalyst dev and architect that takes you from an idea to a built app.",
       "category": "development"

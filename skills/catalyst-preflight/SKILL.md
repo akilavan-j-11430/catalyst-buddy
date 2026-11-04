@@ -1,6 +1,6 @@
 ---
 name: catalyst-preflight
-description: Catalyst Buddy's environment check before it starts or keeps building a Catalyst app - toolchain, Catalyst CLI login, Catalyst MCP connection and data centre, and whether the catalyst-by-zoho and hallmark plugins are the latest upstream versions. Used by the catalyst-buddy agent.
+description: Catalyst Buddy's environment check before it starts or keeps building a Catalyst app - toolchain, Catalyst CLI login, Catalyst MCP connection and data centre, and whether the catalyst-by-zoho and hallmark plugins are the latest upstream versions. Used by the Buddy agent.
 ---
 
 # Catalyst preflight
@@ -37,9 +37,9 @@ Two depths:
 5. **Plugins current** - run `node <this skill's base directory>/plugin-freshness.mjs`. It
    compares the installed commit of `catalyst-by-zoho@catalyst-by-zoho` and `hallmark@hallmark`
    with their upstream `HEAD`.
-   - `missing` -> `claude plugin install catalyst-buddy@catalyst-buddy` reinstalls the
-     dependencies; if the marketplace is unknown, add it first (see the README of
-     catalyst-buddy).
+   - `missing` -> `claude plugin install zcatalystai@buddy` reinstalls the
+     dependencies; if the marketplace is unknown, add it first (see Buddy's
+     README).
    - `behind` -> say what is behind, and on a yes run
      `claude plugin marketplace update catalyst-by-zoho` (or `hallmark`), then
      `claude plugin update catalyst-by-zoho@catalyst-by-zoho` (or `hallmark@hallmark`), and
