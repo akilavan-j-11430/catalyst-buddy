@@ -1,13 +1,13 @@
 ---
-name: catalyst-feature-build
+name: build
 description: Catalyst Buddy's build loop - in any Catalyst codebase, take one feature plan the dev agreed in design to verified code - create its Catalyst resources over MCP, implement it to the repo's rules, design its screens with hallmark, and verify it running. Used by the Buddy agent when the dev's goal is a feature.
 ---
 
 # Build one feature
 
-One feature per pass: the plan the dev agreed in `zcatalystai:design`. A feature is
+One feature per pass: the plan the dev agreed in `zcatalystai:blueprint`. A feature is
 something a user can do end to end ("check in a pass", "see today's visits"), not a layer
-("add the tables"). No agreed plan yet -> run `zcatalystai:design` first.
+("add the tables"). No agreed plan yet -> run `zcatalystai:blueprint` first.
 
 ## 1. Know where you are
 

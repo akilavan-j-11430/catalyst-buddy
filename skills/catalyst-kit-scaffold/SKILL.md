@@ -6,7 +6,7 @@ description: Catalyst Buddy's build-out step - in the app folder setup prepared,
 # Scaffold the solution
 
 Runs in the app folder, after `zcatalystai:setup` is done. Inputs: the confirmed solution
-brief from `zcatalystai:design`, and `title`,
+brief from `zcatalystai:blueprint`, and `title`,
 `description` and `kit` from `zcatalystai/buddy/setup.json`. The repo name is the folder
 name. If any input is missing, go back and ask - never fill one in yourself.
 

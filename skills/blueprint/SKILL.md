@@ -1,9 +1,9 @@
 ---
-name: design
-description: Catalyst Buddy's design step for an entire app, a feature or a fix - work out the request's Catalyst footprint (none, existing resources, or new), size the design to it, always offer two or three ways to build it with one recommended, and write the agreed result - a brief for an app, a plan for a feature, an approach for a fix. Used by goal and fix.
+name: blueprint
+description: Catalyst Buddy's blueprint step for an entire app, a feature or a fix - work out the request's Catalyst footprint (none, existing resources, or new), size the design to it, always offer two or three ways to build it with one recommended, and write the agreed result - a brief for an app, a plan for a feature, an approach for a fix. Used by goal and fix.
 ---
 
-# Design
+# Blueprint
 
 Input: the goal and what it is about - setup's title and description for an entire app,
 the dev's request for a feature, the reproduction and cause `zcatalystai:fix` found for a
@@ -103,5 +103,5 @@ Show it in full and wait for a yes; change it and show it again if asked.
 - **Feature** -> the plan: the Catalyst resources to create, the API routes (method and
   path, what each returns), the screens and their components, any deploy-surface change on
   its own line (it needs the dev's yes), and the check that proves it works.
-  `zcatalystai:catalyst-feature-build` builds it.
+  `zcatalystai:build` builds it.
 - **Fix** -> the chosen approach and the check that proves it. `zcatalystai:fix` applies it.
