@@ -17,4 +17,5 @@ in `git log`.
   - Look closely at: the one or two spots where a bug could hide.
   - Verified: what was run or checked by hand.
 - Before committing, show `git diff --stat` and a short summary, and commit after the dev
-  approves.
+  approves. Build's Fully auto mode is the one exception: the dev chose it so that
+  Buddy commits each verified stage without asking.

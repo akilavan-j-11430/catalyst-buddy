@@ -1,6 +1,6 @@
 ---
 name: build
-description: Catalyst Buddy's build step - run the stages in plan.json one by one in any Catalyst codebase (the base of a new app - env values, hallmark UI, first commit - then each feature stage: code to the repo's rules, hallmark screens, verified in the browser), against the Catalyst resources infra created; after a complete verification of every stage, delete plan.json. Used by goal after plan.
+description: Catalyst Buddy's build step - ask the build mode (Fully auto, Learn & Review, Review only), then run the stages in plan.json one by one in any Catalyst codebase (the base of a new app - env values, hallmark UI, first commit - then each feature stage: code to the repo's rules, hallmark screens, verified in the browser), against the Catalyst resources infra created; after a complete verification of every stage, delete plan.json. Used by goal after plan.
 ---
 
 # Build
@@ -18,6 +18,17 @@ resources; build writes the code that uses them.
   kit are in `zcatalystai/buddy/setup.json`.
 - `git status --short` and `git log --oneline -5`. If there is uncommitted work you did not
   make, ask before touching those files.
+- **Mode.** The plan file has no `mode` -> ask once (AskUserQuestion) and write it there:
+
+  | Mode | `mode` | The dev's part |
+  |---|---|---|
+  | Fully auto | `auto` | none: Buddy builds, verifies and commits every stage, and stops only when blocked |
+  | Learn & Review | `learn` | writes the parts of each stage that teach something, then reviews |
+  | Review only | `review` | reviews each stage; the next starts only after it is approved and committed |
+
+  The dev can switch at any time by saying so; update `mode`. In every mode, pushing,
+  deploying and anything the dev must do themselves (secrets, Console steps, hallmark's
+  questions) still wait for the dev.
 
 ## 2. Each stage
 
@@ -27,16 +38,32 @@ Take the first stage with `"status": "todo"`. Say which one, in one line, and go
    say why, and agree the change with the dev; update the stage in the plan file.
 2. **Implement** - section 3 for the base (stage 1 of an `entire-app` plan), section 4 for
    any other stage. Only what the stage names. When it grows past ~300 changed lines or ~10
-   files, stop and agree with the dev how to split it in the plan file.
+   files, stop and agree with the dev how to split it in the plan file (`auto`: split it
+   yourself and say so). `learn` -> section 2a.
 3. **Screens** - section 5.
 4. **Verify** - section 6, with the stage's `check`.
 5. **Done** - one commit for the stage, by the commit rules in
    `${CLAUDE_PLUGIN_ROOT}/rules/commits.md`, its subject naming what a user can now do;
-   push only if asked. Then set its `status` to `done` in the plan file. The base wraps up
-   as section 7 says instead.
+   push only if asked. `auto` -> commit without asking. `learn` and `review` -> the diff
+   stat and the body's "Read in order" and "Look closely at" are the dev's review guide;
+   wait for approval, and on a change request make it, verify again and show it again.
+   Then set its `status` to `done` in the plan file. The base wraps up as section 7 says
+   instead.
 
 Then the next `todo` stage. The dev can stop at any point; the next session resumes here.
-No `todo` stage left -> section 8.
+`auto` stops only when blocked: the same failure twice, or a stage that cannot work as
+planned. No `todo` stage left -> section 8.
+
+### 2a. Learn & Review
+
+Before writing the stage, say who writes what. Buddy: the routine parts - wiring, types,
+route mounts, `ApiPath` entries, service functions, component scaffolds. The dev: one or
+two parts with a decision in them - a query, a business rule, a validation, a component's
+state. For each dev part, leave a stub that fails loudly until it is written, and give a
+brief: what it must do, the rule or `catalyst-by-zoho` skill that applies, one hint, and
+the check that proves it. Wait for the dev's "done", then review their code as a senior
+would - what is right, what to change and why - and let them make the change. A stub left
+in the code blocks the commit.
 
 ## 3. The base
 
@@ -121,7 +148,7 @@ you have not seen work.
 
 ## 7. Wrap up the base
 
-1. Show `git status --short`, then ask. On a yes:
+1. Show `git status --short`, then ask (`auto`: don't ask). On a yes:
 
    ```bash
    git add -A

@@ -81,7 +81,7 @@ If another plugin also ships an agent named `buddy`, use the scoped name:
 | Goal | `goal` | Every session: you pick entire app, a feature, a fix, or understand the app |
 | Infra | `infra` | For an app, a feature or a fix, the Catalyst side only: its footprint (none, existing, new), 2-3 ways to cover it with pros and cons and one recommended, the design you confirm written to `.claude/infra.md`, then its Catalyst resources created (dependencies first) |
 | Plan | `plan` | The code: an app or a feature as ordered stages - routes, types, data access, screens and the check of each - approved once and kept in `plan.json` in the plugin data; for a fix, the change |
-| Build | `build` | Runs the stages in `plan.json` one by one: a new app's base (env values, hallmark UI, first commit), then each feature (code to the repo's rules, hallmark screens, verified in the browser); after a full verification it deletes `plan.json` |
+| Build | `build` | Asks the mode - Fully auto, Learn & Review (you write the parts that teach something) or Review only (each stage waits for your review) - then runs the stages in `plan.json` one by one: a new app's base (env values, hallmark UI, first commit), then each feature (code to the repo's rules, hallmark screens, verified in the browser); after a full verification it deletes `plan.json` |
 | Fix | `fix` | Takes the symptom from you; the `diagnose` agent reproduces it and finds the cause; then infra and plan design the fix, and fix applies it and verifies it with the same reproduction |
 | Explain | `explain` (agent) | Read-only tour: what the app does, how it is built, its Catalyst resources, how to run it; then answers your questions |
 

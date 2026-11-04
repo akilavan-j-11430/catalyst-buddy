@@ -82,6 +82,8 @@ plan file:
 
 - `goal` - `entire-app` or `feature`; for `entire-app`, build treats stage 1 as the base.
 - `status` - `todo` or `done`; build sets it, so a stopped build resumes at the first `todo`.
+- `mode` - not written by plan; build asks the dev and adds `auto`, `learn` or `review`
+  before stage 1, so a resumed build keeps it.
 
 Hand over to `zcatalystai:build`.
 
