@@ -96,7 +96,7 @@ intro) and let the dev edit it.
 
 - **Directory** - default `~/Documents/Solutions/<repo-name>`. It must not exist yet.
 - **Catalyst project** - list projects with `CatalystbyZoho_List_All_Projects` on the dev's
-  MCP server (the one whose account matched the CLI in preflight). The dev picks one, or
+  MCP server (the one whose account matched the CLI in setup). The dev picks one, or
   creates a new project in the Catalyst Console and comes back; MCP cannot create projects.
   Record the org ID and project ID.
 - **Remote** - one of: the URL of an existing empty repo; create one (GitHub with `gh`, or

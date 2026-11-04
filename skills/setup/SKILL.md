@@ -1,9 +1,9 @@
 ---
-name: catalyst-preflight
+name: setup
 description: Catalyst Buddy's environment check before it starts or keeps building a Catalyst app - toolchain, Catalyst CLI login, Catalyst MCP connection and data centre, and whether the catalyst-by-zoho and hallmark plugins are the latest upstream versions. Used by the Buddy agent.
 ---
 
-# Catalyst preflight
+# Catalyst setup
 
 Check the machine is ready before anything else. All checks are read-only; fixes are offered,
 never run without a yes.
@@ -60,4 +60,4 @@ Two depths:
 - Checks 2, 3 or 5 fail in start mode -> stop and fix them with the dev first. Designing an
   app on a machine that cannot deploy it wastes the interview.
 - Anything else fails -> report it, continue, and remind the dev at the step that needs it.
-- Everything passes -> one line, "Preflight: all green", and move on. Don't print the table.
+- Everything passes -> one line, "Setup: all green", and move on. Don't print the table.

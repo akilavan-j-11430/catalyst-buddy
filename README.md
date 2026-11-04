@@ -74,7 +74,7 @@ If another plugin also ships an agent named `buddy`, use the scoped name:
 
 | Step | Skill | What happens |
 |---|---|---|
-| Preflight | `catalyst-preflight` | Node, CLI login, MCP connection and data centre, same account on both, plugins up to date |
+| Setup | `setup` | Node, CLI login, MCP connection and data centre, same account on both, plugins up to date |
 | Discovery | `catalyst-solution-design` | The interview, the kit choice, 2-3 Catalyst solution options with one recommended, 6-8 names, a solution brief you confirm |
 | Scaffold | `catalyst-kit-scaffold` | Clone the kit, fresh git history, rename with the kit's `adopt-kit` skill, `catalyst init`, tables over MCP, hallmark design, `typecheck`/`lint`/`build`, first commit |
 | Build | `catalyst-feature-build` | One feature at a time: plan, resources, code to the kit rules, hallmark screens, verified in the browser |
