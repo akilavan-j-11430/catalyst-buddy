@@ -1,6 +1,6 @@
 ---
 name: build
-description: Catalyst Buddy's build step - ask the build mode (Fully auto, Learn & Review, Review only), then run the stages in plan.json one by one in any Catalyst codebase (the base of a new app - env values, hallmark UI, first commit - then each feature stage: code to the repo's rules, hallmark screens, verified in the browser), against the Catalyst resources infra created; after a complete verification of every stage, delete plan.json. Used by goal after plan.
+description: Catalyst Buddy's build step - ask the build mode (Fully auto, Learn & Review, Review only), then run the stages in plan.json one by one in any Catalyst codebase (the base of a new app - env values, hallmark UI - then each feature stage: code to the repo's rules, hallmark screens, verified in the browser), against the Catalyst resources infra created; after a complete verification of every stage, delete plan.json. Used by goal after plan.
 ---
 
 # Build
@@ -46,8 +46,7 @@ Take the first stage with `"status": "todo"`. Say which one, in one line, and go
    push only if asked. `auto` -> commit without asking. `learn` and `review` -> the diff
    stat and the body's "Read in order" and "Look closely at" are the dev's review guide;
    wait for approval, and on a change request make it, verify again and show it again.
-   Then set its `status` to `done` in the plan file. The base wraps up as section 7 says
-   instead.
+   Then set its `status` to `done` in the plan file. After the base, also section 7.
 
 Then the next `todo` stage. The dev can stop at any point; the next session resumes here.
 `auto` stops only when blocked: the same failure twice, or a stage that cannot work as
@@ -145,19 +144,11 @@ ZCQL query through MCP). For the base: a screenshot of the home page, and
 server. If anything fails, fix the cause and verify again - never mark a stage done that
 you have not seen work.
 
-## 7. Wrap up the base
+## 7. After the base
 
-1. Show `git status --short`, then ask (`auto`: don't ask). On a yes:
-
-   ```bash
-   git add -A
-   git commit -m "Start <title> from <kit>"
-   ```
-
-   Push to `origin` only if the dev asks.
-2. Tell the dev, in a short list: `pnpm dev`, then open the `proxy:` URL it prints (usually
-   `http://localhost:3001`, not :3000 or :4000); `claude --agent buddy` from this folder to
-   keep building; and anything still open (Console steps, env values).
+Tell the dev, in a short list: `pnpm dev`, then open the `proxy:` URL it prints (usually
+`http://localhost:3001`, not :3000 or :4000), and anything still open (Console steps, env
+values). Then go on to the next stage.
 
 ## 8. Finish the plan
 

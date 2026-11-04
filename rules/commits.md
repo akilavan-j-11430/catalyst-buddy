@@ -8,8 +8,8 @@ in `git log`.
 - Renames, moves and formatting go in their own commit, with no behaviour change, so they
   can be skimmed.
 - Under ~300 changed lines and ~10 files. Bigger -> split it into steps that each build and
-  pass the checks. Two commits are exempt: connect's baseline of existing code, and the
-  first commit that brings in the kit.
+  pass the checks. Two commits are exempt: connect's baseline of existing code, and setup's
+  commit that brings in the kit.
 - The subject says what changed, in the imperative. The body has four parts:
   - Why: the problem, in one or two lines.
   - Read in order: files or areas in the order to review them, from shared code outward

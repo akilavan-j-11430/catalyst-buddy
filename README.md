@@ -76,12 +76,12 @@ If another plugin also ships an agent named `buddy`, use the scoped name:
 | Step | Skill | What happens |
 |---|---|---|
 | Doctor | `doctor` | Every session: Node, pnpm, git, Catalyst CLI, a Catalyst MCP server connected (helps you configure one if none), plugins up to date, stale skill copies, chrome-devtools; fixes each gap with you or for you |
-| Setup | `setup` | New apps only: asks what the app is and records its title and description, asks which kit, clones it into the folder, renames the kit to the app |
+| Setup | `setup` | New apps only: asks what the app is and records its title and description, asks which kit, clones it into the folder, renames the kit to the app, and commits it |
 | Connect | `connect` | Every session: `catalyst init` done (binds the folder if not), which MCP server reaches its project, and a git repo with an `origin` remote (both required; it sets them up with you) |
 | Goal | `goal` | Every session: you pick entire app, a feature, a fix, or understand the app |
 | Infra | `infra` | For an app, a feature or a fix, the Catalyst side only: its footprint (none, existing, new), 2-3 ways to cover it with pros and cons and one recommended, the design you confirm written to `.claude/infra.md`, then its Catalyst resources created (dependencies first) |
 | Plan | `plan` | The code: an app or a feature as ordered stages - routes, types, data access, screens and the check of each - approved once and kept in the gitignored `zcatalystai/buddy/plan.json`; for a fix, the change |
-| Build | `build` | Asks the mode - Fully auto, Learn & Review (you write the parts that teach something) or Review only (each stage waits for your review) - then runs the stages in `plan.json` one by one: a new app's base (env values, hallmark UI, first commit), then each feature (code to the repo's rules, hallmark screens, verified in the browser); after a full verification it deletes `plan.json` |
+| Build | `build` | Asks the mode - Fully auto, Learn & Review (you write the parts that teach something) or Review only (each stage waits for your review) - then runs the stages in `plan.json` one by one: a new app's base (env values, hallmark UI), then each feature (code to the repo's rules, hallmark screens, verified in the browser); after a full verification it deletes `plan.json` |
 | Fix | `fix` | Takes the symptom from you; the `diagnose` agent reproduces it and finds the cause; then infra and plan design the fix, and fix applies it and verifies it with the same reproduction |
 | Explain | `explain` (agent) | Read-only tour: what the app does, how it is built, its Catalyst resources, how to run it; then answers your questions |
 

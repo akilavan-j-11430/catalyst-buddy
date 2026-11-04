@@ -14,8 +14,8 @@ with no app code yet.
 
 | Folder | Ask? | Recommended |
 |---|---|---|
-| No app code yet - only what `catalyst init` wrote (no `package.json`, no git commit, no `setup.json`) | no - only a new app makes sense; say so in one line | Entire app |
-| Has `zcatalystai/buddy/setup.json`, with a step not `done` or no git commit yet | yes | Entire app ("continue setting up the app") |
+| No app code yet - only what `catalyst init` wrote (no `package.json`, no `setup.json`) | no - only a new app makes sense; say so in one line | Entire app |
+| Has `zcatalystai/buddy/setup.json` with a step not `done` | yes | Entire app ("continue setting up the app") |
 | Has a plan file with a `todo` stage | yes | the plan's `goal` ("continue the plan: <next stage>") |
 | Any other folder | yes | A feature |
 
@@ -42,13 +42,16 @@ resumes at that stage. Otherwise:
 | A fix | `zcatalystai:fix` (it runs `zcatalystai:infra` and `zcatalystai:plan` once it knows the cause) |
 | Understand the app | Start the `zcatalystai:explain` agent and show the dev its tour. Send each question the dev asks to that same agent (SendMessage) and show its answer. A change request -> offer the feature or fix goal. The route ends when the dev has no more questions. |
 
-**Entire app:**
-- No app code yet, or `setup.json` present -> `zcatalystai:setup` (it resumes at its first
-  step not `done`), then:
-  - no git commit yet -> `zcatalystai:infra` if there is no `.claude/infra.md` yet, then
-    `zcatalystai:plan`, then `zcatalystai:build`, which runs every stage from the base on;
-  - the app is already built -> the dev chose a rewrite: run `zcatalystai:infra` again
-    (the new `infra.md` replaces the old), then `zcatalystai:plan` and `zcatalystai:build`.
+**Entire app** - progress is read from files only, never from git history:
+- No app code yet, or `setup.json` with a step not `done` -> `zcatalystai:setup` (it
+  resumes at its first step not `done`), then `zcatalystai:infra`, `zcatalystai:plan` and
+  `zcatalystai:build`, which runs every stage from the base on.
+- `setup.json` all `done`, no `.claude/infra.md` -> `zcatalystai:infra`, then
+  `zcatalystai:plan` and `zcatalystai:build`.
+- `setup.json` all `done` and `.claude/infra.md` present -> ask (AskUserQuestion):
+  **build from the current design** (`zcatalystai:plan`, then `zcatalystai:build`) or
+  **rewrite** (`zcatalystai:infra` again - the new `infra.md` replaces the old - then plan
+  and build).
 - A codebase Buddy did not set up (app code, no `setup.json`) -> setup would copy the kit
   over its code. Say so, and offer to start the app in a new, empty folder instead.
 

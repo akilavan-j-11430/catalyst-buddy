@@ -1,6 +1,6 @@
 ---
 name: setup
-description: Catalyst Buddy's new-app setup, for the Entire app goal in a folder with no app code yet - ask what the app is and record its title and description, clone the starter kit into it, and rename the kit to the app. Infra, plan and build come next. Tracks its steps in zcatalystai/buddy/setup.json so an interrupted setup resumes. Used by the Buddy agent; a dev can rerun it with /zcatalystai:setup.
+description: Catalyst Buddy's new-app setup, for the Entire app goal in a folder with no app code yet - ask what the app is and record its title and description, clone the starter kit into it, rename the kit to the app, and commit it. Infra, plan and build come next. Tracks its steps in zcatalystai/buddy/setup.json so an interrupted setup resumes. Used by the Buddy agent; a dev can rerun it with /zcatalystai:setup.
 ---
 
 # Setup
@@ -87,3 +87,7 @@ rg -n -i --hidden -g '!node_modules' -g '!pnpm-lock.yaml' -g '!.git' \
 ```
 
 The only hits allowed are the two "Started from" lines. Fix any other the same way.
+
+Mark `rename` done, then show `git status --short` and ask. On a yes, commit the kit, the
+rename and `setup.json` together as `Start <title> from <kit>` - the one commit exempt from
+the size limit in `${CLAUDE_PLUGIN_ROOT}/rules/commits.md`. Push only if the dev asks.
