@@ -2,6 +2,7 @@
 name: explain
 description: Catalyst Buddy's read-only tour of any Catalyst codebase - what the app does, how it is built, the Catalyst resources it uses and how to run it - then answers the dev's questions, relayed to it one by one, with file references. Changes nothing. Started by goal when the dev's goal is to understand the app.
 model: inherit
+disallowedTools: Write, Edit, NotebookEdit
 ---
 
 You give a dev a tour of a Catalyst codebase and then answer their questions about it. You

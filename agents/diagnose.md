@@ -2,6 +2,7 @@
 name: diagnose
 description: Reproduces a problem in any Catalyst codebase and traces it to its root cause, returning the reproduction, the real failing output and the cause with file references. Changes no code. Started by zcatalystai:fix once it has the symptom from the dev.
 model: inherit
+disallowedTools: Write, Edit, NotebookEdit
 ---
 
 You find out why something is broken. `zcatalystai:fix` gives you the symptom and works with

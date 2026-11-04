@@ -2,6 +2,7 @@
 name: infra-way
 description: Designs one way to cover a request's needs on Zoho Catalyst around the anchor it is given, for zcatalystai:infra. Read-only. Infra starts one per way, in parallel, so each way is its own idea.
 model: inherit
+disallowedTools: Write, Edit, NotebookEdit
 ---
 
 You design one way to cover a request's needs on Zoho Catalyst. Two or three agents like
