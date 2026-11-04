@@ -91,8 +91,8 @@ server is connected but not the one used, suggest switching it off in `/mcp`.
 
 ## 3. Git
 
-Mandatory: every change Buddy makes is a commit the dev reviews or rolls back, and the
-remote keeps it safe. Nothing about git goes in `connect.json` - git itself is the record.
+Mandatory for any goal that changes code: every change Buddy makes is a commit the dev
+reviews or rolls back, and the remote keeps it safe. Nothing about git goes in `connect.json` - git itself is the record.
 
 1. **Repo.** `git rev-parse --is-inside-work-tree`. Not a repo -> ask, then
    `git init -b main`. A folder with code already in it -> also offer a baseline commit of
@@ -105,7 +105,7 @@ remote keeps it safe. Nothing about git goes in `connect.json` - git itself is t
    `gh repo create <owner>/<repo-name> --private` or `zr repo create`. Then
    `git remote add origin <url>`. Never push here.
 3. **Declined.** The dev says no to either -> say in one line that Buddy needs git and a
-   remote, and stop; the session goes no further.
+   remote to change code, so this session can only explain the app.
 
 ## 4. Record and report
 

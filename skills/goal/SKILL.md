@@ -24,6 +24,9 @@ with no app code yet.
 the plan: <next stage>?". Yes -> `zcatalystai:build`, which resumes there; the route ends
 with it. No -> go on.
 
+No git repo or no `origin` (the dev declined them in connect) -> don't ask: only
+Understand the app is open; say so in one line and route to it.
+
 One AskUserQuestion, "What are we doing?":
 
 - **Entire app** - design and build the whole app.
