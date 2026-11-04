@@ -15,8 +15,9 @@ resources; build writes the code that uses them.
 - Read the plan file, `.claude/CLAUDE.md` (it imports `infra.md`), every
   `.claude/rules/*.md`, and `design.md` if it exists. For a new app, title, description and
   kit are in `zcatalystai/buddy/setup.json`.
-- `git status --short` and `git log --oneline -5`. If there is uncommitted work you did not
-  make, ask before touching those files.
+- `git status --short` and `git log --oneline -5`. Uncommitted work -> show it and ask
+  whether it is the first `todo` stage half-built in an earlier session (continue from it)
+  or the dev's own work (leave it, and ask before touching those files).
 - **Mode.** The plan file has no `mode` -> ask once (AskUserQuestion) and write it there:
 
   | Mode | `mode` | The dev's part |
