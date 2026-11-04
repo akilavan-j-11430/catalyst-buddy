@@ -113,7 +113,6 @@ Show it in full and wait for a yes; change it and show it again if asked.
   ## Catalyst
 
   - Kit: <kit> - <why, one line>
-  - Project: org `<orgId>`, project `<projectId>` (from `.catalystrc`)
   - Resources:
     - <service> <resource> `<name>` - <purpose>; <key settings>
       - for a table, each column: `<name>` <type>, mandatory or unique if set
@@ -122,7 +121,8 @@ Show it in full and wait for a yes; change it and show it again if asked.
   ```
 
   Then attach it: put the line `@infra.md` in `.claude/CLAUDE.md` right after the intro
-  paragraph (before `## Role`), once. The import is relative to `.claude/CLAUDE.md`, so
+  paragraph (before `## Role`), once - after the first paragraph when there is no
+  `## Role`, and in a new `.claude/CLAUDE.md` holding only that line when there is none. The import is relative to `.claude/CLAUDE.md`, so
   every session loads it. Later sessions trust it, so it must stay true as the app grows.
 - **Feature or fix** with new resources -> add them to the `Resources` list in
   `.claude/infra.md`. No `infra.md` yet (a codebase Buddy did not set up) -> create it with
