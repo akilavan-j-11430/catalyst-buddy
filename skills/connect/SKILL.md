@@ -1,6 +1,6 @@
 ---
 name: connect
-description: Catalyst Buddy's every-session check, in any folder, that it is bound to a Catalyst project (catalyst init done - the dev runs it if not) and which connected MCP server reaches that project, recording the server in a gitignored zcatalystai/buddy/connect.json. Used by the Buddy agent after doctor; a dev can rerun it with /zcatalystai:connect.
+description: Catalyst Buddy's every-session check, in any folder, that it is bound to a Catalyst project (catalyst init done - the dev runs it if not), which connected MCP server reaches that project (recorded in a gitignored zcatalystai/buddy/connect.json), and that the folder is a git repo with an origin remote - both mandatory. Used by the Buddy agent after doctor; a dev can rerun it with /zcatalystai:connect.
 ---
 
 # Connect
@@ -50,7 +50,7 @@ check only its `mcpServer` with the `Get_Project_By_Id` call below.
 - It returns the project, and the dev did not run `/zcatalystai:connect` themselves to
   switch -> don't ask. Load the server's tools if deferred and tell the
   dev: "Connected (from connect.json): <projectName> (<projectId>) on <mcpServer>
-  (<dataCentre>). Run /zcatalystai:connect to switch." Connect is done.
+  (<dataCentre>). Run /zcatalystai:connect to switch." Go to section 3.
 - It fails, or the file names another project -> say which ("connect.json points at
   <mcpServer>, which no longer reaches <projectName>"), then pick a server as below.
 
@@ -88,10 +88,29 @@ The data centre is the host of the org's `url` from `CatalystbyZoho_List_All_Org
 AU; any other host, name its country domain. If the `catalyst-by-zoho` plugin's bundled US
 server is connected but not the one used, suggest switching it off in `/mcp`.
 
-## 3. Record and report
+## 3. Git
+
+Mandatory: every change Buddy makes is a commit the dev reviews or rolls back, and the
+remote keeps it safe. Nothing about git goes in `connect.json` - git itself is the record.
+
+1. **Repo.** `git rev-parse --is-inside-work-tree`. Not a repo -> ask, then
+   `git init -b main`. A folder with code already in it -> also offer a baseline commit of
+   what is there, so later diffs show only Buddy's changes; first make sure `.gitignore`
+   keeps out `node_modules`, `.env` files and build output, and show `git status --short`.
+2. **Remote.** `git remote get-url origin`. Missing -> ask (AskUserQuestion) where the
+   code goes: the URL of an existing empty repo; a new repo on GitHub (`gh`); or a new repo
+   on zrepository (`zr`). For a new one, check `gh auth status` or `zr auth status` first,
+   name it after the folder, and ask once more right before running
+   `gh repo create <owner>/<repo-name> --private` or `zr repo create`. Then
+   `git remote add origin <url>`. Never push here.
+3. **Declined.** The dev says no to either -> say in one line that Buddy needs git and a
+   remote, and stop; the session goes no further.
+
+## 4. Record and report
 
 Write `connect.json` when anything in it changed. If the server's `CatalystbyZoho_*` tools
 are deferred in this session, load them now (ToolSearch, `+<mcpServer> CatalystbyZoho`).
 
-One line: "Connected: <project name> (<projectId>) on <mcpServer> (<data centre>)". Every
+One line: "Connected: <project name> (<projectId>) on <mcpServer> (<data centre>); git
+<origin url>". Every
 Catalyst MCP call in this session goes to the `mcpServer` in `connect.json`.

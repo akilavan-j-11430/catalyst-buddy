@@ -31,7 +31,7 @@ Run, in order:
 
 1. `zcatalystai:doctor` - the machine.
 2. `zcatalystai:connect` - the folder's Catalyst project (the dev runs `catalyst init` if it
-   is not bound yet) and the MCP server that reaches it.
+   is not bound yet), the MCP server that reaches it, and git with an `origin` remote.
 3. `zcatalystai:goal` - the dev picks entire app, a feature, a fix, or understanding the
    app; goal runs the skills for it and asks again when it is done.
 

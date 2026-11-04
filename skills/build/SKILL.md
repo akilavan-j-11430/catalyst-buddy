@@ -122,21 +122,17 @@ you have not seen work.
 
 ## 7. Wrap up the base
 
-1. Ask where the code goes: the URL of an existing empty repo; create one (GitHub with
-   `gh`, or zrepository with `zr`) - ask once more right before running
-   `gh repo create <owner>/<repo-name> --private` or `zr repo create`; or none for now. Add
-   it as `origin`.
-2. Show `git status --short`, then ask. On a yes:
+1. Show `git status --short`, then ask. On a yes:
 
    ```bash
    git add -A
    git commit -m "Start <title> from <kit>"
    ```
 
-   Push only if the dev asks.
-3. Tell the dev, in a short list: `pnpm dev`, then open the `proxy:` URL it prints (usually
+   Push to `origin` only if the dev asks.
+2. Tell the dev, in a short list: `pnpm dev`, then open the `proxy:` URL it prints (usually
    `http://localhost:3001`, not :3000 or :4000); `claude --agent buddy` from this folder to
-   keep building; and anything still open (Console steps, env values, the remote).
+   keep building; and anything still open (Console steps, env values).
 
 ## 8. Finish the plan
 

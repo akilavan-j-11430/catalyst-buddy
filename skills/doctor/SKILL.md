@@ -14,7 +14,7 @@ Run them all quietly first; don't report one at a time.
 
 | # | Check | How | Needed for |
 |---|---|---|---|
-| 1 | Toolchain | `node -v` (v24.x, the AppSail `node24` stack), `pnpm -v`, `git --version` | building the app |
+| 1 | Toolchain | `node -v` (v24.x, the AppSail `node24` stack), `pnpm -v`, `git --version`, `git config user.email` (set, or the first commit fails) | building and committing the app |
 | 2 | Catalyst CLI | `catalyst --version` | `catalyst init`, deploy |
 | 3 | Catalyst MCP connected | section 2 | creating and reading Catalyst resources |
 | 4 | Plugins current | section 3 | Catalyst facts, hallmark |

@@ -61,10 +61,10 @@ steps of this session.
    rm -rf ../.<folder>-kit/.git
    cp -R ../.<folder>-kit/. ./
    rm -rf ../.<folder>-kit
-   git init -b main
    ```
 
-The kit's `.git` is deleted before the copy, so the app starts with its own empty history.
+The kit's `.git` is deleted before the copy, so the app keeps the empty history connect
+started.
 The kit brings its own `catalyst.json` (replacing one `catalyst init` wrote, if any);
 `.catalystrc` stays, so the folder is still bound. Then copy each `.env.example` that has no
 `.env` beside it. Record `kit` (the kit's repo name).
