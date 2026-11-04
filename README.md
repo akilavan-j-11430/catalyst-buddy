@@ -79,8 +79,8 @@ If another plugin also ships an agent named `buddy`, use the scoped name:
 | Setup | `setup` | New apps only: asks what the app is and records its title and description, asks which kit, clones it into the folder, renames the kit to the app |
 | Connect | `connect` | Every session: `catalyst init` done (binds the folder if not), and which MCP server reaches its project |
 | Goal | `goal` | Every session: you pick entire app, a feature, a fix, or understand the app |
-| Blueprint | `blueprint` | For an app, a feature or a fix: its Catalyst footprint (none, existing, new), 2-3 ways to build it with one recommended, then a brief, a plan or a fix approach you confirm |
-| Build | `build` | Builds what blueprint approved: a new app (resources, env values, hallmark UI, verify, first commit) or one feature (resources, code to the repo's rules, hallmark screens, verified in the browser) |
+| Blueprint | `blueprint` | For an app, a feature or a fix: its Catalyst footprint (none, existing, new), 2-3 ways to build it with pros and cons and one recommended, a brief, plan or fix approach you confirm, then its Catalyst resources created (dependencies first) |
+| Build | `build` | Builds what blueprint approved: a new app (env values, hallmark UI, verify, first commit) or one feature (code to the repo's rules, hallmark screens, verified in the browser) |
 | Fix | `fix` | Reproduce, find the cause, design the fix, apply the way you pick, verify with the same reproduction |
 | Explain | `explain` | Read-only tour: what the app does, how it is built, its Catalyst resources, how to run it |
 

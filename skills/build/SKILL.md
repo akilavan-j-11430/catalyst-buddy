@@ -1,6 +1,6 @@
 ---
 name: build
-description: Catalyst Buddy's build step - build what the dev approved in blueprint, in any Catalyst codebase - the base of a new app (resources, env values, hallmark UI, verify, first commit) or one feature (resources, code to the repo's rules, hallmark screens, verify) - and see it running. Used by goal after blueprint.
+description: Catalyst Buddy's build step - build what the dev approved in blueprint, in any Catalyst codebase - the base of a new app (env values, hallmark UI, verify, first commit) or one feature (code to the repo's rules, hallmark screens, verify), against the Catalyst resources blueprint created - and see it running. Used by goal after blueprint.
 ---
 
 # Build
@@ -12,7 +12,8 @@ Builds what the dev approved in `zcatalystai:blueprint`, one pass at a time:
 - **A feature** - something a user can do end to end ("check in a pass", "see today's
   visits"), not a layer ("add the tables").
 
-No approved brief or plan yet -> run `zcatalystai:blueprint` first.
+No approved brief or plan yet -> run `zcatalystai:blueprint` first. Blueprint has already
+created the Catalyst resources; build writes the code that uses them.
 
 ## 1. Know where you are
 
@@ -25,25 +26,12 @@ No approved brief or plan yet -> run `zcatalystai:blueprint` first.
   the repositories, `apps/api/src/routes/`, `apps/web/src/app/` and
   `apps/web/src/services/`. Otherwise: `catalyst.json` and the folders it points at.
 
-## 2. Catalyst resources
-
-Create the agreed resources - the brief's `Catalyst resources` for a new app, the plan's for
-a feature - over MCP on the `mcpServer` in `zcatalystai/buddy/connect.json`, in the
-**Development** environment only, after showing exactly what you will create. Read them
-back and confirm. Set Data Store table permissions and scopes the way the brief and the
-kit's `vendor-boundaries.md` say. Anything MCP cannot do, give as exact Console steps and
-wait.
-
-New app on the zoho-token kit: also the `ZohoConnection` table (`REFERENCE_ID`,
-`REFRESH_TOKEN` encrypted, App User scope USER) and the default Cache segment, as
-`.claude/rules/zoho-token.md` says. Don't add repository classes or `resources.ts` entries
-for a new app yet - they come with the first feature that uses the resource.
-
-## 3. Implement
+## 2. Implement
 
 ### New app
 
-No domain code yet. Walk the dev through the env values the README's "First run" section
+No domain code yet - no repository classes or `resources.ts` entries; they come with the
+first feature that uses a resource. Walk the dev through the env values the README's "First run" section
 lists; values that are secrets, the dev types in themselves.
 
 zoho-token kit: walk the dev through registering a **Server-based client** at the Zoho API
@@ -80,7 +68,7 @@ Before a ZCQL query, a Data Store write, or an auth check, load
 have behaviour that fails silently when guessed (result wrapping, booleans stored as
 strings, ZAID differing between environments).
 
-## 4. Screens
+## 3. Screens
 
 ### New app
 
@@ -108,7 +96,7 @@ against the existing tokens in `globals.css` and the repo's `design.md`. Keep th
 rules: no font family or raw colour on a component, no hand edits in `components/ui/`, and
 an empty, loading and error state for every list or form.
 
-## 5. Verify
+## 4. Verify
 
 ```bash
 pnpm build && pnpm typecheck && pnpm lint      # a new app: pnpm install first
@@ -125,7 +113,7 @@ the row landed (`CatalystbyZoho_Get_Rows` or a ZCQL query through MCP). Take a s
 the main screen. Stop the dev server when done. If anything fails, fix the cause and verify
 again - never report a feature as done that you have not seen work.
 
-## 6. Wrap up
+## 5. Wrap up
 
 ### New app
 

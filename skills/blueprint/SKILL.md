@@ -1,14 +1,15 @@
 ---
 name: blueprint
-description: Catalyst Buddy's blueprint step for an entire app, a feature or a fix - work out the request's Catalyst footprint (none, existing resources, or new), size the design to it, always offer two or three ways to build it with one recommended, and write the agreed result - a brief for an app, a plan for a feature, an approach for a fix. Used by goal and fix.
+description: Catalyst Buddy's blueprint step for an entire app, a feature or a fix - work out the request's Catalyst footprint (none, existing resources, or new), size the design to it, always offer two or three ways to build it with their pros and cons and one recommended, write the agreed result - a brief for an app, a plan for a feature, an approach for a fix - and create its Catalyst resources once the dev approves. Used by goal and fix.
 ---
 
 # Blueprint
 
 Input: the goal and what it is about - setup's title and description for an entire app,
 the dev's request for a feature, the reproduction and cause `zcatalystai:fix` found for a
-fix. Nothing changes on disk or in Catalyst in this step, except the approved brief of an
-entire app, written into `.claude/CLAUDE.md`.
+fix. Nothing changes on disk or in Catalyst until the dev approves the result; then the
+brief of an entire app is written into `.claude/CLAUDE.md` and the Catalyst resources are
+created (section 5).
 
 ## 1. Understand
 
@@ -63,8 +64,8 @@ covers what the dev needs now, not what they might need later.
 | What changes in the code | | | |
 | Catalyst resources (service, name, key settings, or "none") | | | |
 | Deploy-surface changes (new AppSail, function, service, runtime dependency) | | | |
-| Good at | | | |
-| Costs (complexity, limits, price) | | | |
+| Pros | | | |
+| Cons (complexity, limits, price) | | | |
 | How we'll know it works | | | |
 
 The ways differ by footprint: with none, in where and how much code changes; with existing,
@@ -103,8 +104,36 @@ Show it in full and wait for a yes; change it and show it again if asked.
   Audience: <...>. Tone: <...>. Brand colours: <... or "none">. Likes: <...>. Dislikes: <...>.
   ```
 
-- **Feature** -> the plan: the Catalyst resources to create, the API routes (method and
+- **Feature** -> the plan: the Catalyst resources it needs (created in section 5), the API routes (method and
   path, what each returns), the screens and their components, any deploy-surface change on
   its own line (it needs the dev's yes), and the check that proves it works.
   `zcatalystai:build` builds it.
 - **Fix** -> the chosen approach and the check that proves it. `zcatalystai:fix` applies it.
+
+## 5. Create the resources
+
+Once the dev approved the result, create its new Catalyst resources - nothing to do when the
+footprint is none or existing. A new app on the zoho-token kit also needs the
+`ZohoConnection` table (`REFERENCE_ID`, `REFRESH_TOKEN` encrypted, App User scope USER) and
+the default Cache segment, as `.claude/rules/zoho-token.md` says. Everything goes to the
+**Development** environment, on the `mcpServer` in `zcatalystai/buddy/connect.json`.
+
+1. **What each one needs.** Find its tool on that server - a `CatalystbyZoho_Create_*`,
+   `Configure_*`, `Enable_*` or `Update_*` tool - and read its parameters; don't guess them.
+   Every parameter that points at another resource (an `*_id`, or a name that must already
+   exist) is a dependency: look it up with the matching `List_*` or `Get_*` tool, use its ID
+   if it exists, otherwise add it to the list and work out its own dependencies the same
+   way. A dependency that is code - deployed from the repo, not created by a tool - is built
+   and deployed first; mark it as a pause. No tool, or a setting the tool doesn't take ->
+   exact Console or CLI steps from the service's skill.
+2. **Show the order.** One numbered list, dependencies first: the resource, how it gets made
+   (MCP tool, dev deploys, or Console/CLI steps) and its key settings, including Data Store
+   permissions and scopes the way the kit's `vendor-boundaries.md` says. Wait for a yes.
+3. **Create.** Go down the list. MCP tool -> call it, read it back, keep its ID for later
+   lines. Deploy, Console or CLI step -> give the exact steps, wait for the dev, then read
+   it back where a tool can. A call fails -> show the real error, fix the cause and call it
+   again; the same failure twice -> stop and ask. Never call a `Delete_*`, `Truncate_*` or
+   `Rollback_*` tool to clean up unless the dev asks for that exact action.
+4. **Report.** One table, `Resource | ID | Made by | Status`, and make sure each resource is in
+   the `Catalyst resources` list in `.claude/CLAUDE.md`. Then hand over: `zcatalystai:build`
+   for an app or a feature, back to `zcatalystai:fix` for a fix.
