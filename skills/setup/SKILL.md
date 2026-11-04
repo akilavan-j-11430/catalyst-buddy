@@ -27,25 +27,15 @@ only after you have seen it work; if it fails, it stays `todo`.
 
 ## 1. app
 
-Find out what the app is, in one AskUserQuestion call with these four questions. Each offers
-its predefined answers; the dev can always type their own.
+Ask the dev, in plain text, for one or two sentences on what the app is for, with an
+example ("Gate staff scan fest passes and see who is inside"). Who uses it, its data and
+its size are infra's interview, not setup's.
 
-| Question | Answers |
-|---|---|
-| What kind of app is it? | Internal tool for staff / Portal for customers or partners / Public site or form / Automation with little or no UI |
-| What is the main thing it does? | Track and update records / Requests and approvals / Bookings and scheduling / Reports and dashboards |
-| Who signs in? | Staff of one company / Customers or partners / Anyone, with a social login / No one |
-| How big in the first year? | Under 50 users / 50 to 1,000 / 1,000 to 50,000 / More |
-
-Then ask the dev, in plain text, for one or two sentences on what it is for, with an
-example ("Gate staff scan fest passes and see who is inside").
-
-From the answers, propose three title and description pairs (AskUserQuestion). The title
+From that, propose three title and description pairs (AskUserQuestion). The title
 fits the folder name; the description is one sentence that ends with a full stop and
 becomes the page description and the README intro. The dev picks one or writes their own.
 
-Record `title` and `description`. The other answers are not recorded; they feed the next
-steps of this session.
+Record `title` and `description`.
 
 ## 2. clone
 
