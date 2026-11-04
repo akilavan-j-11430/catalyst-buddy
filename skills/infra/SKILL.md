@@ -60,7 +60,8 @@ to the rest. Tell the dev the footprint in one line, e.g. "Catalyst: none - code
 
 ## 3. Ways to cover it
 
-Always two or three ways, in one table, with one marked recommended: the simplest way that
+Two or three ways, in one table, with one marked recommended - one way only when no need has
+a second service that fits, and then say why: the simplest way that
 covers what the dev needs now, not what they might need later. The ways differ in which
 services and resources cover the needs, or for an existing footprint in how the existing
 resources are used. Two ways that cover every need with the same service and resource kind
@@ -78,10 +79,9 @@ by its own agent, so each brings its own idea:
    they run in parallel. Give each: the needs, the footprint, the existing resources, the
    kit, `mcpServer` and `dataCentre` from `connect.json`, its own anchor, and the other
    ways' anchors, which it must not use for that need.
-3. **Check they differ.** Each agent returns a fingerprint, one `need -> service
-   resource-kind` line per need. Two equal fingerprints, or an agent that dropped its
-   anchor -> start that agent once more with the fingerprints to avoid; the same again ->
-   drop that way and show the ones left.
+3. **Check the anchor.** Each agent's first line is the anchor it kept. Distinct anchors make
+   distinct ways; an agent that dropped its anchor -> start it once more, then drop that way
+   if it drops it again.
 4. **Merge.** Put the ways into the table below, pick the recommended one and say why in
    one line. Ask the dev the agents' open questions before the table if an answer changes
    a way.

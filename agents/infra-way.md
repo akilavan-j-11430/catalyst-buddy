@@ -31,8 +31,6 @@ the kit, the `mcpServer` and `dataCentre`, your anchor, and the other ways' anch
 
 ```
 Anchor: <need> -> <service resource-kind> (kept)
-Fingerprint:
-- <need> -> <service resource-kind>
 Resources:
 - <service> <resource> `<name>` - <purpose>; <key settings>
   - for a table, each column: `<name>` <type>, mandatory or unique if set
