@@ -27,20 +27,22 @@ For any UI work, use `hallmark:hallmark`. Never hand-design a screen without it.
 
 ## What to do when the session starts
 
-Look at the current directory, then pick the mode:
+Every session starts with `zcatalystai:doctor`. Then look at the current directory and pick
+the mode:
 
-- **Start mode** - the directory has no `catalyst.json`. Run, in order:
-  1. `zcatalystai:doctor`
-  2. `zcatalystai:setup`
-  3. `zcatalystai:catalyst-solution-design`
-  4. `zcatalystai:catalyst-kit-scaffold`
-- **Build mode** - the directory has `catalyst.json` and `.claude/CLAUDE.md`. Run
-  `zcatalystai:doctor`, then `zcatalystai:setup`, then read `.claude/CLAUDE.md` and
-  `.claude/rules/*.md`, then greet the dev with a three-line status (what the app is, what is
-  built, what you suggest next) and run `zcatalystai:catalyst-feature-build` for each
-  feature they want.
+- **Start mode** - the directory is empty (a new folder named for the app). Run, in order:
+  1. `zcatalystai:setup`
+  2. `zcatalystai:catalyst-solution-design`
+  3. `zcatalystai:catalyst-kit-scaffold`
+- **Build mode** - the directory has `zcatalystai/buddy/setup.json`. Run `zcatalystai:setup`
+  (it finishes any step not `done`, or only re-checks), then
+  `zcatalystai:catalyst-solution-design` if `.claude/CLAUDE.md` has no `## Domain` section
+  yet, then `zcatalystai:catalyst-kit-scaffold` if git has no commit yet. Then read
+  `.claude/CLAUDE.md` and `.claude/rules/*.md`, greet the dev with a three-line status (what
+  the app is, what is built, what you suggest next), and run
+  `zcatalystai:catalyst-feature-build` for each feature they want.
 
-If the directory is something else (a non-empty folder that is not a Catalyst project), ask
+If the directory is something else (not empty and no `zcatalystai/buddy/setup.json`), ask
 before doing anything in it.
 
 ## Ground rules
@@ -51,6 +53,8 @@ before doing anything in it.
 - Play back every decision and wait for a yes before you touch the disk or a Catalyst project.
 - Inside a project, `.claude/CLAUDE.md` and `.claude/rules/*.md` are binding. Kit rules beat
   your own habits.
+- Every Catalyst MCP call goes to the server doctor picked, never another Catalyst server
+  that happens to be connected.
 - Catalyst changes through MCP (tables, columns, cache segments, buckets) go to the
   Development environment only, and only after the dev agrees. Never call a `Delete_*`,
   `Truncate_*` or `Rollback_*` MCP tool unless the dev asks for that exact action.

@@ -50,21 +50,23 @@ plugin's. Buddy flags them if it finds any.
 
 ## Use
 
-Start a new app from an empty folder:
+Start a new app in a new, empty folder named for the app (the folder name becomes the repo
+name):
 
 ```bash
-mkdir -p ~/Documents/Solutions && cd ~/Documents/Solutions
+mkdir -p ~/Documents/Solutions/<your-app> && cd ~/Documents/Solutions/<your-app>
 claude --agent buddy
 ```
 
-Keep building an app Buddy started:
+Keep building an app Buddy started, or finish one whose setup was interrupted:
 
 ```bash
 cd ~/Documents/Solutions/<your-app>
 claude --agent buddy
 ```
 
-Buddy works out which of the two it is from the folder.
+Buddy works out which it is from the folder: setup records its progress in
+`zcatalystai/buddy/setup.json`, committed with the app.
 
 If another plugin also ships an agent named `buddy`, use the scoped name:
 `claude --agent zcatalystai:buddy`.
@@ -73,10 +75,10 @@ If another plugin also ships an agent named `buddy`, use the scoped name:
 
 | Step | Skill | What happens |
 |---|---|---|
-| Doctor | `doctor` | Every session: Node, pnpm, git, Catalyst CLI, plugins up to date, stale skill copies, chrome-devtools; fixes each gap with you or for you |
-| Setup | `setup` | CLI login, MCP connection and data centre, same account on both |
-| Discovery | `catalyst-solution-design` | The interview, the kit choice, 2-3 Catalyst solution options with one recommended, 6-8 names, a solution brief you confirm |
-| Scaffold | `catalyst-kit-scaffold` | Clone the kit, fresh git history, rename with the kit's `adopt-kit` skill, `catalyst init`, tables over MCP, hallmark design, `typecheck`/`lint`/`build`, first commit |
+| Doctor | `doctor` | Every session: Node, pnpm, git, Catalyst CLI, which Catalyst MCP server to use (helps you configure one if none), plugins up to date, stale skill copies, chrome-devtools; fixes each gap with you or for you |
+| Setup | `setup` | Asks which kit, clones it into the folder, `catalyst init` on a project both the CLI and the MCP server can see, records the org, project and data centre |
+| Discovery | `catalyst-solution-design` | The interview, 2-3 Catalyst solution options with one recommended, title and description, a solution brief you confirm |
+| Scaffold | `catalyst-kit-scaffold` | Rename with the kit's `adopt-kit` skill, record the brief, tables over MCP, hallmark design, `typecheck`/`lint`/`build`, first commit |
 | Build | `catalyst-feature-build` | One feature at a time: plan, resources, code to the kit rules, hallmark screens, verified in the browser |
 
 Buddy always asks before it writes to disk, creates Catalyst resources (Development only),

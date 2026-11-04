@@ -5,8 +5,8 @@ description: Catalyst Buddy's discovery step - interview a dev about the app the
 
 # Solution design
 
-Turn "I want to build X" into a confirmed **solution brief**. Nothing touches the disk or a
-Catalyst project in this step.
+Turn "I want to build X" into a confirmed **solution brief**. Setup has already cloned the
+kit and bound the Catalyst project; nothing else changes on disk or in Catalyst in this step.
 
 ## 1. Interview
 
@@ -18,8 +18,8 @@ answer is vague, ask one follow-up, not three.
    user does in the app.
 2. **Users and sign-in** - who signs in (staff, customers, the public), roughly how many, and
    whether they need Google / Microsoft / other social login or company SSO.
-3. **Zoho data** - does the app read or write Zoho CRM, Desk, Books, People, Projects or
-   another Zoho app *as the signed-in user*? This decides the kit (section 2).
+3. **Zoho data** (zoho-token kit only) - which Zoho apps it reads or writes as the
+   signed-in user, and what. This sets the OAuth scopes.
 4. **Data** - the main things it stores, how many records over a year, and whether they are
    related (orders -> line items) or loose documents.
 5. **Files** - uploads or downloads (images, PDFs, CSVs), and how large.
@@ -32,17 +32,13 @@ answer is vague, ask one follow-up, not three.
    - brand colours, if any
    - one or two sites or apps they like the look of, and one they don't
 
-## 2. Choose the kit
+## 2. The kit
 
-| The app... | Kit | Repo |
-|---|---|---|
-| calls Zoho APIs as the signed-in user | zoho-token | https://github.com/akilavan-j-11430/catalyst-zoho-token-mono-repo |
-| anything else | basic | https://github.com/akilavan-j-11430/catalyst-basic-mono-repo |
-
-Both kits share one shape: an Express 5 `api` AppSail, a Next.js 16 `web` app on Slate, a
-local-only `proxy` AppSail, Catalyst Authentication, pnpm + Turborepo. The zoho-token kit
-adds a per-user Zoho OAuth connection (a `ZohoConnection` table, Catalyst Cache, and
-`/api/v1/zoho-token/*` routes). Tell the dev which kit and why, in one line.
+Setup picked the kit (`clone.kit` in `zcatalystai/buddy/setup.json`). Both kits share one
+shape: an Express 5 `api` AppSail, a Next.js 16 `web` app on Slate, a local-only `proxy`
+AppSail, Catalyst Authentication, pnpm + Turborepo. The zoho-token kit adds a per-user Zoho
+OAuth connection (a `ZohoConnection` table, Catalyst Cache, and `/api/v1/zoho-token/*`
+routes).
 
 ## 3. Propose solution options
 
@@ -82,25 +78,18 @@ Present the options as one table:
 Then **one** recommendation and a single sentence on why. Prefer the simplest option that
 covers what the dev said they need now - not what they might need later.
 
-## 4. Names
+## 4. Title and description
 
-Suggest **six to eight** names. For each: a kebab-case repo name, a display title, and one
-line on why it fits. Mix plain-descriptive names with a few with more character; avoid
-"-app", "-hub", "-ify" and anything with "AI" in it unless the dev asked. Let the dev pick
-one or give their own.
+The repo name is the app's folder name. Suggest two or three display titles that fit it and
+let the dev pick one or give their own.
 
 Then propose a **one-sentence description** (it becomes the page description and the README
 intro) and let the dev edit it.
 
-## 5. Where it goes
+## 5. Remote
 
-- **Directory** - default `~/Documents/Solutions/<repo-name>`. It must not exist yet.
-- **Catalyst project** - list projects with `CatalystbyZoho_List_All_Projects` on the dev's
-  MCP server (the one whose account matched the CLI in setup). The dev picks one, or
-  creates a new project in the Catalyst Console and comes back; MCP cannot create projects.
-  Record the org ID and project ID.
-- **Remote** - one of: the URL of an existing empty repo; create one (GitHub with `gh`, or
-  zrepository with `zr`) after a separate yes; or none for now.
+One of: the URL of an existing empty repo; create one (GitHub with `gh`, or zrepository
+with `zr`) after a separate yes; or none for now.
 
 ## 6. Solution brief
 
@@ -121,11 +110,11 @@ project's `.claude/CLAUDE.md`:
   - `<TableName>` - <purpose>; columns: `<COLUMN>` (<type>), ...
 - Background work: <list, or "none yet">
 - Chosen over: <the other options, one line each on why not>
+- Catalyst: org `<orgId>`, project `<projectId>` (from `setup.json`)
 
 ## Look and feel
 
 Audience: <...>. Tone: <...>. Brand colours: <... or "none">. Likes: <...>. Dislikes: <...>.
 ```
 
-Plus, outside that block: repo name, title, description, directory, Catalyst org and project
-IDs, data centre, remote.
+Plus, outside that block: title, description, remote.

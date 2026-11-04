@@ -1,36 +1,87 @@
 ---
 name: setup
-description: Catalyst Buddy's Catalyst check, run after doctor - Catalyst CLI login, Catalyst MCP connection and data centre, and the same account on both. Used by the Buddy agent.
+description: Catalyst Buddy's app setup, run after doctor inside the app's folder - clone the starter kit into it, bind it to a Catalyst project with catalyst init, and confirm the picked MCP server sees that project. Tracks its steps in zcatalystai/buddy/setup.json so an interrupted setup resumes. Used by the Buddy agent; a dev can rerun it with /zcatalystai:setup.
 ---
 
-# Catalyst setup
+# Setup
 
-Check the Catalyst side is ready; `zcatalystai:doctor` has already checked the machine. All
-checks are read-only; fixes are offered, never run without a yes.
+Runs in the app's own folder: an empty folder when a new app starts, named for the app
+(the folder name is the repo name). Doctor has already checked the machine and picked the
+Catalyst MCP server.
 
-## Checks
+## Progress
 
-1. **Catalyst CLI login** - `catalyst whoami`.
-   - Not logged in -> the dev runs `! catalyst login` themselves (it opens a browser).
-2. **Catalyst MCP** - is any `mcp__*__CatalystbyZoho_*` tool available in this session?
-   - Yes -> call `CatalystbyZoho_List_All_Organizations` on each Catalyst MCP server. Note
-     each server's data centre from its URL (`zohomcp.com` = US, `.in`, `.eu`, `.com.au`,
-     `.ca`, `.sa`, `.jp`, `.ae`).
-   - No -> hard stop. Load `catalyst-by-zoho:catalyst-zoho-mcp` and walk the dev through
-     adding a server for their data centre with
-     `claude mcp add --transport http --scope user <name> <server-url>`, then tell them to
-     restart the session (MCP servers load at start-up).
-   - The `catalyst-by-zoho` plugin ships a US global server named `catalyst-by-zoho`. If the
-     dev is not on US, tell them to switch that one off in `/mcp` so it is never picked by
-     mistake.
-3. **Same account** - the CLI's `whoami` email and the MCP organisation must belong to the
-   same Catalyst account, or the tables MCP creates won't be in the project the CLI deploys
-   to. Fix: log the CLI in as the other account, or use the matching MCP server.
+`zcatalystai/buddy/setup.json` records each step. Create it with every step `todo` when
+setup starts in an empty folder; it is committed with the app.
 
-## Act on the result
+```json
+{
+  "clone": { "status": "done", "kit": "catalyst-basic-mono-repo" },
+  "catalystInit": { "status": "done", "orgId": "773793963", "projectId": "12130000066000719" },
+  "mcp": { "status": "done", "dataCentre": "US" }
+}
+```
 
-- Report the failures as one table: `Check | Result | Fix`.
-- Checks 1 or 2 fail in start mode -> stop and fix them with the dev first. Designing an
-  app on a machine that cannot deploy it wastes the interview.
-- Anything else fails -> report it, continue, and remind the dev at the step that needs it.
-- Everything passes -> one line, "Setup: all green", and move on. Don't print the table.
+Run the steps in order, starting at the first one that is not `done`. Mark a step `done`
+only after you have seen it work; if it fails, it stays `todo`.
+
+## 1. clone
+
+1. Ask (AskUserQuestion): will the app read or write Zoho CRM, Desk, Books, People or another
+   Zoho app *as the signed-in user*? Yes -> the zoho-token kit
+   (https://github.com/akilavan-j-11430/catalyst-zoho-token-mono-repo); no -> the basic kit
+   (https://github.com/akilavan-j-11430/catalyst-basic-mono-repo). Say which and why in one
+   line.
+2. Clone it next to the app, then move it in - `git clone` refuses a non-empty folder:
+
+   ```bash
+   git clone --depth 1 <kitUrl> ../.<folder>-kit
+   rm -rf ../.<folder>-kit/.git
+   cp -R ../.<folder>-kit/. ./
+   rm -rf ../.<folder>-kit
+   git init -b main
+   ```
+
+The kit's `.git` is deleted before the copy, so the app starts with its own empty history.
+Record `kit` (the kit's repo name).
+
+## 2. catalystInit
+
+1. `catalyst whoami`. Not logged in -> the dev runs `! catalyst login`.
+2. Orgs: the picked MCP server's `CatalystbyZoho_List_All_Organizations`. Keep the ones the
+   CLI also reaches: `catalyst project:list --org <orgId> -ni` prints its projects. "is not
+   valid" means the CLI is logged in to another account; the error lists the CLI's own orgs.
+   No org in common -> the dev logs the CLI in to the MCP server's account
+   (`! catalyst logout`, then `! catalyst login` on the right data centre), or goes back to
+   doctor to pick another server.
+3. The dev picks the org and project (AskUserQuestion), or creates a new project in the
+   Catalyst Console and comes back - MCP cannot create projects.
+4. Bind and copy the env templates:
+
+   ```bash
+   catalyst init --org <orgId> --project <projectId> -ni
+   cp .env.example .env && cp apps/api/.env.example apps/api/.env   # and any other apps/*/.env.example
+   ```
+
+   `catalyst init` writes the gitignored `.catalystrc` and leaves the kit's `catalyst.json`
+   alone. If it fails, show the output; the fallback is the dev running `! catalyst init`.
+
+Record `orgId` and `projectId`.
+
+## 3. mcp
+
+`CatalystbyZoho_List_All_Projects` on the server doctor picked must list `projectId`. If it
+does not, the server is on another account: go back to doctor to pick another server, or log
+the CLI in to the server's account and redo `catalystInit`. Record the server's
+`dataCentre`. The server itself is not recorded - names differ per machine, so doctor picks
+it each session by `orgId`.
+
+## Later sessions
+
+When every step is `done`, only check:
+- `.catalystrc` exists - a fresh clone of the app does not have it (it is gitignored), so
+  run `catalystInit` again with the recorded IDs, then copy the env templates if `.env` is
+  missing.
+- The server doctor picked lists `projectId`.
+
+Then one line, "Setup: <project> on <server> (<data centre>)".
