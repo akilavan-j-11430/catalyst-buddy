@@ -1,6 +1,6 @@
 ---
 name: setup
-description: Catalyst Buddy's new-app setup, for the Entire app goal in a folder with no app code yet - ask what the app is and record its title and description, then clone the starter kit into it. Tracks its steps in zcatalystai/buddy/setup.json so an interrupted setup resumes. Used by the Buddy agent; a dev can rerun it with /zcatalystai:setup.
+description: Catalyst Buddy's new-app setup, for the Entire app goal in a folder with no app code yet - ask what the app is and record its title and description, clone the starter kit into it, and rename the kit to the app. Blueprint and build come next. Tracks its steps in zcatalystai/buddy/setup.json so an interrupted setup resumes. Used by the Buddy agent; a dev can rerun it with /zcatalystai:setup.
 ---
 
 # Setup
@@ -17,7 +17,8 @@ does not exist; it is committed with the app.
 ```json
 {
   "app": { "status": "done", "title": "Fest Check-in", "description": "Gate check-in for college fest passes." },
-  "clone": { "status": "done", "kit": "catalyst-basic-mono-repo" }
+  "clone": { "status": "done", "kit": "catalyst-basic-mono-repo" },
+  "rename": { "status": "done" }
 }
 ```
 
@@ -65,5 +66,33 @@ steps of this session.
 
 The kit's `.git` is deleted before the copy, so the app starts with its own empty history.
 The kit brings its own `catalyst.json` (replacing one `catalyst init` wrote, if any);
-`.catalystrc` stays, so the folder is still bound. Then copy each `.env.example` that has no `.env` beside it.
-Record `kit` (the kit's repo name).
+`.catalystrc` stays, so the folder is still bound. Then copy each `.env.example` that has no
+`.env` beside it. Record `kit` (the kit's repo name).
+
+## 3. rename
+
+Turn the kit's description of itself into the app's, with the folder name (`repoName`),
+`title`, `description` and `kit`. Kits change, so find each spot by what it says, not by
+line number; a spot a kit doesn't have is fine.
+
+| File | Change |
+|---|---|
+| `package.json` | `name` -> `<repoName>` |
+| `.claude/CLAUDE.md` | the heading -> `# <title>`; the intro under it (what the kit is, "Clone, run `catalyst init`...") -> `<description> pnpm workspaces + Turborepo.` and a new line `Started from <kit>. Run \`catalyst init\` once per checkout to bind it to the Catalyst project.`; a paragraph that starts "This is a starter kit" -> keep only its "Extend the shape that is already here..." sentence |
+| `.claude/rules/*.md` | a line saying the kit ships no resources because it is a starter kit -> "`resources.ts` arrives with the first resource; every later one is added there." |
+| `README.md` | the heading -> `# <title>`; the intro paragraph -> `<description>`, a blank line, then `Started from [<kit>](<kitUrl>).`; "What you get out of the box" -> "What the stack gives you"; drop the "It is deliberately small..." paragraph; under "Make it yours" drop "This is a template..." and the "Rename the project." paragraph, and rename the heading to "Changing the shape" |
+| `apps/web/README.md` | "the Catalyst monorepo starter kit" -> `<title>` |
+| `apps/web/src/app/layout.tsx` | in `metadata`: "Catalyst App" -> `<title>`, "%s \| Catalyst App" -> "%s \| <title>", "A Catalyst starter app." -> `<description>` |
+
+Leave alone: the app names in `catalyst.json` (`api`, `web`, `proxy` - the deploy surface),
+the workspace names, the `@repo/*` scope, `.catalystrc`, and "Catalyst app" in code comments
+(it means an SDK app instance, not the kit).
+
+Then sweep:
+
+```bash
+rg -n -i --hidden -g '!node_modules' -g '!pnpm-lock.yaml' -g '!.git' \
+  '<kit>|starter kit|starter app|Catalyst App"|this is a template'
+```
+
+The only hits allowed are the two "Started from" lines. Fix any other the same way.

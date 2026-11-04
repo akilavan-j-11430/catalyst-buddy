@@ -1,13 +1,18 @@
 ---
 name: build
-description: Catalyst Buddy's build loop - in any Catalyst codebase, take one feature plan the dev agreed in design to verified code - create its Catalyst resources over MCP, implement it to the repo's rules, design its screens with hallmark, and verify it running. Used by the Buddy agent when the dev's goal is a feature.
+description: Catalyst Buddy's build step - build what the dev approved in blueprint, in any Catalyst codebase - the base of a new app (resources, env values, hallmark UI, verify, first commit) or one feature (resources, code to the repo's rules, hallmark screens, verify) - and see it running. Used by goal after blueprint.
 ---
 
-# Build one feature
+# Build
 
-One feature per pass: the plan the dev agreed in `zcatalystai:blueprint`. A feature is
-something a user can do end to end ("check in a pass", "see today's visits"), not a layer
-("add the tables"). No agreed plan yet -> run `zcatalystai:blueprint` first.
+Builds what the dev approved in `zcatalystai:blueprint`, one pass at a time:
+
+- **A new app** - git has no commit yet, or the dev chose to rewrite the app: the base app
+  from the brief. Title, description and kit are in `zcatalystai/buddy/setup.json`.
+- **A feature** - something a user can do end to end ("check in a pass", "see today's
+  visits"), not a layer ("add the tables").
+
+No approved brief or plan yet -> run `zcatalystai:blueprint` first.
 
 ## 1. Know where you are
 
@@ -22,11 +27,34 @@ something a user can do end to end ("check in a pass", "see today's visits"), no
 
 ## 2. Catalyst resources
 
-Create the agreed tables, columns, cache segments or buckets over MCP, in the
+Create the agreed resources - the brief's `Catalyst resources` for a new app, the plan's for
+a feature - over MCP on the `mcpServer` in `zcatalystai/buddy/connect.json`, in the
 **Development** environment only, after showing exactly what you will create. Read them
-back and confirm. Anything MCP cannot do, give as exact Console steps and wait.
+back and confirm. Set Data Store table permissions and scopes the way the brief and the
+kit's `vendor-boundaries.md` say. Anything MCP cannot do, give as exact Console steps and
+wait.
+
+New app on the zoho-token kit: also the `ZohoConnection` table (`REFERENCE_ID`,
+`REFRESH_TOKEN` encrypted, App User scope USER) and the default Cache segment, as
+`.claude/rules/zoho-token.md` says. Don't add repository classes or `resources.ts` entries
+for a new app yet - they come with the first feature that uses the resource.
 
 ## 3. Implement
+
+### New app
+
+No domain code yet. Walk the dev through the env values the README's "First run" section
+lists; values that are secrets, the dev types in themselves.
+
+zoho-token kit: walk the dev through registering a **Server-based client** at the Zoho API
+Console for their data centre, with the Authorized Redirect URI
+`<ZOHO_TOKEN_CALLBACK_ORIGIN>/api/v1/zoho-token/callback` (locally, the origin
+`catalyst serve` prints, usually `http://localhost:3001`). The dev fills
+`ZOHO_TOKEN_CLIENT_ID`, `ZOHO_TOKEN_CLIENT_SECRET`, `ZOHO_TOKEN_SCOPES`,
+`ZOHO_TOKEN_ACCOUNTS_URL`, `ZOHO_TOKEN_CALLBACK_ORIGIN` and `WEB_APP_ORIGIN` in
+`apps/api/.env`. Agree the scopes from the brief (least privilege).
+
+### Feature
 
 In a codebase that is not a starter-kit app (no `packages/node-utils`), follow its own
 `.claude/CLAUDE.md`, rules and existing patterns, and skip the kit list below.
@@ -54,6 +82,27 @@ strings, ZAID differing between environments).
 
 ## 4. Screens
 
+### New app
+
+Invoke `hallmark:hallmark` on `apps/web` with the brief's "Look and feel" answers, and these
+constraints from the kit, which are not negotiable:
+
+- Fonts and colours exist only as tokens in `apps/web/src/app/globals.css` (and the font
+  loading in `apps/web/src/app/layout.tsx`). Never set a font family or a raw colour on a
+  component - `.claude/rules/typography.md`.
+- `apps/web/src/components/ui/` is vendored shadcn. Never hand-edit it; restyle it through
+  the tokens. Add a shadcn component with the shadcn CLI, not by hand.
+- `apps/web/public/catalyst-signin.css` styles the cross-origin Catalyst sign-in iframe.
+  Bring it in line with the new typeface and colours by hand, as `typography.md` explains.
+- Data access in pages goes through `src/services/` and react-query -
+  `.claude/rules/web-data-access.md`.
+- Scope: the layout, the home page and the sign-in screen. Domain screens come feature by
+  feature.
+
+Let hallmark write its `design.md` at the repo root so later screens reuse the same system.
+
+### Feature
+
 Every new or changed screen goes through `hallmark:hallmark` in redesign or component mode,
 against the existing tokens in `globals.css` and the repo's `design.md`. Keep the kit's UI
 rules: no font family or raw colour on a component, no hand edits in `components/ui/`, and
@@ -62,16 +111,41 @@ an empty, loading and error state for every list or form.
 ## 5. Verify
 
 ```bash
-pnpm build && pnpm typecheck && pnpm lint
+pnpm build && pnpm typecheck && pnpm lint      # a new app: pnpm install first
 ```
 
-Then run `pnpm dev` in the background, open the `proxy:` URL with the chrome-devtools MCP
+Every step must pass. On a failure, show the output, fix the cause, and rerun from that step.
+New app: run `pnpm dev` in the background, open the `proxy:` URL it prints with the
+chrome-devtools MCP (if available), take a screenshot of the home page, check
+`<url>/api/v1/ping` returns `pong`, and stop the dev server.
+
+Feature: run `pnpm dev` in the background, open the `proxy:` URL with the chrome-devtools MCP
 (if available), and walk the feature as a user would: do the action, check the screen, check
 the row landed (`CatalystbyZoho_Get_Rows` or a ZCQL query through MCP). Take a screenshot of
 the main screen. Stop the dev server when done. If anything fails, fix the cause and verify
 again - never report a feature as done that you have not seen work.
 
 ## 6. Wrap up
+
+### New app
+
+1. Ask where the code goes: the URL of an existing empty repo; create one (GitHub with
+   `gh`, or zrepository with `zr`) - ask once more right before running
+   `gh repo create <owner>/<repo-name> --private` or `zr repo create`; or none for now. Add
+   it as `origin`.
+2. Show `git status --short`, then ask. On a yes:
+
+   ```bash
+   git add -A
+   git commit -m "Start <title> from <kit>"
+   ```
+
+   Push only if the dev asks.
+3. Tell the dev, in a short list: `pnpm dev`, then open the `proxy:` URL it prints (usually
+   `http://localhost:3001`, not :3000 or :4000); `claude --agent buddy` from this folder to
+   keep building; and anything still open (Console steps, env values, the remote).
+
+### Feature
 
 - If the data model or architecture changed, update the brief sections in
   `.claude/CLAUDE.md` so the next session starts from the truth.

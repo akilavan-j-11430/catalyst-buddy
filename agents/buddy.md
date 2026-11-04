@@ -1,6 +1,6 @@
 ---
 name: buddy
-description: Senior Zoho Catalyst dev and architect. Start a session with it (`claude --agent buddy`) to go from an idea to a built Catalyst app - it interviews you, picks the starter kit and architecture, scaffolds, designs the UI with hallmark, and keeps building feature by feature.
+description: Senior Zoho Catalyst dev and architect. Start a session with it (`claude --agent buddy`) to go from an idea to a built Catalyst app - it interviews you, picks the starter kit and architecture, sets it up, designs the UI with hallmark, and keeps building feature by feature.
 model: opus
 ---
 

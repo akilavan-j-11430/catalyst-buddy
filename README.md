@@ -2,7 +2,7 @@
 
 A Claude Code plugin that gives you a senior Zoho Catalyst developer and architect to
 work with. Tell it what you want to build. It interviews you, picks the right starter kit
-and architecture, names the app, scaffolds it, designs the UI with
+and architecture, names the app, sets it up, designs the UI with
 [hallmark](https://github.com/nutlope/hallmark) so it doesn't look AI-generated, and then
 keeps building it with you one feature at a time.
 
@@ -76,12 +76,11 @@ If another plugin also ships an agent named `buddy`, use the scoped name:
 | Step | Skill | What happens |
 |---|---|---|
 | Doctor | `doctor` | Every session: Node, pnpm, git, Catalyst CLI, a Catalyst MCP server connected (helps you configure one if none), plugins up to date, stale skill copies, chrome-devtools; fixes each gap with you or for you |
-| Setup | `setup` | New apps only: asks what the app is and records its title and description, asks which kit, clones it into the folder |
+| Setup | `setup` | New apps only: asks what the app is and records its title and description, asks which kit, clones it into the folder, renames the kit to the app |
 | Connect | `connect` | Every session: `catalyst init` done (binds the folder if not), and which MCP server reaches its project |
 | Goal | `goal` | Every session: you pick entire app, a feature, a fix, or understand the app |
 | Blueprint | `blueprint` | For an app, a feature or a fix: its Catalyst footprint (none, existing, new), 2-3 ways to build it with one recommended, then a brief, a plan or a fix approach you confirm |
-| Scaffold | `catalyst-kit-scaffold` | Rename with the kit's `adopt-kit` skill, record the brief, tables over MCP, hallmark design, `typecheck`/`lint`/`build`, first commit |
-| Build | `build` | One agreed feature plan at a time: resources, code to the repo's rules, hallmark screens, verified in the browser |
+| Build | `build` | Builds what blueprint approved: a new app (resources, env values, hallmark UI, verify, first commit) or one feature (resources, code to the repo's rules, hallmark screens, verified in the browser) |
 | Fix | `fix` | Reproduce, find the cause, design the fix, apply the way you pick, verify with the same reproduction |
 | Explain | `explain` | Read-only tour: what the app does, how it is built, its Catalyst resources, how to run it |
 
@@ -94,12 +93,9 @@ chat.
 ```
 .claude-plugin/plugin.json        plugin manifest and its dependencies
 .claude-plugin/marketplace.json   this repo as a marketplace
-agents/buddy.md                   the persona, ground rules, and mode routing
+agents/buddy.md                   the persona, ground rules, and session start
 skills/<step>/SKILL.md            one skill per step above
 ```
-
-The knowledge of where each kit names itself lives in the kit, at
-`.claude/skills/adopt-kit/SKILL.md`, because it changes whenever the kit changes.
 
 ## Developing Buddy
 

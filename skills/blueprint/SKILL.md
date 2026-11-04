@@ -7,7 +7,8 @@ description: Catalyst Buddy's blueprint step for an entire app, a feature or a f
 
 Input: the goal and what it is about - setup's title and description for an entire app,
 the dev's request for a feature, the reproduction and cause `zcatalystai:fix` found for a
-fix. Nothing changes on disk or in Catalyst in this step.
+fix. Nothing changes on disk or in Catalyst in this step, except the approved brief of an
+entire app, written into `.claude/CLAUDE.md`.
 
 ## 1. Understand
 
@@ -78,8 +79,10 @@ change.
 
 Show it in full and wait for a yes; change it and show it again if asked.
 
-- **Entire app** -> the brief. `zcatalystai:catalyst-kit-scaffold` writes it into
-  `.claude/CLAUDE.md`:
+- **Entire app** -> the brief. Once approved, write its three sections into
+  `.claude/CLAUDE.md` right after the intro paragraph (before `## Role`); on a rewrite,
+  replace the old ones. Later sessions read them, so they must stay true as the app grows.
+  `zcatalystai:build` builds the new app from it:
 
   ```markdown
   ## Domain

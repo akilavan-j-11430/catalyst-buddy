@@ -40,9 +40,9 @@ One AskUserQuestion, "What are we doing?":
 - No app code yet, or `setup.json` present -> `zcatalystai:setup` (it resumes at its first
   step not `done`), then:
   - no git commit yet -> `zcatalystai:blueprint` if `.claude/CLAUDE.md` has no `## Domain`
-    section yet, then `zcatalystai:catalyst-kit-scaffold`;
+    section yet, then `zcatalystai:build` for the new app;
   - the app is already built -> the dev chose a rewrite: run `zcatalystai:blueprint` again
-    (the new brief replaces the old), then `zcatalystai:catalyst-kit-scaffold`.
+    (the new brief replaces the old), then `zcatalystai:build` for the new app.
 - A codebase Buddy did not set up (app code, no `setup.json`) -> setup would copy the kit
   over its code. Say so, and offer to start the app in a new, empty folder instead.
 
