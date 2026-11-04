@@ -1,9 +1,9 @@
 ---
-name: blueprint
-description: Catalyst Buddy's blueprint step for an entire app, a feature or a fix - work out the request's Catalyst footprint (none, existing resources, or new), size the design to it, always offer two or three ways to build it with their pros and cons and one recommended, write the agreed result - a brief for an app, a plan for a feature, an approach for a fix - and create its Catalyst resources once the dev approves. Used by goal and fix.
+name: infra
+description: Catalyst Buddy's infra step for an entire app, a feature or a fix - work out the request's Catalyst footprint (none, existing resources, or new), size the design to it, always offer two or three ways to build it with their pros and cons and one recommended, write the agreed result - a brief for an app, a plan for a feature, an approach for a fix - and create its Catalyst resources once the dev approves. Used by goal and fix.
 ---
 
-# Blueprint
+# Infra
 
 Input: the goal and what it is about - setup's title and description for an entire app,
 the dev's request for a feature, the reproduction and cause `zcatalystai:fix` found for a

@@ -32,16 +32,16 @@ One AskUserQuestion, "What are we doing?":
 | Goal | Run |
 |---|---|
 | Entire app | See below. |
-| A feature | `zcatalystai:blueprint`, then `zcatalystai:build`. A request that doesn't fit the app's brief (a new kind of user, a different problem, the other kit) -> say so and offer Entire app instead. |
-| A fix | `zcatalystai:fix` (it runs `zcatalystai:blueprint` once it knows the cause) |
+| A feature | `zcatalystai:infra`, then `zcatalystai:build`. A request that doesn't fit the app's brief (a new kind of user, a different problem, the other kit) -> say so and offer Entire app instead. |
+| A fix | `zcatalystai:fix` (it runs `zcatalystai:infra` once it knows the cause) |
 | Understand the app | `zcatalystai:explain` |
 
 **Entire app:**
 - No app code yet, or `setup.json` present -> `zcatalystai:setup` (it resumes at its first
   step not `done`), then:
-  - no git commit yet -> `zcatalystai:blueprint` if `.claude/CLAUDE.md` has no `## Domain`
+  - no git commit yet -> `zcatalystai:infra` if `.claude/CLAUDE.md` has no `## Domain`
     section yet, then `zcatalystai:build` for the new app;
-  - the app is already built -> the dev chose a rewrite: run `zcatalystai:blueprint` again
+  - the app is already built -> the dev chose a rewrite: run `zcatalystai:infra` again
     (the new brief replaces the old), then `zcatalystai:build` for the new app.
 - A codebase Buddy did not set up (app code, no `setup.json`) -> setup would copy the kit
   over its code. Say so, and offer to start the app in a new, empty folder instead.

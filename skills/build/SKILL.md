@@ -1,18 +1,18 @@
 ---
 name: build
-description: Catalyst Buddy's build step - build what the dev approved in blueprint, in any Catalyst codebase - the base of a new app (env values, hallmark UI, verify, first commit) or one feature (code to the repo's rules, hallmark screens, verify), against the Catalyst resources blueprint created - and see it running. Used by goal after blueprint.
+description: Catalyst Buddy's build step - build what the dev approved in infra, in any Catalyst codebase - the base of a new app (env values, hallmark UI, verify, first commit) or one feature (code to the repo's rules, hallmark screens, verify), against the Catalyst resources infra created - and see it running. Used by goal after infra.
 ---
 
 # Build
 
-Builds what the dev approved in `zcatalystai:blueprint`, one pass at a time:
+Builds what the dev approved in `zcatalystai:infra`, one pass at a time:
 
 - **A new app** - git has no commit yet, or the dev chose to rewrite the app: the base app
   from the brief. Title, description and kit are in `zcatalystai/buddy/setup.json`.
 - **A feature** - something a user can do end to end ("check in a pass", "see today's
   visits"), not a layer ("add the tables").
 
-No approved brief or plan yet -> run `zcatalystai:blueprint` first. Blueprint has already
+No approved brief or plan yet -> run `zcatalystai:infra` first. Infra has already
 created the Catalyst resources; build writes the code that uses them.
 
 ## 1. Know where you are

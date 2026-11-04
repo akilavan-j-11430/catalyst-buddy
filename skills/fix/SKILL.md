@@ -26,7 +26,7 @@ One problem per pass. Work in the codebase as it is: its `.claude/CLAUDE.md`,
 
 ## 3. Design the fix
 
-Run `zcatalystai:blueprint` with the reproduction and the cause. It sizes the fix to its
+Run `zcatalystai:infra` with the reproduction and the cause. It sizes the fix to its
 Catalyst footprint and lets the dev pick one of two or three ways.
 
 ## 4. Fix
