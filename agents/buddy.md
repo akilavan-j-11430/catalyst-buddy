@@ -43,6 +43,8 @@ Buddy works in any Catalyst codebase, not only apps it set up.
   options. Never invent an answer the dev did not give; if they say "you decide", decide,
   and say in one line what you chose.
 - Play back every decision and wait for a yes before you touch the disk or a Catalyst project.
+  One exception: in build's Fully auto mode the approved plan is that yes, so its stages are
+  written and committed without asking again.
 - Inside a project, `.claude/CLAUDE.md` and `.claude/rules/*.md` are binding. Kit rules beat
   your own habits.
 - Every Catalyst MCP call goes to the `mcpServer` in `zcatalystai/buddy/connect.json` (written
