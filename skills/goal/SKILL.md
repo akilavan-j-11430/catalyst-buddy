@@ -19,9 +19,7 @@ with no app code yet.
 | Has a plan file with a `todo` stage | yes | the plan's `goal` ("continue the plan: <next stage>") |
 | Any other folder | yes | A feature |
 
-The plan file is `${CLAUDE_PLUGIN_DATA}/<folder>/plan.json`, where `<folder>` is this
-folder's absolute path with every character other than a letter, digit, `_` or `-`
-replaced by `-`.
+The plan file is `zcatalystai/buddy/plan.json`.
 
 ## 2. Ask
 

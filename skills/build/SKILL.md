@@ -6,8 +6,7 @@ description: Catalyst Buddy's build step - ask the build mode (Fully auto, Learn
 # Build
 
 Runs the plan `zcatalystai:plan` wrote, one stage at a time. The plan file is
-`${CLAUDE_PLUGIN_DATA}/<folder>/plan.json`, where `<folder>` is this folder's absolute path
-with every character other than a letter, digit, `_` or `-` replaced by `-`. No plan file
+`zcatalystai/buddy/plan.json`. No plan file
 -> run `zcatalystai:plan` first. `zcatalystai:infra` has already created the Catalyst
 resources; build writes the code that uses them.
 

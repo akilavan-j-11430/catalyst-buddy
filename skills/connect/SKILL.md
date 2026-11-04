@@ -22,7 +22,8 @@ session is summarised:
 ```
 
 Server names differ from machine to machine, so the file is per machine: make sure the
-app's `.gitignore` lists `zcatalystai/buddy/connect.json` (add the line if not).
+app's `.gitignore` lists `zcatalystai/buddy/connect.json` and `zcatalystai/buddy/plan.json`
+(plan's working file, also per checkout) - add the lines if not.
 
 ## 1. catalyst init
 
