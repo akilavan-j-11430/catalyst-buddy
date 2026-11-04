@@ -1,18 +1,18 @@
 ---
 name: setup
-description: Catalyst Buddy's new-app setup, run inside the app's empty folder - ask what the app is and record its title and description, then clone the starter kit into it. zcatalystai:connect binds it to a Catalyst project next. Tracks its steps in zcatalystai/buddy/setup.json so an interrupted setup resumes. Used by the Buddy agent; a dev can rerun it with /zcatalystai:setup.
+description: Catalyst Buddy's new-app setup, for the Entire app goal in a folder with no app code yet - ask what the app is and record its title and description, then clone the starter kit into it. Tracks its steps in zcatalystai/buddy/setup.json so an interrupted setup resumes. Used by the Buddy agent; a dev can rerun it with /zcatalystai:setup.
 ---
 
 # Setup
 
-Runs in the app's own folder: an empty folder when a new app starts, named for the app
-(the folder name is the repo name). Doctor has already checked the machine; after setup,
-`zcatalystai:connect` binds the folder to a Catalyst project.
+Runs only for the Entire app goal, in the app's own folder, named for the app (the folder
+name is the repo name). The folder has no app code yet - only what `catalyst init` wrote
+when `zcatalystai:connect` bound it to a Catalyst project.
 
 ## Progress
 
-`zcatalystai/buddy/setup.json` records each step. Create it with every step `todo` when
-setup starts in an empty folder; it is committed with the app.
+`zcatalystai/buddy/setup.json` records each step. Create it with every step `todo` when it
+does not exist; it is committed with the app.
 
 ```json
 {
@@ -53,7 +53,7 @@ steps of this session.
    (https://github.com/akilavan-j-11430/catalyst-zoho-token-mono-repo); no -> the basic kit
    (https://github.com/akilavan-j-11430/catalyst-basic-mono-repo). Say which and why in one
    line.
-2. Clone it next to the app, then move it in - `git clone` refuses a non-empty folder:
+2. Clone it next to the app, then copy it in - `git clone` refuses a non-empty folder:
 
    ```bash
    git clone --depth 1 <kitUrl> ../.<folder>-kit
@@ -64,4 +64,6 @@ steps of this session.
    ```
 
 The kit's `.git` is deleted before the copy, so the app starts with its own empty history.
+The kit brings its own `catalyst.json` (replacing one `catalyst init` wrote, if any);
+`.catalystrc` stays, so the folder is still bound. Then copy each `.env.example` that has no `.env` beside it.
 Record `kit` (the kit's repo name).

@@ -1,12 +1,13 @@
 ---
 name: connect
-description: Catalyst Buddy's every-session check that this folder is bound to a Catalyst project (catalyst init done) and which connected MCP server reaches that project - binding it first if needed, and recording the server in a gitignored zcatalystai/buddy/connect.json. Works in any Catalyst codebase. Used by the Buddy agent after doctor; a dev can rerun it with /zcatalystai:connect.
+description: Catalyst Buddy's every-session check, in any folder, that it is bound to a Catalyst project (catalyst init done - the dev runs it if not) and which connected MCP server reaches that project, recording the server in a gitignored zcatalystai/buddy/connect.json. Used by the Buddy agent after doctor; a dev can rerun it with /zcatalystai:connect.
 ---
 
 # Connect
 
-Runs every session in a folder with `catalyst.json`, after doctor. `.catalystrc` is the
-proof that `catalyst init` ran. The MCP server that reaches the project is recorded in
+Runs every session, after doctor, in any folder - a new empty one, a fresh clone, or a
+codebase Buddy did not set up. `.catalystrc` is the proof that `catalyst init` ran; init
+writes `catalyst.json` and feature folders only when the dev picks features. The MCP server that reaches the project is recorded in
 `zcatalystai/buddy/connect.json`, so every skill uses the same server even after a long
 session is summarised:
 
@@ -30,24 +31,17 @@ Read `.catalystrc`. The active project (`actives.project` points at an `idx` in
 `env` is the org ID.
 
 - **Present** -> go to section 2.
-- **Missing** (a fresh clone, or a codebase never bound) -> bind it:
+- **Missing** (a new folder, a fresh clone, or a codebase never bound) -> the dev runs
+  `catalyst init`; it is interactive, so Buddy starts nothing itself:
   1. `catalyst whoami`. Not logged in -> the dev runs `! catalyst login`.
-  2. Orgs: `CatalystbyZoho_List_All_Organizations` on each connected Catalyst MCP server.
-     Keep the orgs the CLI also reaches: `catalyst project:list --org <orgId> -ni` prints
-     their projects; "is not valid" means the CLI is logged in to another account, and the
-     error lists the CLI's own orgs. No org in common -> the dev logs the CLI in to an MCP
-     server's account (`! catalyst logout`, then `! catalyst login` on the right data
-     centre), or configures a server for the CLI's account (`zcatalystai:doctor` shows how).
-  3. The dev picks the org and project (AskUserQuestion), or creates a new project in the
-     Catalyst Console and comes back - MCP cannot create projects.
-  4. Bind it, then copy each `.env.example` that has no `.env` beside it:
+  2. Say what init will ask - the org, the project (create it in the Catalyst Console first
+     if it doesn't exist; MCP cannot create projects), and which features to set up. In a
+     new folder for a starter-kit app, pick no features: the kit brings its own.
+  3. The dev runs `! catalyst init` and answers the prompts.
+  4. Read `.catalystrc` again. Still missing -> show what happened and ask.
 
-     ```bash
-     catalyst init --org <orgId> --project <projectId> -ni
-     ```
-
-     `catalyst init` writes the gitignored `.catalystrc` and leaves `catalyst.json` alone. If
-     it fails, show the output; the fallback is the dev running `! catalyst init`.
+Then copy each `.env.example` that has no `.env` beside it, and tell the dev which files
+need values. Values that are secrets, the dev types in themselves.
 
 ## 2. MCP server
 
