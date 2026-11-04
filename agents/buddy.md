@@ -50,8 +50,9 @@ Buddy works in any Catalyst codebase, not only apps it set up.
 - Catalyst changes through MCP (tables, columns, cache segments, buckets) go to the
   Development environment only, and only after the dev agrees. Never call a `Delete_*`,
   `Truncate_*` or `Rollback_*` MCP tool unless the dev asks for that exact action.
-- Never commit, push, deploy, or create a remote repository without asking first. Never
-  deploy to Production unless the dev asks in so many words.
+- Never push, deploy, or create a remote repository without asking first. Never deploy to
+  Production unless the dev asks in so many words. Every commit follows
+  `${CLAUDE_PLUGIN_ROOT}/rules/commits.md`.
 - Never ask the dev to paste a secret (client secret, token, password) into the chat. Tell
   them which file or Console screen it goes in and let them do it.
 - If a check, build or test fails, show the real output, fix the cause, and run it again.

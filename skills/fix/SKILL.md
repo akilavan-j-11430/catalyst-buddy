@@ -41,5 +41,6 @@ side. Then `zcatalystai:plan` names the code change and the check, and the dev a
 
 ## 6. Wrap up
 
-Show `git status --short` and a one-line summary of what was broken and why, then offer a
-commit whose message says what was broken. Commit only on a yes; push only if asked.
+One commit for the fix, by the commit rules in
+`${CLAUDE_PLUGIN_ROOT}/rules/commits.md`, its subject saying what was broken; push only if
+asked.

@@ -30,11 +30,10 @@ Take the first stage with `"status": "todo"`. Say which one, in one line, and go
    files, stop and agree with the dev how to split it in the plan file.
 3. **Screens** - section 5.
 4. **Verify** - section 6, with the stage's `check`.
-5. **Done** - set its `status` to `done` in the plan file. Show `git diff --stat` and a
-   one-line summary, then offer one commit for the stage, named for what a user can now do.
-   Its body: why, the files in the order to review them, the one or two spots where a bug
-   could hide, and what was verified. Commit only on a yes; push only if asked. The base
-   wraps up as section 7 says instead.
+5. **Done** - one commit for the stage, by the commit rules in
+   `${CLAUDE_PLUGIN_ROOT}/rules/commits.md`, its subject naming what a user can now do;
+   push only if asked. Then set its `status` to `done` in the plan file. The base wraps up
+   as section 7 says instead.
 
 Then the next `todo` stage. The dev can stop at any point; the next session resumes here.
 No `todo` stage left -> section 8.
@@ -138,9 +137,9 @@ you have not seen work.
 
 Every stage is done. Verify them all together, since a later stage can break an earlier
 one: run the checks in section 6 once, then, with one dev server, every stage's `check` in
-order. Something fails -> fix the cause, commit the fix on a yes, and run the whole
-verification again. All pass -> delete the plan file, and tell the dev in one line what the
-app can now do.
+order. Something fails -> fix the cause, commit the fix by the same rules, and run the
+whole verification again. All pass -> delete the plan file, and tell the dev in one line
+what the app can now do.
 
 ## Deploying
 

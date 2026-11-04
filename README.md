@@ -99,6 +99,7 @@ agents/infra-way.md               designs one Catalyst way for infra; infra runs
 agents/explain.md                 the read-only tour and Q&A, started by goal
 agents/diagnose.md                reproduces a problem and finds its cause, started by fix
 skills/<step>/SKILL.md            one skill per step above, except explain
+rules/commits.md                  the commit rules every Buddy commit follows
 ```
 
 ## Developing Buddy
