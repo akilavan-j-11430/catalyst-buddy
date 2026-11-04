@@ -1,13 +1,13 @@
 ---
 name: setup
-description: Catalyst Buddy's app setup, run after doctor inside the app's folder - ask what the app is and record its title and description, clone the starter kit into it, bind it to a Catalyst project with catalyst init, and confirm the picked MCP server sees that project. Tracks its steps in zcatalystai/buddy/setup.json so an interrupted setup resumes. Used by the Buddy agent; a dev can rerun it with /zcatalystai:setup.
+description: Catalyst Buddy's new-app setup, run inside the app's empty folder - ask what the app is and record its title and description, then clone the starter kit into it. zcatalystai:connect binds it to a Catalyst project next. Tracks its steps in zcatalystai/buddy/setup.json so an interrupted setup resumes. Used by the Buddy agent; a dev can rerun it with /zcatalystai:setup.
 ---
 
 # Setup
 
 Runs in the app's own folder: an empty folder when a new app starts, named for the app
-(the folder name is the repo name). Doctor has already checked the machine and picked the
-Catalyst MCP server.
+(the folder name is the repo name). Doctor has already checked the machine; after setup,
+`zcatalystai:connect` binds the folder to a Catalyst project.
 
 ## Progress
 
@@ -17,9 +17,7 @@ setup starts in an empty folder; it is committed with the app.
 ```json
 {
   "app": { "status": "done", "title": "Fest Check-in", "description": "Gate check-in for college fest passes." },
-  "clone": { "status": "done", "kit": "catalyst-basic-mono-repo" },
-  "catalystInit": { "status": "done", "orgId": "773793963", "projectId": "12130000066000719" },
-  "mcp": { "status": "done", "dataCentre": "US" }
+  "clone": { "status": "done", "kit": "catalyst-basic-mono-repo" }
 }
 ```
 
@@ -67,44 +65,3 @@ steps of this session.
 
 The kit's `.git` is deleted before the copy, so the app starts with its own empty history.
 Record `kit` (the kit's repo name).
-
-## 3. catalystInit
-
-1. `catalyst whoami`. Not logged in -> the dev runs `! catalyst login`.
-2. Orgs: the picked MCP server's `CatalystbyZoho_List_All_Organizations`. Keep the ones the
-   CLI also reaches: `catalyst project:list --org <orgId> -ni` prints its projects. "is not
-   valid" means the CLI is logged in to another account; the error lists the CLI's own orgs.
-   No org in common -> the dev logs the CLI in to the MCP server's account
-   (`! catalyst logout`, then `! catalyst login` on the right data centre), or goes back to
-   doctor to pick another server.
-3. The dev picks the org and project (AskUserQuestion), or creates a new project in the
-   Catalyst Console and comes back - MCP cannot create projects.
-4. Bind and copy the env templates:
-
-   ```bash
-   catalyst init --org <orgId> --project <projectId> -ni
-   cp .env.example .env && cp apps/api/.env.example apps/api/.env   # and any other apps/*/.env.example
-   ```
-
-   `catalyst init` writes the gitignored `.catalystrc` and leaves the kit's `catalyst.json`
-   alone. If it fails, show the output; the fallback is the dev running `! catalyst init`.
-
-Record `orgId` and `projectId`.
-
-## 4. mcp
-
-`CatalystbyZoho_List_All_Projects` on the server doctor picked must list `projectId`. If it
-does not, the server is on another account: go back to doctor to pick another server, or log
-the CLI in to the server's account and redo `catalystInit`. Record the server's
-`dataCentre`. The server itself is not recorded - names differ per machine, so doctor picks
-it each session by `orgId`.
-
-## Later sessions
-
-When every step is `done`, only check:
-- `.catalystrc` exists - a fresh clone of the app does not have it (it is gitignored), so
-  run `catalystInit` again with the recorded IDs, then copy the env templates if `.env` is
-  missing.
-- The server doctor picked lists `projectId`.
-
-Then one line, "Setup: <project> on <server> (<data centre>)".

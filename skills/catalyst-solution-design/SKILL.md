@@ -6,7 +6,7 @@ description: Catalyst Buddy's discovery step - interview a dev about the app the
 # Solution design
 
 Turn "I want to build X" into a confirmed **solution brief**. Setup has already recorded the
-app's title and description, cloned the kit and bound the Catalyst project; nothing else changes on disk or in Catalyst in this step.
+app's title and description and cloned the kit, and connect bound the Catalyst project; nothing else changes on disk or in Catalyst in this step.
 
 ## 1. Interview
 
@@ -102,7 +102,7 @@ project's `.claude/CLAUDE.md`:
   - `<TableName>` - <purpose>; columns: `<COLUMN>` (<type>), ...
 - Background work: <list, or "none yet">
 - Chosen over: <the other options, one line each on why not>
-- Catalyst: org `<orgId>`, project `<projectId>` (from `setup.json`)
+- Catalyst: org `<orgId>`, project `<projectId>` (from `.catalystrc`)
 
 ## Look and feel
 

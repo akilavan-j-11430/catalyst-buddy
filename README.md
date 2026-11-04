@@ -75,8 +75,9 @@ If another plugin also ships an agent named `buddy`, use the scoped name:
 
 | Step | Skill | What happens |
 |---|---|---|
-| Doctor | `doctor` | Every session: Node, pnpm, git, Catalyst CLI, which Catalyst MCP server to use (helps you configure one if none), plugins up to date, stale skill copies, chrome-devtools; fixes each gap with you or for you |
-| Setup | `setup` | Asks what the app is and records its title and description, asks which kit, clones it into the folder, `catalyst init` on a project both the CLI and the MCP server can see, records the org, project and data centre |
+| Doctor | `doctor` | Every session: Node, pnpm, git, Catalyst CLI, a Catalyst MCP server connected (helps you configure one if none), plugins up to date, stale skill copies, chrome-devtools; fixes each gap with you or for you |
+| Setup | `setup` | New apps only: asks what the app is and records its title and description, asks which kit, clones it into the folder |
+| Connect | `connect` | Every session: `catalyst init` done (binds the folder if not), and which MCP server reaches its project |
 | Discovery | `catalyst-solution-design` | The interview, 2-3 Catalyst solution options with one recommended, a solution brief you confirm |
 | Scaffold | `catalyst-kit-scaffold` | Rename with the kit's `adopt-kit` skill, record the brief, tables over MCP, hallmark design, `typecheck`/`lint`/`build`, first commit |
 | Build | `catalyst-feature-build` | One feature at a time: plan, resources, code to the kit rules, hallmark screens, verified in the browser |

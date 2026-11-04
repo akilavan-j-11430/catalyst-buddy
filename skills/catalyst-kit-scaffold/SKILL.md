@@ -39,7 +39,7 @@ section lists. Values that are secrets, the dev types in themselves.
 For each table in the brief's data model, and only in the **Development** environment:
 load `catalyst-by-zoho:catalyst-datastore`, show the dev the exact tables and columns you
 will create, and on a yes create them with the `CatalystbyZoho_Create_Table` and
-`CatalystbyZoho_Create_Column` tools on the MCP server doctor picked. Read them back with
+`CatalystbyZoho_Create_Column` tools on the MCP server in `zcatalystai/buddy/connect.json`. Read them back with
 `CatalystbyZoho_List_All_Columns` and report what exists.
 
 Set table permissions/scopes the way the brief and the kit's `vendor-boundaries.md` say.
