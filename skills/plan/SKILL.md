@@ -1,0 +1,93 @@
+---
+name: plan
+description: Catalyst Buddy's code plan, after infra - turn an entire app or a feature into ordered stages (the routes, types, data access and screens of each, and the check that proves it), agreed with the dev in one pass and written to plan.json in the plugin data for build to run one by one; for a fix, the code change. Never adds a Catalyst resource. Used by goal and fix.
+---
+
+# Plan
+
+Decides the code: the routes, types, data access, web services, pages and components to
+write, against the Catalyst resources `zcatalystai:infra` decided. Plan never adds a
+Catalyst resource; a plan that needs one the design doesn't have -> back to
+`zcatalystai:infra`. Nothing changes on disk until the dev approves the plan.
+
+The plan file is `${CLAUDE_PLUGIN_DATA}/<folder>/plan.json`, where `<folder>` is this
+folder's absolute path with every character other than a letter, digit, `_` or `-`
+replaced by `-`. It lives outside the repo and only until `zcatalystai:build` has built and
+verified every stage.
+
+## 1. Read
+
+- The plan file. It exists with a `todo` stage -> ask whether to finish it first
+  (`zcatalystai:build`) or replace it.
+- `.claude/infra.md`, `.claude/CLAUDE.md`, every `.claude/rules/*.md`, and `design.md` if
+  it exists. No `infra.md` -> the code is the design; read it.
+- The code the plan touches. In a starter-kit app:
+  `packages/node-utils/src/catalyst/resources.ts`, the repositories, `apps/api/src/routes/`,
+  `apps/web/src/app/` and `apps/web/src/services/`. Otherwise: `catalyst.json` and the
+  folders it points at.
+
+## 2. Stages
+
+A stage is the smallest thing a user can do end to end ("check in a pass"), not a layer
+("add the tables"). Each stage is one commit the dev can review in one sitting:
+
+- one concern - no unrelated change rides along;
+- under ~300 changed lines and ~10 files; bigger -> split it into smaller stages that each
+  still work end to end ("list passes" before "filter passes");
+- a rename, move or reformat it needs is its own stage, with no behaviour change;
+- it builds, passes its checks and can be verified on its own.
+
+Order the stages so each builds only on the ones before it.
+
+- **Entire app** - stage 1 is always the base: the layout, the home page and the sign-in
+  screen. Their look is hallmark's, at build time. Then one stage per thing the `## Domain` in
+  `infra.md` says users do, starting with what they do first. Every resource in `infra.md`
+  is used by at least one stage; one that isn't -> raise it with the dev.
+- **Feature** - as many stages as it takes to keep each one that small.
+
+For each stage name:
+
+| Part | What to name |
+|---|---|
+| Routes | method and path, request, response, Catalyst scopes |
+| Data | the domain types in `packages/types`, and the `resources.ts` handle and repository for each table it touches, with their methods |
+| Screens | the `src/services/` functions and `ApiPath` entries, the pages and components, and the empty, loading and error state of every list or form |
+| Check | the user action that proves it works, and what it leaves in Catalyst |
+
+In a codebase that is not a starter-kit app (no `packages/node-utils`), name the parts in
+its own layout and patterns. When a stage has a real code choice - where the screen lives,
+one page or two, done in the request or in the background - offer two or three ways with
+pros and cons and one recommended.
+
+## 3. Write the plan
+
+Show every stage and wait for one yes; change it and show it again if asked. Then write the
+plan file:
+
+```json
+{
+  "goal": "entire-app",
+  "stages": [
+    {
+      "name": "Staff check in a visitor pass",
+      "status": "todo",
+      "routes": ["POST /api/v1/passes - { visitorName, hostId } -> Pass; scope: user"],
+      "data": ["Pass type", "VisitorPass handle", "PassRepository.create"],
+      "screens": ["check-in form on /check-in, with empty, loading and error states"],
+      "check": "submit the form -> a row in VisitorPass"
+    }
+  ]
+}
+```
+
+- `goal` - `entire-app` or `feature`; for `entire-app`, build treats stage 1 as the base.
+- `status` - `todo` or `done`; build sets it, so a stopped build resumes at the first `todo`.
+
+Hand over to `zcatalystai:build`.
+
+## 4. Fix
+
+No plan file. From the cause `zcatalystai:fix` found and the Catalyst side
+`zcatalystai:infra` agreed: the files the fix changes and what changes in each, and the
+reproduction that proves it. Two or three ways when there is a real choice. Wait for a yes,
+then hand back to `zcatalystai:fix`.

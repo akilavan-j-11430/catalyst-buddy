@@ -1,38 +1,49 @@
 ---
 name: build
-description: Catalyst Buddy's build step - build what the dev approved in infra, in any Catalyst codebase - the base of a new app (env values, hallmark UI, verify, first commit) or one feature (code to the repo's rules, hallmark screens, verify), against the Catalyst resources infra created - and see it running. Used by goal after infra.
+description: Catalyst Buddy's build step - run the stages in plan.json one by one in any Catalyst codebase (the base of a new app - env values, hallmark UI, first commit - then each feature stage: code to the repo's rules, hallmark screens, verified in the browser), against the Catalyst resources infra created; after a complete verification of every stage, delete plan.json. Used by goal after plan.
 ---
 
 # Build
 
-Builds what the dev approved in `zcatalystai:infra`, one pass at a time:
-
-- **A new app** - git has no commit yet, or the dev chose to rewrite the app: the base app
-  from the brief. Title, description and kit are in `zcatalystai/buddy/setup.json`.
-- **A feature** - something a user can do end to end ("check in a pass", "see today's
-  visits"), not a layer ("add the tables").
-
-No approved brief or plan yet -> run `zcatalystai:infra` first. Infra has already
-created the Catalyst resources; build writes the code that uses them.
+Runs the plan `zcatalystai:plan` wrote, one stage at a time. The plan file is
+`${CLAUDE_PLUGIN_DATA}/<folder>/plan.json`, where `<folder>` is this folder's absolute path
+with every character other than a letter, digit, `_` or `-` replaced by `-`. No plan file
+-> run `zcatalystai:plan` first. `zcatalystai:infra` has already created the Catalyst
+resources; build writes the code that uses them.
 
 ## 1. Know where you are
 
-- Read `.claude/CLAUDE.md` (the `## Domain`, `## Architecture` and `## Look and feel`
-  sections are the brief, when Buddy built the app), every `.claude/rules/*.md`, and
-  `design.md` if it exists. No brief -> the code is the brief; read it.
+- Read the plan file, `.claude/CLAUDE.md` (it imports `infra.md`), every
+  `.claude/rules/*.md`, and `design.md` if it exists. For a new app, title, description and
+  kit are in `zcatalystai/buddy/setup.json`.
 - `git status --short` and `git log --oneline -5`. If there is uncommitted work you did not
   make, ask before touching those files.
-- Skim what exists. In a starter-kit app: `packages/node-utils/src/catalyst/resources.ts`,
-  the repositories, `apps/api/src/routes/`, `apps/web/src/app/` and
-  `apps/web/src/services/`. Otherwise: `catalyst.json` and the folders it points at.
 
-## 2. Implement
+## 2. Each stage
 
-### New app
+Take the first stage with `"status": "todo"`. Say which one, in one line, and go:
+
+1. **Read** the files it names. If the code shows the stage cannot work as planned, stop,
+   say why, and agree the change with the dev; update the stage in the plan file.
+2. **Implement** - section 3 for the base (stage 1 of an `entire-app` plan), section 4 for
+   any other stage. Only what the stage names. When it grows past ~300 changed lines or ~10
+   files, stop and agree with the dev how to split it in the plan file.
+3. **Screens** - section 5.
+4. **Verify** - section 6, with the stage's `check`.
+5. **Done** - set its `status` to `done` in the plan file. Show `git diff --stat` and a
+   one-line summary, then offer one commit for the stage, named for what a user can now do.
+   Its body: why, the files in the order to review them, the one or two spots where a bug
+   could hide, and what was verified. Commit only on a yes; push only if asked. The base
+   wraps up as section 7 says instead.
+
+Then the next `todo` stage. The dev can stop at any point; the next session resumes here.
+No `todo` stage left -> section 8.
+
+## 3. The base
 
 No domain code yet - no repository classes or `resources.ts` entries; they come with the
-first feature that uses a resource. Walk the dev through the env values the README's "First run" section
-lists; values that are secrets, the dev types in themselves.
+first stage that uses a resource. Walk the dev through the env values the README's "First
+run" section lists; values that are secrets, the dev types in themselves.
 
 zoho-token kit: walk the dev through registering a **Server-based client** at the Zoho API
 Console for their data centre, with the Authorized Redirect URI
@@ -40,9 +51,10 @@ Console for their data centre, with the Authorized Redirect URI
 `catalyst serve` prints, usually `http://localhost:3001`). The dev fills
 `ZOHO_TOKEN_CLIENT_ID`, `ZOHO_TOKEN_CLIENT_SECRET`, `ZOHO_TOKEN_SCOPES`,
 `ZOHO_TOKEN_ACCOUNTS_URL`, `ZOHO_TOKEN_CALLBACK_ORIGIN` and `WEB_APP_ORIGIN` in
-`apps/api/.env`. Agree the scopes from the brief (least privilege).
+`apps/api/.env`. Agree the scopes from the Zoho data in `.claude/infra.md` (least
+privilege).
 
-### Feature
+## 4. A feature stage
 
 In a codebase that is not a starter-kit app (no `packages/node-utils`), follow its own
 `.claude/CLAUDE.md`, rules and existing patterns, and skip the kit list below.
@@ -68,12 +80,11 @@ Before a ZCQL query, a Data Store write, or an auth check, load
 have behaviour that fails silently when guessed (result wrapping, booleans stored as
 strings, ZAID differing between environments).
 
-## 3. Screens
+## 5. Screens
 
-### New app
-
-Invoke `hallmark:hallmark` on `apps/web` with the brief's "Look and feel" answers, and these
-constraints from the kit, which are not negotiable:
+The base: invoke `hallmark:hallmark` on `apps/web`. It asks the dev its own questions
+(material, audience, use, tone); don't answer them for the dev. Give it these constraints
+from the kit, which are not negotiable:
 
 - Fonts and colours exist only as tokens in `apps/web/src/app/globals.css` (and the font
   loading in `apps/web/src/app/layout.tsx`). Never set a font family or a raw colour on a
@@ -84,38 +95,32 @@ constraints from the kit, which are not negotiable:
   Bring it in line with the new typeface and colours by hand, as `typography.md` explains.
 - Data access in pages goes through `src/services/` and react-query -
   `.claude/rules/web-data-access.md`.
-- Scope: the layout, the home page and the sign-in screen. Domain screens come feature by
-  feature.
+- Scope: the layout, the home page and the sign-in screen.
 
-Let hallmark write its `design.md` at the repo root so later screens reuse the same system.
+Once the dev is happy with the base, ask hallmark to lock the system, so it writes
+`design.md` at the repo root and every later screen follows it.
 
-### Feature
+A feature stage: every new or changed screen goes through `hallmark:hallmark` in redesign or
+component mode, against the existing tokens in `globals.css` and the repo's `design.md`.
+Keep the kit's UI rules: no font family or raw colour on a component, no hand edits in
+`components/ui/`, and an empty, loading and error state for every list or form.
 
-Every new or changed screen goes through `hallmark:hallmark` in redesign or component mode,
-against the existing tokens in `globals.css` and the repo's `design.md`. Keep the kit's UI
-rules: no font family or raw colour on a component, no hand edits in `components/ui/`, and
-an empty, loading and error state for every list or form.
-
-## 4. Verify
+## 6. Verify
 
 ```bash
-pnpm build && pnpm typecheck && pnpm lint      # a new app: pnpm install first
+pnpm build && pnpm typecheck && pnpm lint      # the base: pnpm install first
 ```
 
 Every step must pass. On a failure, show the output, fix the cause, and rerun from that step.
-New app: run `pnpm dev` in the background, open the `proxy:` URL it prints with the
-chrome-devtools MCP (if available), take a screenshot of the home page, check
-`<url>/api/v1/ping` returns `pong`, and stop the dev server.
+Then run `pnpm dev` in the background, open the `proxy:` URL it prints with the
+chrome-devtools MCP (if available), and run the stage's `check` as a user would: do the
+action, check the screen, check what it left in Catalyst (`CatalystbyZoho_Get_Rows` or a
+ZCQL query through MCP). For the base: a screenshot of the home page, and
+`<url>/api/v1/ping` returns `pong`. Take a screenshot of the main screen and stop the dev
+server. If anything fails, fix the cause and verify again - never mark a stage done that
+you have not seen work.
 
-Feature: run `pnpm dev` in the background, open the `proxy:` URL with the chrome-devtools MCP
-(if available), and walk the feature as a user would: do the action, check the screen, check
-the row landed (`CatalystbyZoho_Get_Rows` or a ZCQL query through MCP). Take a screenshot of
-the main screen. Stop the dev server when done. If anything fails, fix the cause and verify
-again - never report a feature as done that you have not seen work.
-
-## 5. Wrap up
-
-### New app
+## 7. Wrap up the base
 
 1. Ask where the code goes: the URL of an existing empty repo; create one (GitHub with
    `gh`, or zrepository with `zr`) - ask once more right before running
@@ -133,13 +138,13 @@ again - never report a feature as done that you have not seen work.
    `http://localhost:3001`, not :3000 or :4000); `claude --agent buddy` from this folder to
    keep building; and anything still open (Console steps, env values, the remote).
 
-### Feature
+## 8. Finish the plan
 
-- If the data model or architecture changed, update the brief sections in
-  `.claude/CLAUDE.md` so the next session starts from the truth.
-- Show `git status --short` and a one-line summary, then offer a commit with a message that
-  says what a user can now do. Commit only on a yes; push only if asked.
-- Suggest the next feature in one line.
+Every stage is done. Verify them all together, since a later stage can break an earlier
+one: run the checks in section 6 once, then, with one dev server, every stage's `check` in
+order. Something fails -> fix the cause, commit the fix on a yes, and run the whole
+verification again. All pass -> delete the plan file, and tell the dev in one line what the
+app can now do.
 
 ## Deploying
 

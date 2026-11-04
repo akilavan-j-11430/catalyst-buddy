@@ -1,6 +1,6 @@
 ---
 name: fix
-description: Catalyst Buddy's fix loop for any Catalyst codebase - reproduce the problem, find the root cause, let design offer ways to fix it, apply the one the dev picks following the repo's own rules, and verify it with the same reproduction. Used by the Buddy agent when the dev's goal is a fix.
+description: Catalyst Buddy's fix loop for any Catalyst codebase - reproduce the problem, find the root cause, let infra and plan design the fix, apply the change the dev approves following the repo's own rules, and verify it with the same reproduction. Used by the Buddy agent when the dev's goal is a fix.
 ---
 
 # Fix a problem
@@ -26,12 +26,12 @@ One problem per pass. Work in the codebase as it is: its `.claude/CLAUDE.md`,
 
 ## 3. Design the fix
 
-Run `zcatalystai:infra` with the reproduction and the cause. It sizes the fix to its
-Catalyst footprint and lets the dev pick one of two or three ways.
+Run `zcatalystai:infra` with the reproduction and the cause; it settles the fix's Catalyst
+side. Then `zcatalystai:plan` names the code change and the check, and the dev approves it.
 
 ## 4. Fix
 
-- Apply the way the dev picked, following the repo's rules and patterns.
+- Apply the change plan approved, following the repo's rules and patterns.
 - If uncommitted work you did not make touches the same files, ask before changing them.
 
 ## 5. Verify

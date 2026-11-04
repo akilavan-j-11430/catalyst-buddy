@@ -9,8 +9,8 @@ Read-only: nothing changes on disk or in Catalyst. Only `List_*` and `Get_*` MCP
 
 ## 1. Read
 
-- `.claude/CLAUDE.md` (the `## Domain`, `## Architecture` and `## Look and feel` sections are
-  the brief, if Buddy built the app) and `.claude/rules/*.md`.
+- `.claude/CLAUDE.md` with its import `infra.md` (the domain and the Catalyst design, if
+  Buddy built the app), `.claude/rules/*.md`, and `design.md` (the look) if it exists.
 - `catalyst.json` (the deploy surface: functions, AppSails, the client), `.catalystrc` (the
   bound project) and `zcatalystai/buddy/setup.json` if it exists.
 - The layout: the root `package.json` and workspaces, then each app and package.

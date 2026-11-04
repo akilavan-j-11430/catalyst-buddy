@@ -79,8 +79,9 @@ If another plugin also ships an agent named `buddy`, use the scoped name:
 | Setup | `setup` | New apps only: asks what the app is and records its title and description, asks which kit, clones it into the folder, renames the kit to the app |
 | Connect | `connect` | Every session: `catalyst init` done (binds the folder if not), and which MCP server reaches its project |
 | Goal | `goal` | Every session: you pick entire app, a feature, a fix, or understand the app |
-| Infra | `infra` | For an app, a feature or a fix: its Catalyst footprint (none, existing, new), 2-3 ways to build it with pros and cons and one recommended, a brief, plan or fix approach you confirm, then its Catalyst resources created (dependencies first) |
-| Build | `build` | Builds what infra approved: a new app (env values, hallmark UI, verify, first commit) or one feature (code to the repo's rules, hallmark screens, verified in the browser) |
+| Infra | `infra` | For an app, a feature or a fix, the Catalyst side only: its footprint (none, existing, new), 2-3 ways to cover it with pros and cons and one recommended, the design you confirm written to `.claude/infra.md`, then its Catalyst resources created (dependencies first) |
+| Plan | `plan` | The code: an app or a feature as ordered stages - routes, types, data access, screens and the check of each - approved once and kept in `plan.json` in the plugin data; for a fix, the change |
+| Build | `build` | Runs the stages in `plan.json` one by one: a new app's base (env values, hallmark UI, first commit), then each feature (code to the repo's rules, hallmark screens, verified in the browser); after a full verification it deletes `plan.json` |
 | Fix | `fix` | Reproduce, find the cause, design the fix, apply the way you pick, verify with the same reproduction |
 | Explain | `explain` | Read-only tour: what the app does, how it is built, its Catalyst resources, how to run it |
 
