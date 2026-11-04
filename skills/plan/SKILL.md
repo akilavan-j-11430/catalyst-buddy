@@ -15,8 +15,8 @@ checkout, and lives only until `zcatalystai:build` has built and verified every 
 
 ## 1. Read
 
-- The plan file. It exists with a `todo` stage -> ask whether to finish it first
-  (`zcatalystai:build`) or replace it.
+- The plan file, for an entire app or a feature. It exists with a `todo` stage -> ask
+  whether to finish it first (`zcatalystai:build`) or replace it. A fix never touches it.
 - `.claude/infra.md`, `.claude/CLAUDE.md`, every `.claude/rules/*.md`, and `design.md` if
   it exists. No `infra.md` -> the code is the design; read it.
 - The code the plan touches. In a starter-kit app:

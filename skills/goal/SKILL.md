@@ -16,12 +16,13 @@ with no app code yet.
 |---|---|---|
 | No app code yet - only what `catalyst init` wrote (no `package.json`, no `setup.json`) | no - only a new app makes sense; say so in one line | Entire app |
 | Has `zcatalystai/buddy/setup.json` with a step not `done` | yes | Entire app ("continue setting up the app") |
-| Has a plan file with a `todo` stage | yes | the plan's `goal` ("continue the plan: <next stage>") |
 | Any other folder | yes | A feature |
 
-The plan file is `zcatalystai/buddy/plan.json`.
-
 ## 2. Ask
+
+`zcatalystai/buddy/plan.json` has a `todo` stage -> first ask (AskUserQuestion) "Continue
+the plan: <next stage>?". Yes -> `zcatalystai:build`, which resumes there; the route ends
+with it. No -> go on.
 
 One AskUserQuestion, "What are we doing?":
 
@@ -31,9 +32,6 @@ One AskUserQuestion, "What are we doing?":
 - **Understand the app** - a tour and answers; nothing changes.
 
 ## 3. Route
-
-A plan file with a `todo` stage and the dev picked its goal -> `zcatalystai:build`, which
-resumes at that stage. Otherwise:
 
 | Goal | Run |
 |---|---|
