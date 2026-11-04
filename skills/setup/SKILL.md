@@ -64,7 +64,8 @@ steps of this session.
    ```
 
 The kit's `.git` is deleted before the copy, so the app keeps the empty history connect
-started.
+started. The copy replaces `.gitignore` with the kit's, so add the lines connect added back
+to it: `zcatalystai/buddy/connect.json` and `zcatalystai/buddy/plan.json`.
 The kit brings its own `catalyst.json` (replacing one `catalyst init` wrote, if any);
 `.catalystrc` stays, so the folder is still bound. Then copy each `.env.example` that has no
 `.env` beside it. Record `kit` (the kit's repo name).
