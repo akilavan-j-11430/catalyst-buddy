@@ -1,6 +1,6 @@
 ---
 name: infra
-description: Catalyst Buddy's Catalyst design for an entire app, a feature or a fix - work out the request's Catalyst footprint (none, existing resources, or new), always offer two or three ways to cover it on Catalyst with their pros and cons and one recommended, write the agreed design to .claude/infra.md (imported by .claude/CLAUDE.md), and create its Catalyst resources once the dev approves. The code - routes and screens - is zcatalystai:plan's. Used by goal and fix.
+description: Catalyst Buddy's Catalyst design for an entire app, a feature or a fix - work out the request's Catalyst footprint (none, existing resources, or new), always offer two or three ways to cover it on Catalyst with their pros and cons and one recommended (for a new footprint each way designed in parallel by its own infra-way agent, no two alike), write the agreed design to .claude/infra.md (imported by .claude/CLAUDE.md), and create its Catalyst resources once the dev approves. The code - routes and screens - is zcatalystai:plan's. Used by goal and fix.
 ---
 
 # Infra
@@ -67,6 +67,25 @@ resources are used. Two ways that cover every need with the same service and res
 are one way. For an entire app the kit's shape (its `.claude/CLAUDE.md`) is fixed; the ways
 differ in what they add on top.
 
+An existing footprint -> design the ways yourself. A new footprint -> each way is designed
+by its own agent, so each brings its own idea:
+
+1. **Anchors.** Take the need with the most services that fit it (per the
+   `catalyst-by-zoho` skills). Give each way a different anchor - the service and resource
+   kind it must use for that need - with way A's anchor the simplest fit. No need has two
+   fits -> one way; tell the dev why there is no second.
+2. **Fan out.** Start one `zcatalystai:infra-way` agent per anchor, all in one message so
+   they run in parallel. Give each: the needs, the footprint, the existing resources, the
+   kit, `mcpServer` and `dataCentre` from `connect.json`, its own anchor, and the other
+   ways' anchors, which it must not use for that need.
+3. **Check they differ.** Each agent returns a fingerprint, one `need -> service
+   resource-kind` line per need. Two equal fingerprints, or an agent that dropped its
+   anchor -> start that agent once more with the fingerprints to avoid; the same again ->
+   drop that way and show the ones left.
+4. **Merge.** Put the ways into the table below, pick the recommended one and say why in
+   one line. Ask the dev the agents' open questions before the table if an answer changes
+   a way.
+
 | | Way A | Way B | Way C |
 |---|---|---|---|
 | Catalyst resources (service, name, key settings) | | | |
@@ -75,8 +94,8 @@ differ in what they add on top.
 | Cons (complexity, limits, price) | | | |
 | How we'll know it works | | | |
 
-The dev picks one (AskUserQuestion) or asks for changes; show the table again after a
-change.
+The dev picks one (AskUserQuestion) or asks for changes; make the change yourself, keep the
+way distinct from the others, and show the table again.
 
 ## 4. Write the design
 

@@ -95,6 +95,7 @@ chat.
 .claude-plugin/plugin.json        plugin manifest and its dependencies
 .claude-plugin/marketplace.json   this repo as a marketplace
 agents/buddy.md                   the persona, ground rules, and session start
+agents/infra-way.md               designs one Catalyst way for infra; infra runs 2-3 in parallel
 skills/<step>/SKILL.md            one skill per step above
 ```
 
