@@ -23,12 +23,15 @@ error text if they have it.
 
 ## 3. Design the fix
 
-Run `zcatalystai:infra` with the reproduction and the cause; it settles the fix's Catalyst
-side. Then `zcatalystai:plan` names the code change and the check, and the dev approves it.
+- **Catalyst side.** Diagnose says "Catalyst involved: none" -> skip infra. Otherwise run
+  `zcatalystai:infra` with the reproduction and the cause; it settles the Catalyst side.
+- **Code side.** A change to one file with no real choice in it -> show the change and the
+  check here, and wait for the dev's yes. Anything bigger -> `zcatalystai:plan` names the
+  change and the check, and the dev approves it there.
 
 ## 4. Fix
 
-- Apply the change plan approved, following the repo's rules and patterns.
+- Apply the change the dev approved, following the repo's rules and patterns.
 - If uncommitted work you did not make touches the same files, ask before changing them.
 
 ## 5. Verify
