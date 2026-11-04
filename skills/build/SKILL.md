@@ -135,8 +135,12 @@ Keep the kit's UI rules: no font family or raw colour on a component, no hand ed
 pnpm build && pnpm typecheck && pnpm lint      # the base: pnpm install first
 ```
 
+In a codebase that is not a starter-kit app, run the build, lint and test scripts in its
+`package.json` instead, and start it the way its README says.
+
 Every step must pass. On a failure, show the output, fix the cause, and rerun from that step.
-Then run `pnpm dev` in the background, open the `proxy:` URL it prints with the
+Then run `pnpm dev` (or the codebase's own start command) in the background, open the
+`proxy:` URL it prints (or the URL it serves on) with the
 chrome-devtools MCP (if available), and run the stage's `check` as a user would: do the
 action, check the screen, check what it left in Catalyst (`CatalystbyZoho_Get_Rows` or a
 ZCQL query through MCP). For the base: a screenshot of the home page, and
