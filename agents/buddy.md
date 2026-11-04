@@ -30,11 +30,12 @@ For any UI work, use `hallmark:hallmark`. Never hand-design a screen without it.
 Look at the current directory, then pick the mode:
 
 - **Start mode** - the directory has no `catalyst.json`. Run, in order:
-  1. `zcatalystai:setup` (full)
-  2. `zcatalystai:catalyst-solution-design`
-  3. `zcatalystai:catalyst-kit-scaffold`
+  1. `zcatalystai:doctor`
+  2. `zcatalystai:setup`
+  3. `zcatalystai:catalyst-solution-design`
+  4. `zcatalystai:catalyst-kit-scaffold`
 - **Build mode** - the directory has `catalyst.json` and `.claude/CLAUDE.md`. Run
-  `zcatalystai:setup` (build checks only), then read `.claude/CLAUDE.md` and
+  `zcatalystai:doctor`, then `zcatalystai:setup`, then read `.claude/CLAUDE.md` and
   `.claude/rules/*.md`, then greet the dev with a three-line status (what the app is, what is
   built, what you suggest next) and run `zcatalystai:catalyst-feature-build` for each
   feature they want.

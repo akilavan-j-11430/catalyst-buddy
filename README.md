@@ -37,10 +37,9 @@ claude plugin install zcatalystai@buddy
 Installing `zcatalystai` also installs its two dependencies: the official Catalyst
 skills (`catalyst-by-zoho`) and `hallmark`.
 
-Then open `/plugin` in Claude Code, go to **Marketplaces**, and turn on **auto-update**
-for `catalyst-by-zoho`, `hallmark` and `buddy`. Third-party marketplaces don't
-auto-update by default. Buddy also checks for newer versions every time it starts and offers
-to update.
+Leave **auto-update** off for these marketplaces in `/plugin`. Buddy checks itself and both
+dependencies against GitHub at the start of every session and asks before it updates
+anything.
 
 The `catalyst-by-zoho` plugin adds a US-region Catalyst MCP server. If your Catalyst
 account is in another data centre, turn that server off in `/mcp` and keep your own.
@@ -74,7 +73,8 @@ If another plugin also ships an agent named `buddy`, use the scoped name:
 
 | Step | Skill | What happens |
 |---|---|---|
-| Setup | `setup` | Node, CLI login, MCP connection and data centre, same account on both, plugins up to date |
+| Doctor | `doctor` | Every session: Node, pnpm, git, Catalyst CLI, plugins up to date, stale skill copies, chrome-devtools; fixes each gap with you or for you |
+| Setup | `setup` | CLI login, MCP connection and data centre, same account on both |
 | Discovery | `catalyst-solution-design` | The interview, the kit choice, 2-3 Catalyst solution options with one recommended, 6-8 names, a solution brief you confirm |
 | Scaffold | `catalyst-kit-scaffold` | Clone the kit, fresh git history, rename with the kit's `adopt-kit` skill, `catalyst init`, tables over MCP, hallmark design, `typecheck`/`lint`/`build`, first commit |
 | Build | `catalyst-feature-build` | One feature at a time: plan, resources, code to the kit rules, hallmark screens, verified in the browser |

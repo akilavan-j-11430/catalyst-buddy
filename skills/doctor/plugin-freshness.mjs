@@ -6,6 +6,7 @@ import { join } from "node:path";
 const UPSTREAM_PLUGINS = [
   { id: "catalyst-by-zoho@catalyst-by-zoho", repoUrl: "https://github.com/catalystbyzoho/agent-skills" },
   { id: "hallmark@hallmark", repoUrl: "https://github.com/nutlope/hallmark" },
+  { id: "zcatalystai@buddy", repoUrl: "https://github.com/akilavan-j-11430/catalyst-buddy" },
 ];
 
 function readInstalledPlugins() {
