@@ -5,8 +5,8 @@ description: Catalyst Buddy's discovery step - interview a dev about the app the
 
 # Solution design
 
-Turn "I want to build X" into a confirmed **solution brief**. Setup has already cloned the
-kit and bound the Catalyst project; nothing else changes on disk or in Catalyst in this step.
+Turn "I want to build X" into a confirmed **solution brief**. Setup has already recorded the
+app's title and description, cloned the kit and bound the Catalyst project; nothing else changes on disk or in Catalyst in this step.
 
 ## 1. Interview
 
@@ -78,20 +78,12 @@ Present the options as one table:
 Then **one** recommendation and a single sentence on why. Prefer the simplest option that
 covers what the dev said they need now - not what they might need later.
 
-## 4. Title and description
-
-The repo name is the app's folder name. Suggest two or three display titles that fit it and
-let the dev pick one or give their own.
-
-Then propose a **one-sentence description** (it becomes the page description and the README
-intro) and let the dev edit it.
-
-## 5. Remote
+## 4. Remote
 
 One of: the URL of an existing empty repo; create one (GitHub with `gh`, or zrepository
 with `zr`) after a separate yes; or none for now.
 
-## 6. Solution brief
+## 5. Solution brief
 
 Write the brief out in full in the chat and ask for a yes. Change anything the dev asks and
 show it again. Use exactly this shape - `catalyst-kit-scaffold` writes it into the new
@@ -117,4 +109,4 @@ project's `.claude/CLAUDE.md`:
 Audience: <...>. Tone: <...>. Brand colours: <... or "none">. Likes: <...>. Dislikes: <...>.
 ```
 
-Plus, outside that block: title, description, remote.
+Plus, outside that block: the remote.
