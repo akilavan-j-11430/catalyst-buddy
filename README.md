@@ -82,7 +82,7 @@ If another plugin also ships an agent named `buddy`, use the scoped name:
 | Infra | `infra` | For an app, a feature or a fix, the Catalyst side only: its footprint (none, existing, new), 2-3 ways to cover it with pros and cons and one recommended, the design you confirm written to `.claude/infra.md`, then its Catalyst resources created (dependencies first) |
 | Plan | `plan` | The code: an app or a feature as ordered stages - routes, types, data access, screens and the check of each - approved once and kept in `plan.json` in the plugin data; for a fix, the change |
 | Build | `build` | Runs the stages in `plan.json` one by one: a new app's base (env values, hallmark UI, first commit), then each feature (code to the repo's rules, hallmark screens, verified in the browser); after a full verification it deletes `plan.json` |
-| Fix | `fix` | Reproduce, find the cause, design the fix, apply the way you pick, verify with the same reproduction |
+| Fix | `fix` | Takes the symptom from you; the `diagnose` agent reproduces it and finds the cause; then infra and plan design the fix, and fix applies it and verifies it with the same reproduction |
 | Explain | `explain` (agent) | Read-only tour: what the app does, how it is built, its Catalyst resources, how to run it; then answers your questions |
 
 Buddy always asks before it writes to disk, creates Catalyst resources (Development only),
@@ -97,6 +97,7 @@ chat.
 agents/buddy.md                   the persona, ground rules, and session start
 agents/infra-way.md               designs one Catalyst way for infra; infra runs 2-3 in parallel
 agents/explain.md                 the read-only tour and Q&A, started by goal
+agents/diagnose.md                reproduces a problem and finds its cause, started by fix
 skills/<step>/SKILL.md            one skill per step above, except explain
 ```
 

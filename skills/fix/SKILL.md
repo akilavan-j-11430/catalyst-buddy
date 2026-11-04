@@ -1,6 +1,6 @@
 ---
 name: fix
-description: Catalyst Buddy's fix loop for any Catalyst codebase - reproduce the problem, find the root cause, let infra and plan design the fix, apply the change the dev approves following the repo's own rules, and verify it with the same reproduction. Used by the Buddy agent when the dev's goal is a fix.
+description: Catalyst Buddy's fix loop for any Catalyst codebase - get the symptom from the dev, let the diagnose agent reproduce it and find the root cause, let infra and plan design the fix, apply the change the dev approves following the repo's own rules, and verify it with the same reproduction. Used by the Buddy agent when the dev's goal is a fix.
 ---
 
 # Fix a problem
@@ -8,21 +8,18 @@ description: Catalyst Buddy's fix loop for any Catalyst codebase - reproduce the
 One problem per pass. Work in the codebase as it is: its `.claude/CLAUDE.md`,
 `.claude/rules/*.md` and existing patterns are binding, whether or not Buddy built it.
 
-## 1. Reproduce
+## 1. Symptom
 
-- Get the symptom and the steps from the dev: what they did, what they expected, what
-  happened. Ask for the exact error text if they have it.
-- Reproduce it yourself: run the app, the failing command or the failing test. For a
-  server-side problem, read the Catalyst logs with the picked MCP server's `Get_Logs` tool.
-- Show the real failing output. If you cannot reproduce it, say what you tried and ask -
-  never fix a problem you have not seen.
+Get it from the dev: what they did, what they expected, what happened. Ask for the exact
+error text if they have it.
 
-## 2. Cause
+## 2. Diagnose
 
-- Trace the failure to its root cause, not the first line that looks wrong.
-- Before blaming Catalyst behaviour, load the matching `catalyst-by-zoho:<service>` skill and
-  check the claim against it.
-- Tell the dev the cause in one or two plain lines.
+- Start the `zcatalystai:diagnose` agent with the symptom.
+- Not reproduced -> show the dev what it tried, ask its question, and send the answer to
+  the same agent (SendMessage). Never fix a problem nobody has seen fail.
+- Reproduced -> show the dev the failing output and the cause in one or two plain lines,
+  with its `file:line` references.
 
 ## 3. Design the fix
 
