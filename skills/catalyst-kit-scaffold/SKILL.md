@@ -26,8 +26,12 @@ Read `.claude/skills/adopt-kit/SKILL.md` and do exactly what it says, with `repo
 ## 3. Record the brief
 
 In `.claude/CLAUDE.md`, insert the brief's `## Domain`, `## Architecture` and
-`## Look and feel` sections right after the intro paragraph (before `## Role`). Build mode
-reads them on every later session, so keep them true as the app grows.
+`## Look and feel` sections right after the intro paragraph (before `## Role`). Later
+sessions read them, so keep them true as the app grows.
+
+On a rewrite (the app already has a first commit and the dev chose Entire app again), replace
+those three sections with the new brief and run every step after this one again; the
+remote and rename stay as they are.
 
 ## 4. Env values
 
@@ -47,7 +51,7 @@ If an MCP tool cannot set something (for example an encrypted column), give the 
 exact Console steps instead and wait for them to say it's done.
 
 Do not add repository classes or `resources.ts` entries yet - those come with the first
-feature that uses the table, in build mode.
+feature that uses the table, with the feature goal.
 
 ### Extra steps for the zoho-token kit
 
@@ -79,7 +83,7 @@ come from the kit and are not negotiable:
 - Data access in pages goes through `src/services/` and react-query -
   `.claude/rules/web-data-access.md`.
 - Scope: the layout, the home page and the sign-in screen. No domain screens yet; those come
-  feature by feature in build mode.
+  feature by feature with the feature goal.
 
 Let hallmark write its `design.md` at the repo root so later screens reuse the same system.
 

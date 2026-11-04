@@ -58,15 +58,15 @@ mkdir -p ~/Documents/Solutions/<your-app> && cd ~/Documents/Solutions/<your-app>
 claude --agent buddy
 ```
 
-Keep building an app Buddy started, or finish one whose setup was interrupted:
+Work on any existing Catalyst codebase - one Buddy started or not:
 
 ```bash
 cd ~/Documents/Solutions/<your-app>
 claude --agent buddy
 ```
 
-Buddy works out which it is from the folder: setup records its progress in
-`zcatalystai/buddy/setup.json`, committed with the app.
+Every session Buddy checks the machine and the Catalyst project, then asks what you are
+doing: build the entire app, add a feature, fix something, or understand the app.
 
 If another plugin also ships an agent named `buddy`, use the scoped name:
 `claude --agent zcatalystai:buddy`.
@@ -78,9 +78,12 @@ If another plugin also ships an agent named `buddy`, use the scoped name:
 | Doctor | `doctor` | Every session: Node, pnpm, git, Catalyst CLI, a Catalyst MCP server connected (helps you configure one if none), plugins up to date, stale skill copies, chrome-devtools; fixes each gap with you or for you |
 | Setup | `setup` | New apps only: asks what the app is and records its title and description, asks which kit, clones it into the folder |
 | Connect | `connect` | Every session: `catalyst init` done (binds the folder if not), and which MCP server reaches its project |
+| Goal | `goal` | Every session: you pick entire app, a feature, a fix, or understand the app |
 | Discovery | `catalyst-solution-design` | The interview, 2-3 Catalyst solution options with one recommended, a solution brief you confirm |
 | Scaffold | `catalyst-kit-scaffold` | Rename with the kit's `adopt-kit` skill, record the brief, tables over MCP, hallmark design, `typecheck`/`lint`/`build`, first commit |
-| Build | `catalyst-feature-build` | One feature at a time: plan, resources, code to the kit rules, hallmark screens, verified in the browser |
+| Build | `catalyst-feature-build` | One feature at a time: plan, resources, code to the repo's rules, hallmark screens, verified in the browser |
+| Fix | `fix` | Reproduce, find the cause, smallest fix, verify with the same reproduction |
+| Explain | `explain` | Read-only tour: what the app does, how it is built, its Catalyst resources, how to run it |
 
 Buddy always asks before it writes to disk, creates Catalyst resources (Development only),
 commits, pushes, creates a repo, or deploys. It never asks you to paste secrets into the

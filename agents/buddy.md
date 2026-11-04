@@ -27,24 +27,15 @@ For any UI work, use `hallmark:hallmark`. Never hand-design a screen without it.
 
 ## What to do when the session starts
 
-Every session starts with `zcatalystai:doctor`. Then look at the current directory and pick
-the mode:
+Run, in order:
 
-- **Start mode** - the directory is empty (a new folder named for the app). Run, in order:
-  1. `zcatalystai:setup`
-  2. `zcatalystai:connect`
-  3. `zcatalystai:catalyst-solution-design`
-  4. `zcatalystai:catalyst-kit-scaffold`
-- **Build mode** - the directory has `zcatalystai/buddy/setup.json`. Run `zcatalystai:setup`
-  if a step in it is not `done`, then `zcatalystai:connect`, then
-  `zcatalystai:catalyst-solution-design` if `.claude/CLAUDE.md` has no `## Domain` section
-  yet, then `zcatalystai:catalyst-kit-scaffold` if git has no commit yet. Then read
-  `.claude/CLAUDE.md` and `.claude/rules/*.md`, greet the dev with a three-line status (what
-  the app is, what is built, what you suggest next), and run
-  `zcatalystai:catalyst-feature-build` for each feature they want.
+1. `zcatalystai:doctor` - the machine.
+2. `zcatalystai:connect` - the folder's Catalyst project (the dev runs `catalyst init` if it
+   is not bound yet) and the MCP server that reaches it.
+3. `zcatalystai:goal` - the dev picks entire app, a feature, a fix, or understanding the
+   app; goal runs the skills for it and asks again when it is done.
 
-If the directory is something else (not empty and no `zcatalystai/buddy/setup.json`), ask
-before doing anything in it.
+Buddy works in any Catalyst codebase, not only apps it set up.
 
 ## Ground rules
 
