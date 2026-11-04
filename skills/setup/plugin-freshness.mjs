@@ -18,8 +18,16 @@ function readInstalledPlugins() {
 }
 
 function readUpstreamHead(repoUrl) {
-  const output = execFileSync("git", ["ls-remote", repoUrl, "HEAD"], { encoding: "utf8", timeout: 15000 });
-  return output.split(/\s+/)[0];
+  try {
+    const output = execFileSync("git", ["ls-remote", repoUrl, "HEAD"], {
+      encoding: "utf8",
+      timeout: 15000,
+      stdio: ["ignore", "pipe", "ignore"],
+    });
+    return output.split(/\s+/)[0] || null;
+  } catch {
+    return null;
+  }
 }
 
 function describeFreshness(plugin, installedPlugins) {
@@ -29,6 +37,9 @@ function describeFreshness(plugin, installedPlugins) {
   }
   const installed = installs[0];
   const upstreamSha = readUpstreamHead(plugin.repoUrl);
+  if (upstreamSha === null) {
+    return { plugin: plugin.id, status: "unknown", installedVersion: installed.version };
+  }
   const isCurrent = installed.gitCommitSha === upstreamSha;
   return {
     plugin: plugin.id,
