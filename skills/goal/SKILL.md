@@ -32,18 +32,17 @@ One AskUserQuestion, "What are we doing?":
 | Goal | Run |
 |---|---|
 | Entire app | See below. |
-| A feature | `zcatalystai:catalyst-feature-build`. Several features in one request -> split them, agree the order, one at a time. A request that doesn't fit the app's brief (a new kind of user, a different problem, the other kit) -> say so and offer Entire app instead. |
-| A fix | `zcatalystai:fix` |
+| A feature | `zcatalystai:design`, then `zcatalystai:catalyst-feature-build`. A request that doesn't fit the app's brief (a new kind of user, a different problem, the other kit) -> say so and offer Entire app instead. |
+| A fix | `zcatalystai:fix` (it runs `zcatalystai:design` once it knows the cause) |
 | Understand the app | `zcatalystai:explain` |
 
 **Entire app:**
 - No app code yet, or `setup.json` present -> `zcatalystai:setup` (it resumes at its first
   step not `done`), then:
-  - no git commit yet -> `zcatalystai:catalyst-solution-design` if `.claude/CLAUDE.md` has
-    no `## Domain` section yet, then `zcatalystai:catalyst-kit-scaffold`;
-  - the app is already built -> the dev chose a rewrite: run
-    `zcatalystai:catalyst-solution-design` again (the new brief replaces the old), then
-    `zcatalystai:catalyst-kit-scaffold`.
+  - no git commit yet -> `zcatalystai:design` if `.claude/CLAUDE.md` has no `## Domain`
+    section yet, then `zcatalystai:catalyst-kit-scaffold`;
+  - the app is already built -> the dev chose a rewrite: run `zcatalystai:design` again
+    (the new brief replaces the old), then `zcatalystai:catalyst-kit-scaffold`.
 - A codebase Buddy did not set up (app code, no `setup.json`) -> setup would copy the kit
   over its code. Say so, and offer to start the app in a new, empty folder instead.
 

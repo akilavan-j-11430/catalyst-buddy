@@ -1,6 +1,6 @@
 ---
 name: fix
-description: Catalyst Buddy's fix loop for any Catalyst codebase - reproduce the problem, find the root cause, make the smallest fix that follows the repo's own rules, and verify it with the same reproduction. Used by the Buddy agent when the dev's goal is a fix.
+description: Catalyst Buddy's fix loop for any Catalyst codebase - reproduce the problem, find the root cause, let design offer ways to fix it, apply the one the dev picks following the repo's own rules, and verify it with the same reproduction. Used by the Buddy agent when the dev's goal is a fix.
 ---
 
 # Fix a problem
@@ -24,14 +24,17 @@ One problem per pass. Work in the codebase as it is: its `.claude/CLAUDE.md`,
   check the claim against it.
 - Tell the dev the cause in one or two plain lines.
 
-## 3. Fix
+## 3. Design the fix
 
-- Make the smallest change at the cause, following the repo's rules and patterns.
-- A fix that needs a schema change, a new Catalyst service or a deploy-surface change is a
-  feature: stop and offer the feature goal instead.
+Run `zcatalystai:design` with the reproduction and the cause. It sizes the fix to its
+Catalyst footprint and lets the dev pick one of two or three ways.
+
+## 4. Fix
+
+- Apply the way the dev picked, following the repo's rules and patterns.
 - If uncommitted work you did not make touches the same files, ask before changing them.
 
-## 4. Verify
+## 5. Verify
 
 - Run the reproduction again and show it now passes.
 - Run the repo's checks: `pnpm build && pnpm typecheck && pnpm lint` in a starter-kit app,
@@ -39,7 +42,7 @@ One problem per pass. Work in the codebase as it is: its `.claude/CLAUDE.md`,
 - A check fails -> show the output, fix the cause, and verify again. Never report a fix you
   have not seen work.
 
-## 5. Wrap up
+## 6. Wrap up
 
 Show `git status --short` and a one-line summary of what was broken and why, then offer a
 commit whose message says what was broken. Commit only on a yes; push only if asked.

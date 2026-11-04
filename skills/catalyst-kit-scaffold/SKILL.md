@@ -1,18 +1,21 @@
 ---
 name: catalyst-kit-scaffold
-description: Catalyst Buddy's build-out step - in the app folder setup prepared, rename the kit with the kit's adopt-kit skill, record the brief, create the agreed Data Store tables over MCP, design the UI with hallmark, verify, and make the first commit. Needs setup done and a confirmed solution brief from catalyst-solution-design.
+description: Catalyst Buddy's build-out step - in the app folder setup prepared, rename the kit with the kit's adopt-kit skill, record the brief, create the brief's Catalyst resources over MCP, design the UI with hallmark, verify, and make the first commit. Needs setup done and a confirmed brief from design.
 ---
 
 # Scaffold the solution
 
 Runs in the app folder, after `zcatalystai:setup` is done. Inputs: the confirmed solution
-brief from `zcatalystai:catalyst-solution-design` (with the remote choice), and `title`,
+brief from `zcatalystai:design`, and `title`,
 `description` and `kit` from `zcatalystai/buddy/setup.json`. The repo name is the folder
 name. If any input is missing, go back and ask - never fill one in yourself.
 
 If scaffold is resumed, skip a step whose result is already there.
 
 ## 1. Remote
+
+Ask the dev for one of: the URL of an existing empty repo; create one (GitHub with `gh`, or
+zrepository with `zr`); or none for now.
 
 If the dev gave a remote URL: `git remote add origin <url>`.
 If they asked Buddy to create the remote, ask once more right before running
@@ -38,9 +41,10 @@ remote and rename stay as they are.
 Setup copied the env templates. Walk the dev through the values the README's "First run"
 section lists. Values that are secrets, the dev types in themselves.
 
-## 5. Create the tables
+## 5. Create the Catalyst resources
 
-For each table in the brief's data model, and only in the **Development** environment:
+For each Data Store table in the brief's `Catalyst resources`, and only in the
+**Development** environment:
 load `catalyst-by-zoho:catalyst-datastore`, show the dev the exact tables and columns you
 will create, and on a yes create them with the `CatalystbyZoho_Create_Table` and
 `CatalystbyZoho_Create_Column` tools on the MCP server in `zcatalystai/buddy/connect.json`. Read them back with
@@ -49,6 +53,10 @@ will create, and on a yes create them with the `CatalystbyZoho_Create_Table` and
 Set table permissions/scopes the way the brief and the kit's `vendor-boundaries.md` say.
 If an MCP tool cannot set something (for example an encrypted column), give the dev the
 exact Console steps instead and wait for them to say it's done.
+
+Create the other resources in the list the same way, with the matching
+`CatalystbyZoho_Create_*` tool on that server, read each one back, and give Console steps
+where no tool exists.
 
 Do not add repository classes or `resources.ts` entries yet - those come with the first
 feature that uses the table, with the feature goal.

@@ -79,10 +79,10 @@ If another plugin also ships an agent named `buddy`, use the scoped name:
 | Setup | `setup` | New apps only: asks what the app is and records its title and description, asks which kit, clones it into the folder |
 | Connect | `connect` | Every session: `catalyst init` done (binds the folder if not), and which MCP server reaches its project |
 | Goal | `goal` | Every session: you pick entire app, a feature, a fix, or understand the app |
-| Discovery | `catalyst-solution-design` | The interview, 2-3 Catalyst solution options with one recommended, a solution brief you confirm |
+| Design | `design` | For an app, a feature or a fix: its Catalyst footprint (none, existing, new), 2-3 ways to build it with one recommended, then a brief, a plan or a fix approach you confirm |
 | Scaffold | `catalyst-kit-scaffold` | Rename with the kit's `adopt-kit` skill, record the brief, tables over MCP, hallmark design, `typecheck`/`lint`/`build`, first commit |
-| Build | `catalyst-feature-build` | One feature at a time: plan, resources, code to the repo's rules, hallmark screens, verified in the browser |
-| Fix | `fix` | Reproduce, find the cause, smallest fix, verify with the same reproduction |
+| Build | `catalyst-feature-build` | One agreed feature plan at a time: resources, code to the repo's rules, hallmark screens, verified in the browser |
+| Fix | `fix` | Reproduce, find the cause, design the fix, apply the way you pick, verify with the same reproduction |
 | Explain | `explain` | Read-only tour: what the app does, how it is built, its Catalyst resources, how to run it |
 
 Buddy always asks before it writes to disk, creates Catalyst resources (Development only),
