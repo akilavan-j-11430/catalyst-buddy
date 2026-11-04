@@ -83,7 +83,7 @@ If another plugin also ships an agent named `buddy`, use the scoped name:
 | Plan | `plan` | The code: an app or a feature as ordered stages - routes, types, data access, screens and the check of each - approved once and kept in `plan.json` in the plugin data; for a fix, the change |
 | Build | `build` | Runs the stages in `plan.json` one by one: a new app's base (env values, hallmark UI, first commit), then each feature (code to the repo's rules, hallmark screens, verified in the browser); after a full verification it deletes `plan.json` |
 | Fix | `fix` | Reproduce, find the cause, design the fix, apply the way you pick, verify with the same reproduction |
-| Explain | `explain` | Read-only tour: what the app does, how it is built, its Catalyst resources, how to run it |
+| Explain | `explain` (agent) | Read-only tour: what the app does, how it is built, its Catalyst resources, how to run it; then answers your questions |
 
 Buddy always asks before it writes to disk, creates Catalyst resources (Development only),
 commits, pushes, creates a repo, or deploys. It never asks you to paste secrets into the
@@ -96,7 +96,8 @@ chat.
 .claude-plugin/marketplace.json   this repo as a marketplace
 agents/buddy.md                   the persona, ground rules, and session start
 agents/infra-way.md               designs one Catalyst way for infra; infra runs 2-3 in parallel
-skills/<step>/SKILL.md            one skill per step above
+agents/explain.md                 the read-only tour and Q&A, started by goal
+skills/<step>/SKILL.md            one skill per step above, except explain
 ```
 
 ## Developing Buddy

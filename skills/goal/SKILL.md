@@ -42,7 +42,7 @@ resumes at that stage. Otherwise:
 | Entire app | See below. |
 | A feature | `zcatalystai:infra`, then `zcatalystai:plan`, then `zcatalystai:build`. A request that doesn't fit the app's `## Domain` in `.claude/infra.md` (a new kind of user, a different problem, the other kit) -> say so and offer Entire app instead. |
 | A fix | `zcatalystai:fix` (it runs `zcatalystai:infra` and `zcatalystai:plan` once it knows the cause) |
-| Understand the app | `zcatalystai:explain` |
+| Understand the app | Start the `zcatalystai:explain` agent and show the dev its tour. Send each question the dev asks to that same agent (SendMessage) and show its answer. A change request -> offer the feature or fix goal. The route ends when the dev has no more questions. |
 
 **Entire app:**
 - No app code yet, or `setup.json` present -> `zcatalystai:setup` (it resumes at its first
