@@ -42,8 +42,9 @@ Order the stages so each builds only on the ones before it.
   stages: the tokens and layout, then the pages. When the base is already built
   (`design.md` exists - build locks it in the last base stage), there is no base stage. Then one
   stage per thing the `## Domain` in `infra.md` says users do, starting with what they do
-  first. Every resource in `infra.md` is used by at least one stage; one that isn't ->
-  raise it with the dev.
+  first. Leave out what the code already does - read its routes and pages first - and say
+  in one line which you left out. Every resource in `infra.md` is used by at least one
+  stage or by code that exists; one that isn't -> raise it with the dev.
 - **Feature** - as many stages as it takes to keep each one that small.
 
 For each stage name:
