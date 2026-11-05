@@ -26,7 +26,8 @@ resources; build writes the code that uses them.
   | Learn & Review | `learn` | writes the parts of each stage that teach something, then reviews |
   | Review only | `review` | reviews each stage; the next starts only after it is approved and committed |
 
-  The dev can switch at any time by saying so; update `mode`. In every mode, pushing,
+  The dev can switch at any time by saying so; update `mode`. The switch applies from the
+  next stage, except `learn` -> `auto` mid-stage, where Buddy writes the open stubs itself. In every mode, pushing,
   deploying and anything the dev must do themselves (secrets, Console steps, hallmark's
   questions) still wait for the dev.
 
@@ -64,11 +65,13 @@ planned. No `todo` stage left -> section 8.
 Before writing the stage, say who writes what. Buddy: the routine parts - wiring, types,
 route mounts, `ApiPath` entries, service functions, component scaffolds. The dev: one or
 two parts with a decision in them - a query, a business rule, a validation, a component's
-state. For each dev part, leave a stub that fails loudly until it is written, and give a
-brief: what it must do, the rule or `catalyst-by-zoho` skill that applies, one hint, and
-the check that proves it. Wait for the dev's "done", then review their code as a senior
-would - what is right, what to change and why - and let them make the change. A stub left
-in the code blocks the commit.
+state. Write Buddy's parts and run the Screens step first, so hallmark never touches the
+dev's code. Then, for each dev part, leave a stub that fails loudly until it is written,
+with the brief in it after the marker `BUDDY-LEARN:` - what it must do, the rule or
+`catalyst-by-zoho` skill that applies, one hint, and the check that proves it - and show
+the briefs. Wait for the dev's "done", then review their code as a senior would - what is
+right, what to change and why - and let them make the change. `rg -n "BUDDY-LEARN:"` finds
+the open stubs after a resume; any hit blocks the commit.
 
 ## 3. The base
 
