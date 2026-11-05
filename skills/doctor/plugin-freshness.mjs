@@ -24,6 +24,7 @@ function readUpstreamHead(repoUrl) {
       encoding: "utf8",
       timeout: 15000,
       stdio: ["ignore", "pipe", "ignore"],
+      env: { ...process.env, GIT_TERMINAL_PROMPT: "0" },
     });
     return output.split(/\s+/)[0] || null;
   } catch {
