@@ -50,7 +50,7 @@ In this order:
 | Entire app | See below. |
 | A feature | `zcatalystai:infra`, then `zcatalystai:plan`, then `zcatalystai:build`. A request that doesn't fit the app's `## Domain` in `.claude/infra.md` (a new kind of user, a different problem, the other kit) -> say so and offer Entire app instead. Several features where only some fit -> say which, and take the fitting ones as this feature. |
 | A fix | `zcatalystai:fix` (once it knows the cause it runs `zcatalystai:infra` and `zcatalystai:plan` when the fix needs them) |
-| Understand the app | Start the `zcatalystai:explain` agent and show the dev its tour. Send each question the dev asks to that same agent (SendMessage) and show its answer. A change request -> offer the feature or fix goal. The route ends when the dev has no more questions. |
+| Understand the app | Start the `zcatalystai:explain` agent and show the dev its tour. Send each question the dev asks to that same agent (SendMessage) and show its answer. The dev asks for a change -> with git and `origin`, route straight to A feature or A fix with their words as the request; without them, say Buddy needs git to change code. Otherwise the route ends when the dev has no more questions. |
 
 **Entire app** - progress is read from files only, never from git history:
 - No app code yet, or `setup.json` with a step not `done` or not committed yet ->
