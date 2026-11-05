@@ -44,7 +44,9 @@ stage, in one line, and go:
    files, stop and agree with the dev how to split it in the plan file (`auto`: split it
    yourself and say so). `learn` -> section 2a.
 3. **Screens** - section 5; skip it when the stage names no screens.
-4. **Verify** - section 6, with the stage's `check`.
+4. **Verify** - section 6, with the stage's `check`. A stage that unblocks a `waits for`
+   resource: before the check, ask the dev to deploy its code to Development
+   (`pnpm run deploy`), then run `zcatalystai:infra` section 5 for that resource.
 5. **Done** - one commit for the stage, by the commit rules in
    `${CLAUDE_PLUGIN_ROOT}/rules/commits.md`, with the stage's `name` as its subject;
    push only if asked. `auto` -> commit without asking. `learn` and `review` -> the diff

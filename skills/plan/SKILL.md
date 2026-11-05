@@ -54,6 +54,7 @@ For each stage name:
 | Routes | method and path, request, response, Catalyst scopes |
 | Data | the domain types in `packages/types`, and the `resources.ts` handle and repository for each table it touches, with their methods |
 | Screens | the `src/services/` functions and `ApiPath` entries, the pages and components, and the empty, loading and error state of every list or form |
+| Catalyst | a `waits for` resource in `infra.md` that this stage's code unblocks, if any |
 | Check | the user action that proves it works, and what it leaves in Catalyst |
 
 In a codebase that is not a starter-kit app (no `packages/node-utils`), name the parts in
@@ -81,6 +82,7 @@ plan file:
 }
 ```
 
+- `catalyst` - only on a stage that unblocks a `waits for` resource: that resource's name.
 - `base` - `true` on a base stage only (omit it otherwise); build runs its base steps for it.
 - `name` - also the stage's commit subject, in the imperative: what a user can now do, or for
   a rename or move stage, what it renames or moves.

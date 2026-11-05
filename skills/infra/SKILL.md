@@ -148,8 +148,9 @@ environment, on the `mcpServer` in `zcatalystai/buddy/connect.json`.
    Every parameter that points at another resource (an `*_id`, or a name that must already
    exist) is a dependency: look it up with the matching `List_*` or `Get_*` tool, use its ID
    if it exists, otherwise add it to the list and work out its own dependencies the same
-   way. A dependency that is code - deployed from the repo, not created by a tool - is built
-   and deployed first; mark it as a pause. No tool, or a setting the tool doesn't take ->
+   way. A resource that depends on code not written yet (a cron or job that runs a function)
+   is not created now: list it in `infra.md` with `- waits for: <the code>`, and the plan
+   stage that writes that code creates it. No tool, or a setting the tool doesn't take ->
    exact Console or CLI steps from the service's skill.
 2. **Show the order.** One numbered list, dependencies first: the resource, how it gets made
    (MCP tool, dev deploys, or Console/CLI steps) and its key settings, including Data Store
