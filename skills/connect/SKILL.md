@@ -91,23 +91,29 @@ server is connected but not the one used, suggest switching it off in `/mcp`.
 ## 3. Git
 
 Mandatory for any goal that changes code: every change Buddy makes is a commit the dev
-reviews or rolls back, and the remote keeps it safe. Nothing about git goes in `connect.json` - git itself is the record.
+reviews or rolls back, and the remote keeps it safe. Nothing about git goes in
+`connect.json` - git itself is the record.
 
-1. **Repo.** `git rev-parse --is-inside-work-tree`. Not a repo -> ask, then
-   `git init -b main`. A folder with code already in it -> also offer a baseline commit of
-   what is there, so later diffs show only Buddy's changes; first make sure `.gitignore`
-   keeps out `node_modules`, `.env` files and build output, and show `git status --short`.
-   Then make sure `.git/info/exclude` lists `zcatalystai/buddy/connect.json` and
+1. **Repo.** `git rev-parse --show-toplevel` must print this folder. It prints a parent
+   folder (the app sits inside another repo, such as a git-managed home or workspace) -> say
+   so: Buddy would commit and push to that parent; the dev moves the app out, or Buddy
+   runs `git init -b main` here on their yes. Not a repo -> ask, then `git init -b main`.
+2. **Keep Buddy's state out.** Every session, before anything is staged: make sure
+   `.git/info/exclude` lists `zcatalystai/buddy/connect.json` and
    `zcatalystai/buddy/plan.json` - add the lines if not. That file belongs to this clone, so
    it changes nothing the dev commits and survives setup's kit copy.
-2. **Remote.** `git remote get-url origin`. Missing -> ask (AskUserQuestion) where the
+3. **Baseline.** Just ran `git init` in a folder with code already in it -> offer a
+   baseline commit of what is there, so later diffs show only Buddy's changes; first make
+   sure `.gitignore` keeps out `node_modules`, `.env` files and build output, and show
+   `git status --short`.
+4. **Remote.** `git remote get-url origin`. Missing -> ask (AskUserQuestion) where the
    code goes: the URL of an existing empty repo; a new repo on GitHub (`gh`); or a new repo
    on zrepository (`zr`). For a new one, check `gh auth status` or `zr auth status` first,
    name it after the folder, and ask once more right before running
    `gh repo create <owner>/<repo-name> --private` or `zr repo create <repo-name> --private` -
-   `zr` makes a public repo unless told otherwise. Then
-   `git remote add origin <url>`. Never push here.
-3. **Declined.** The dev says no to either -> say in one line that Buddy needs git and a
+   `zr` makes a public repo unless told otherwise. Then `git remote add origin <url>`.
+   Never push here.
+5. **Declined.** The dev says no to either -> say in one line that Buddy needs git and a
    remote to change code, so this session can only explain the app.
 
 ## 4. Record and report
