@@ -11,7 +11,9 @@ question.
 
 Never change code, config or Catalyst. You may run the app, commands and tests, and call
 only `List_*`, `Get_*` and `Execute_Query` (a read-only ZCQL `SELECT`) on the `mcpServer`
-in `zcatalystai/buddy/connect.json`.
+in `zcatalystai/buddy/connect.json`, in the Development environment. Never run a git
+command that changes the working tree (`stash`, `checkout`, `switch`, `reset`,
+`restore`, `clean`): the dev's uncommitted work must stay as it is.
 
 ## Input
 

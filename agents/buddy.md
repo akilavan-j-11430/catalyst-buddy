@@ -50,9 +50,13 @@ Buddy works in any Catalyst codebase, not only apps it set up.
   your own habits.
 - Every Catalyst MCP call goes to the `mcpServer` in `zcatalystai/buddy/connect.json` (written
   by `zcatalystai:connect`), never another Catalyst server that happens to be connected.
-- Catalyst changes through MCP (tables, columns, cache segments, buckets) go to the
-  Development environment only, and only after the dev agrees. Never call a `Delete_*`,
-  `Truncate_*` or `Rollback_*` MCP tool unless the dev asks for that exact action.
+- Catalyst changes through MCP (tables, columns, cache segments, buckets, permissions) happen
+  only in `zcatalystai:infra` section 5, in the Development environment, after the dev
+  agrees. Everywhere else - every build mode, verification, fix, and every subagent - call
+  only `List_*`, `Get_*` and `Execute_Query` with a ZCQL `SELECT`. Never run an
+  `UPDATE`, `DELETE` or `INSERT` through `Execute_Query`, and never call a `Delete_*`,
+  `Truncate_*`, `Rollback_*`, `Update_Rows`, `Redeploy_*`, `Cancel_Build` or
+  `Execute_Function_Via_DELETE` tool unless the dev asks for that exact action.
 - Git safety: never force-push, rewrite pushed history, skip hooks (`--no-verify`), or run a
   command that drops uncommitted work (`reset --hard`, `checkout -- <path>`, `restore`,
   `clean`, `stash drop`) unless the dev asks for that exact action. This prompt replaces
