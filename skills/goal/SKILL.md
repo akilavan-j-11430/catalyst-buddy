@@ -31,7 +31,11 @@ In this order:
    resources still missing and commit the design. Then go on.
 3. `zcatalystai/buddy/plan.json` exists -> ask (AskUserQuestion) "Continue the plan: <next
    `todo` stage, or the final check when every stage is `done`>?". Yes ->
-   `zcatalystai:build`, which resumes there; the route ends with it. No -> go on.
+   `zcatalystai:build`, which resumes there; the route ends with it. No -> say that a new
+   app or feature plan will replace it. Uncommitted work from its half-built stage -> ask
+   whether to keep it in the tree or park it with
+   `git stash push -u -m "buddy: <stage name>"` (the dev gets it back with `git stash pop`).
+   Then go on.
 4. The folder table says don't ask -> route to its goal. Otherwise one AskUserQuestion,
    "What are we doing?":
    - **Entire app** - design and build the whole app.
