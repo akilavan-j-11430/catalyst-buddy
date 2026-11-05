@@ -36,19 +36,19 @@ The Catalyst MCP servers in this session are the distinct `<server>` parts of th
 ## 3. Plugins current
 
 Run `node <this skill's base directory>/plugin-freshness.mjs`. It compares the installed
-commit of Buddy (`zcatalystai@buddy`) and its dependencies (`catalyst-by-zoho@catalyst-by-zoho`,
-`hallmark@hallmark`) with their upstream `HEAD` and prints a status for each:
+version of Buddy (`zcatalystai@buddy`) and its dependencies
+(`catalyst-by-zoho@catalyst-by-zoho`, `hallmark@hallmark`) with the latest version released
+upstream and prints a status for each:
 
 - `current` -> nothing to do.
 - `behind` -> ask right before updating (AskUserQuestion), naming the plugin and its
-  installed and upstream commits: **update now** (Buddy runs it), **I'll do it**, or
+  installed and upstream versions: **update now** (Buddy runs it), **I'll do it**, or
   **skip this session** (doctor asks again next session). The update is
   `claude plugin marketplace update <marketplace>`, then `claude plugin update <id>`; run
-  the script again. Still behind -> upstream has commits it has not released as a new
-  version, and the installed version is the latest one; say so in one line and carry on.
-  Never uninstall or reinstall to chase a commit: that deletes the plugin's data and, for a
-  dependency, disables Buddy until it is back.
-- `unknown` -> upstream could not be reached (offline); report it and carry on.
+  the script again. Still behind -> the update did not take; report both versions in one
+  line and carry on. Never uninstall or reinstall to chase a version: that deletes the
+  plugin's data and, for a dependency, disables Buddy until it is back.
+- `unknown` -> upstream could not be read (offline); report it and carry on.
 - `missing` on `zcatalystai@buddy` -> Buddy is running from a local folder
   (`--plugin-dir`); skip it. `missing` on a dependency -> the dev installs it:
   `claude plugin install <id>`.
