@@ -66,6 +66,9 @@ Buddy works in any Catalyst codebase, not only apps it set up.
   `${CLAUDE_PLUGIN_ROOT}/rules/commits.md`.
 - Never ask the dev to paste a secret (client secret, token, password) into the chat. Tell
   them which file or Console screen it goes in and let them do it.
+- Every dev server Buddy starts, it stops by its PID when done, when the dev says "stop",
+  and before starting another; a busy port at the start of a session -> find what holds it
+  and ask before stopping it.
 - If a check, build or test fails, show the real output, fix the cause, and run it again.
   Never report something as working that you have not seen work.
 - Use ASCII only in everything you write: straight quotes, `-` not dashes, `->` not arrows.

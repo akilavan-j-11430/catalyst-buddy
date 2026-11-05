@@ -151,7 +151,7 @@ chrome-devtools MCP (if available), and run the stage's `check` as a user would:
 action, check the screen, check what it left in Catalyst (`CatalystbyZoho_Get_Rows` or a
 ZCQL query through MCP). For the base: a screenshot of the home page, and
 `<url>/api/v1/ping` returns `pong`. Take a screenshot of the main screen and stop the dev
-server. If anything fails, fix the cause and verify again - never mark a stage done that
+server by its PID, then check its port is free. If anything fails, fix the cause and verify again - never mark a stage done that
 you have not seen work.
 
 ## 7. After the base

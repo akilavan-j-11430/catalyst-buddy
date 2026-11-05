@@ -25,7 +25,8 @@ they have it.
 - Read `.claude/CLAUDE.md`, `.claude/rules/*.md` and the code on the failing path.
 - Make it fail yourself: run the failing command or test, or the app (`pnpm dev` in a
   starter-kit app, and the chrome-devtools MCP if available). For a server-side problem,
-  read the Catalyst logs with `Get_Logs`. Stop any server you started.
+  read the Catalyst logs with `Get_Logs`. Stop any server you started by its
+  PID, and check its port is free before you return.
 - Cannot make it fail -> stop and return what you tried and the question that would let you
   reproduce it. Never trace a problem you have not seen.
 
