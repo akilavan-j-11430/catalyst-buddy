@@ -23,5 +23,5 @@ in `git log`.
 - A staged path that looks like a secret (`.env*` other than `.env.example`, `*.pem`,
   `*.key`, `*credentials*`, `*secret*`) -> unstage it and ask; never commit it.
 - Before committing, show `git diff --cached --stat` (new files show too) and a short summary, and commit after the dev approves. Build's Fully auto
-  mode is the one exception: the dev chose it so that Buddy commits each verified stage
-  without asking.
+  mode is the one exception: the dev chose it so that Buddy commits each verified stage,
+  and each fix from build's final verification, without asking.
