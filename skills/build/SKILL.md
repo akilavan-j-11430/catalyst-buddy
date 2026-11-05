@@ -42,7 +42,7 @@ stage, in one line, and go:
    any other stage. Only what the stage names. When it grows past ~300 changed lines or ~10
    files, stop and agree with the dev how to split it in the plan file (`auto`: split it
    yourself and say so). `learn` -> section 2a.
-3. **Screens** - section 5.
+3. **Screens** - section 5; skip it when the stage names no screens.
 4. **Verify** - section 6, with the stage's `check`.
 5. **Done** - one commit for the stage, by the commit rules in
    `${CLAUDE_PLUGIN_ROOT}/rules/commits.md`, with the stage's `name` as its subject;
@@ -128,9 +128,11 @@ Once the dev is happy with the base, ask hallmark to lock the system, so it writ
 `design.md` at the repo root and every later screen follows it.
 
 A feature stage: every new or changed screen goes through `hallmark:hallmark` in redesign or
-component mode, against the existing tokens in `globals.css` and the repo's `design.md`.
-Keep the kit's UI rules: no font family or raw colour on a component, no hand edits in
-`components/ui/`, and an empty, loading and error state for every list or form.
+component mode, against the repo's `design.md` if it has one, and an empty, loading and
+error state for every list or form. In a starter-kit app, also against the tokens in
+`globals.css`, with the kit's UI rules: no font family or raw colour on a component, no
+hand edits in `components/ui/`. In any other codebase, follow its own styling and
+components instead.
 
 ## 6. Verify
 
