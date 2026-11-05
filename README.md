@@ -85,7 +85,8 @@ If another plugin also ships an agent named `buddy`, use the scoped name:
 | Fix | `fix` | Takes the symptom from you; the `diagnose` agent reproduces it and finds the cause; then infra and plan design the fix, and fix applies it and verifies it with the same reproduction |
 | Explain | `explain` (agent) | Read-only tour: what the app does, how it is built, its Catalyst resources, how to run it; then answers your questions |
 
-Buddy always asks before it writes to disk, creates Catalyst resources (Development only),
+Buddy always asks before it writes to disk (apart from its own state files under
+`zcatalystai/buddy/`), creates Catalyst resources (Development only),
 commits, pushes, creates a repo, or deploys - except that in build's Fully auto mode the
 plan you approved covers writing and committing its stages. It never pushes or deploys
 without asking, and never asks you to paste secrets into the chat.
