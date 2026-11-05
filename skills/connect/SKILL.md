@@ -63,23 +63,26 @@ needs authentication shows no tools and is not one of them.
 
 On each of them, call `CatalystbyZoho_Get_Project_By_Id` with the
 project ID as a string and the headers `Catalyst-org: <orgId>` and
-`Environment: Development`. The project comes back -> that server reaches it;
-`PERMISSION_NEEDED` -> it does not. Don't filter `List_All_Projects` by `ids` instead:
+`Environment: Development`. The project comes back -> that server reaches it; any error
+(`PERMISSION_NEEDED` or another) -> it does not; keep the error to show. Don't filter `List_All_Projects` by `ids` instead:
 project IDs are larger than JSON numbers hold exactly, so the filter misses.
 
-If every server says `PERMISSION_NEEDED`, the org ID from `.catalystrc` may be wrong: ask
+If no server returns the project, the org ID from `.catalystrc` may be wrong: ask
 each server again once per org it lists in `CatalystbyZoho_List_All_Organizations`, and use
 the org that returns the project.
 
-Then let the dev pick (AskUserQuestion), one option per connected server: its name, data
+Exactly one server is connected and it sees the project -> don't ask; use it and say so in
+the report. Otherwise let the dev pick (AskUserQuestion), one option per connected server: its name, data
 centre, and "sees <project name>" or "can't see this project". Mark a server that sees the
 project "(Recommended)"; when exactly one does, put it first. If the dev picks one that
 can't see the project, say MCP calls would then go to another account and ask again. More
 than four servers -> show them as a table and ask for the name in plain text.
 
 - **No server sees the project** -> say so before asking: this machine has no MCP server for
-  the project's account. The dev configures one for that account (`zcatalystai:doctor`
-  shows how), or binds the folder to a project a connected server reaches (`catalyst init`
+  the project's account. The dev creates one for that account at
+  https://mcp.zoho.com, adds it with
+  `claude mcp add --transport http --scope user <name> <server-url>` and restarts the
+  session, or binds the folder to a project a connected server reaches (`catalyst init`
   again).
 - **The dev ran `/zcatalystai:connect` themselves** -> always show this list, even when
   `connect.json` is still valid, so they can switch.
