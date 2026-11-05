@@ -13,11 +13,11 @@ session is summarised:
 
 ```json
 {
-  "projectId": "17627000001268015",
-  "projectName": "TestProject",
-  "orgId": "812470743",
-  "mcpServer": "catalyst-us-solutions",
-  "dataCentre": "US"
+  "projectId": "<project id>",
+  "projectName": "<project name>",
+  "orgId": "<org id>",
+  "mcpServer": "<mcp server name>",
+  "dataCentre": "<US, IN, EU, AU, ...>"
 }
 ```
 
