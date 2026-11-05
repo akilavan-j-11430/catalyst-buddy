@@ -20,9 +20,9 @@ with no app code yet.
 
 ## 2. Ask
 
-`zcatalystai/buddy/plan.json` has a `todo` stage -> first ask (AskUserQuestion) "Continue
-the plan: <next stage>?". Yes -> `zcatalystai:build`, which resumes there; the route ends
-with it. No -> go on.
+`zcatalystai/buddy/plan.json` exists -> first ask (AskUserQuestion) "Continue the plan:
+<next `todo` stage, or the final check when every stage is `done`>?". Yes ->
+`zcatalystai:build`, which resumes there; the route ends with it. No -> go on.
 
 No git repo or no `origin` (the dev declined them in connect) -> don't ask: only
 Understand the app is open; say so in one line and route to it.

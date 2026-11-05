@@ -67,7 +67,7 @@ plan file:
   "goal": "entire-app",
   "stages": [
     {
-      "name": "Staff check in a visitor pass",
+      "name": "Let staff check in a visitor pass",
       "status": "todo",
       "routes": ["POST /api/v1/passes - { visitorName, hostId } -> Pass; scope: user"],
       "data": ["Pass type", "VisitorPass handle", "PassRepository.create"],
@@ -79,6 +79,7 @@ plan file:
 ```
 
 - `goal` - `entire-app` or `feature`; for `entire-app`, build treats stage 1 as the base.
+- `name` - also the stage's commit subject: imperative, what a user can now do.
 - `status` - `todo` or `done`; build sets it, so a stopped build resumes at the first `todo`.
 - `mode` - not written by plan; build asks the dev and adds `auto`, `learn` or `review`
   before stage 1, so a resumed build keeps it.

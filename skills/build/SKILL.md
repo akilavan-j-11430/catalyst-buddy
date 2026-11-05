@@ -32,7 +32,9 @@ resources; build writes the code that uses them.
 
 ## 2. Each stage
 
-Take the first stage with `"status": "todo"`. Say which one, in one line, and go:
+Take the first stage with `"status": "todo"`. If the last commit's subject is that stage's
+`name`, the session stopped after committing it: set it `done` and take the next. Say which
+stage, in one line, and go:
 
 1. **Read** the files it names. If the code shows the stage cannot work as planned, stop,
    say why, and agree the change with the dev; update the stage in the plan file.
@@ -43,7 +45,7 @@ Take the first stage with `"status": "todo"`. Say which one, in one line, and go
 3. **Screens** - section 5.
 4. **Verify** - section 6, with the stage's `check`.
 5. **Done** - one commit for the stage, by the commit rules in
-   `${CLAUDE_PLUGIN_ROOT}/rules/commits.md`, its subject naming what a user can now do;
+   `${CLAUDE_PLUGIN_ROOT}/rules/commits.md`, with the stage's `name` as its subject;
    push only if asked. `auto` -> commit without asking. `learn` and `review` -> the diff
    stat and the body's "Read in order" and "Look closely at" are the dev's review guide;
    wait for approval, and on a change request make it, verify again and show it again.
