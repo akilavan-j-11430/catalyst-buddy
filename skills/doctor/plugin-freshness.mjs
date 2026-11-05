@@ -38,6 +38,9 @@ function describeFreshness(plugin, installedPlugins) {
     return { plugin: plugin.id, status: "missing" };
   }
   const installed = installs[0];
+  if (!installed.gitCommitSha) {
+    return { plugin: plugin.id, status: "unknown", installedVersion: installed.version };
+  }
   const upstreamSha = readUpstreamHead(plugin.repoUrl);
   if (upstreamSha === null) {
     return { plugin: plugin.id, status: "unknown", installedVersion: installed.version };
