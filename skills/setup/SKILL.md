@@ -23,7 +23,9 @@ does not exist; it is committed with the app.
 ```
 
 Run the steps in order, starting at the first one that is not `done`. Mark a step `done`
-only after you have seen it work; if it fails, it stays `todo`.
+only after you have seen it work; if it fails, it stays `todo`. Setup is finished only once
+`setup.json` is committed (`git ls-files --error-unmatch zcatalystai/buddy/setup.json`):
+every step `done` but not committed -> go straight to the commit at the end of section 3.
 
 ## 1. app
 
@@ -88,6 +90,7 @@ rg -n -i --hidden -g '!node_modules' -g '!pnpm-lock.yaml' -g '!.git' \
 
 The only hits allowed are the two "Started from" lines. Fix any other the same way.
 
-Mark `rename` done, then show `git status --short` and ask. On a yes, commit the kit, the
-rename and `setup.json` together as `Start <title> from <kit>` - the one commit exempt from
-the size limit in `${CLAUDE_PLUGIN_ROOT}/rules/commits.md`. Push only if the dev asks.
+Mark `rename` done, then commit the kit, the rename and `setup.json` together by
+`${CLAUDE_PLUGIN_ROOT}/rules/commits.md`, as `Start <title> from <kit>` - the one commit
+exempt from its size limit. Declined -> setup is not finished, and the next session offers
+the commit again. Push only if the dev asks.

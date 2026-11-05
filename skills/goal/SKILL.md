@@ -15,7 +15,7 @@ with no app code yet.
 | Folder | Ask? | Recommended |
 |---|---|---|
 | No app code yet - only what `catalyst init` wrote (no `package.json`, no `setup.json`) | no - only a new app makes sense; say so in one line | Entire app |
-| Has `zcatalystai/buddy/setup.json` with a step not `done` | yes | Entire app ("continue setting up the app") |
+| Has `zcatalystai/buddy/setup.json` with a step not `done`, or not committed yet | yes | Entire app ("continue setting up the app") |
 | Any other folder | yes | A feature |
 
 ## 2. Ask
@@ -44,8 +44,8 @@ One AskUserQuestion, "What are we doing?":
 | Understand the app | Start the `zcatalystai:explain` agent and show the dev its tour. Send each question the dev asks to that same agent (SendMessage) and show its answer. A change request -> offer the feature or fix goal. The route ends when the dev has no more questions. |
 
 **Entire app** - progress is read from files only, never from git history:
-- No app code yet, or `setup.json` with a step not `done` -> `zcatalystai:setup` (it
-  resumes at its first step not `done`), then `zcatalystai:infra`, `zcatalystai:plan` and
+- No app code yet, or `setup.json` with a step not `done` or not committed yet ->
+  `zcatalystai:setup` (it resumes where it stopped), then `zcatalystai:infra`, `zcatalystai:plan` and
   `zcatalystai:build`, which runs every stage from the base on.
 - `setup.json` all `done`, no `.claude/infra.md` -> `zcatalystai:infra`, then
   `zcatalystai:plan` and `zcatalystai:build`.
