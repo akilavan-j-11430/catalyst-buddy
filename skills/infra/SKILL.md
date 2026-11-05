@@ -56,8 +56,8 @@ question ("Does this need to store anything new?").
 
 Find the services that fit a need through `catalyst-by-zoho:catalyst-by-zoho`, which routes
 to the rest. Tell the dev the footprint in one line, e.g. "Catalyst: none - code only" or
-"Catalyst: new - <service> <resource>". None -> nothing more to decide here; hand over to
-`zcatalystai:plan`.
+"Catalyst: new - <service> <resource>". None -> nothing more to decide here; hand back as
+section 6's last line says.
 
 ## 3. Ways to cover it
 
@@ -161,4 +161,5 @@ environment, on the `mcpServer` in `zcatalystai/buddy/connect.json`.
 
 `.claude/infra.md` or the `@infra.md` line in `.claude/CLAUDE.md` changed -> one commit for
 the design by `${CLAUDE_PLUGIN_ROOT}/rules/commits.md`, before any code is written, so
-build never meets it as uncommitted work. Then hand over to `zcatalystai:plan`.
+build never meets it as uncommitted work. Then hand back to whoever ran infra: goal's route
+goes on to `zcatalystai:plan`; `zcatalystai:fix` goes on with its own section 3.
