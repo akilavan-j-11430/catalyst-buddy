@@ -110,9 +110,10 @@ strings, ZAID differing between environments).
 
 ## 5. Screens
 
-The base: invoke `hallmark:hallmark` on `apps/web`. It asks the dev its own questions
-(material, audience, use, tone); don't answer them for the dev. Give it these constraints
-from the kit, which are not negotiable:
+A base stage: invoke `hallmark:hallmark` on `apps/web` for what the stage names. In the
+first base stage it asks the dev its own questions (material, audience, use, tone); don't
+answer them for the dev, and reuse the answers in a second base stage. Give it these
+constraints from the kit, which are not negotiable:
 
 - Fonts and colours exist only as tokens in `apps/web/src/app/globals.css` (and the font
   loading in `apps/web/src/app/layout.tsx`). Never set a font family or a raw colour on a
@@ -123,10 +124,11 @@ from the kit, which are not negotiable:
   Bring it in line with the new typeface and colours by hand, as `typography.md` explains.
 - Data access in pages goes through `src/services/` and react-query -
   `.claude/rules/web-data-access.md`.
-- Scope: the layout, the home page and the sign-in screen.
+- Scope: what the stage names - the tokens and layout, the pages, or all of them.
 
-Once the dev is happy with the last base stage, ask hallmark to lock the system, so it
-writes `design.md` at the repo root and every later screen follows it.
+In the last base stage, once the dev accepts its screens (`auto`: once hallmark's questions
+are answered), ask hallmark to lock the system, so it writes `design.md` at the repo root
+before the stage's commit; every later screen follows it.
 
 A feature stage: every new or changed screen goes through `hallmark:hallmark` in redesign or
 component mode, against the repo's `design.md` if it has one, and an empty, loading and

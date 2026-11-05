@@ -40,7 +40,7 @@ Order the stages so each builds only on the ones before it.
 - **Entire app** - the first stage is the base: the layout, the home page and the sign-in
   screen, their look hallmark's at build time. Too big for the size limit -> two base
   stages: the tokens and layout, then the pages. When the base is already built
-  (`design.md` exists - build locks it after the base), there is no base stage. Then one
+  (`design.md` exists - build locks it in the last base stage), there is no base stage. Then one
   stage per thing the `## Domain` in `infra.md` says users do, starting with what they do
   first. Every resource in `infra.md` is used by at least one stage; one that isn't ->
   raise it with the dev.
