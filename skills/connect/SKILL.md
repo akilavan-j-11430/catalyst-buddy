@@ -104,7 +104,8 @@ reviews or rolls back, and the remote keeps it safe. Nothing about git goes in `
    code goes: the URL of an existing empty repo; a new repo on GitHub (`gh`); or a new repo
    on zrepository (`zr`). For a new one, check `gh auth status` or `zr auth status` first,
    name it after the folder, and ask once more right before running
-   `gh repo create <owner>/<repo-name> --private` or `zr repo create`. Then
+   `gh repo create <owner>/<repo-name> --private` or `zr repo create <repo-name> --private` -
+   `zr` makes a public repo unless told otherwise. Then
    `git remote add origin <url>`. Never push here.
 3. **Declined.** The dev says no to either -> say in one line that Buddy needs git and a
    remote to change code, so this session can only explain the app.
