@@ -1,6 +1,6 @@
 ---
 name: infra
-description: Catalyst Buddy's Catalyst design for an entire app, a feature or a fix - work out the request's Catalyst footprint (none, existing resources, or new), always offer two or three ways to cover it on Catalyst with their pros and cons and one recommended (for a new footprint each way designed in parallel by its own infra-way agent, no two alike), write the agreed design to .claude/infra.md (imported by .claude/CLAUDE.md), and create its Catalyst resources once the dev approves. The code - routes and screens - is zcatalystai:plan's. Used by goal and fix.
+description: Catalyst Buddy's Catalyst design for an app, feature or fix: the footprint, two or three ways (parallel infra-way agents for new resources), .claude/infra.md, the resources created in Development, and the design committed.
 ---
 
 # Infra
@@ -17,7 +17,8 @@ design is committed (section 6).
 
 ## 1. Understand
 
-Read what exists first: `.claude/infra.md` if there is one, `.claude/CLAUDE.md`,
+Read what exists first: `.claude/infra.md` if there is one, `zcatalystai/buddy/setup.json`
+for an entire app (its title and description), `.claude/CLAUDE.md`,
 `.claude/rules/*.md`, `catalyst.json`, and the project's resources on the `mcpServer` in
 `zcatalystai/buddy/connect.json` (`List_*` tools).
 
@@ -51,7 +52,7 @@ question ("Does this need to store anything new?").
 | Footprint | Meaning | How deep the design goes |
 |---|---|---|
 | **None** | code only; Catalyst is not touched | no Catalyst skills, no MCP calls |
-| **Existing** | uses resources the project already has | load the skill of each service it touches (`catalyst-by-zoho:<service>`) and read those resources with `List_*` / `Get_*` |
+| **Existing** | uses resources the project already has, as they are or with changed settings (a new column, a permission, a scope) | load the skill of each service it touches (`catalyst-by-zoho:<service>`) and read those resources with `List_*` / `Get_*` |
 | **New** | needs new resources or a new service - always the case for an entire app | as Existing, plus for every candidate service check fit, limits, data-centre availability (`dataCentre` in `connect.json`) and cost against its skill and `catalyst-by-zoho:catalyst-pricing` |
 
 Find the services that fit a need through `catalyst-by-zoho:catalyst-by-zoho`, which routes
@@ -128,14 +129,17 @@ Show it in full and wait for a yes; change it and show it again if asked.
   `## Role`, and in a new `.claude/CLAUDE.md` holding only that line when there is none. The import is relative to `.claude/CLAUDE.md`, so
   every session loads it. Later sessions trust it, so it must stay true as the app grows.
 - **Feature or fix** with new resources -> add them to the `Resources` list in
-  `.claude/infra.md`. No `infra.md` yet (a codebase Buddy did not set up) -> create it with
+  `.claude/infra.md`. A feature that adds a kind of user or a job they do -> one sentence in
+  `## Domain`; scheduled or event-driven work -> a line in `Background work`. No `infra.md` yet (a codebase Buddy did not set up) -> create it with
   the sections the code and this request can fill, and attach it as above. An existing
-  footprint changes nothing here.
+  footprint with changed settings -> update those resources' lines; used as they are ->
+  nothing changes here.
 
 ## 5. Create the resources
 
-Once the dev approved the design, create its new Catalyst resources - nothing to do when
-the footprint is existing. A new app on the zoho-token kit also needs the `ZohoConnection`
+Once the dev approved the design, create its new Catalyst resources and apply its changes
+to existing ones (the matching `Update_*` or `Create_Column` tool) - nothing to do when it
+uses resources as they are. A new app on the zoho-token kit also needs the `ZohoConnection`
 table (`REFERENCE_ID`, `REFRESH_TOKEN` encrypted, App User scope USER) and the default Cache
 segment, as `.claude/rules/zoho-token.md` says. Everything goes to the **Development**
 environment, on the `mcpServer` in `zcatalystai/buddy/connect.json`.
@@ -145,8 +149,9 @@ environment, on the `mcpServer` in `zcatalystai/buddy/connect.json`.
    Every parameter that points at another resource (an `*_id`, or a name that must already
    exist) is a dependency: look it up with the matching `List_*` or `Get_*` tool, use its ID
    if it exists, otherwise add it to the list and work out its own dependencies the same
-   way. A dependency that is code - deployed from the repo, not created by a tool - is built
-   and deployed first; mark it as a pause. No tool, or a setting the tool doesn't take ->
+   way. A resource that depends on code not written yet (a cron or job that runs a function)
+   is not created now: list it in `infra.md` with `- waits for: <the code>`, and the plan
+   stage that writes that code creates it. No tool, or a setting the tool doesn't take ->
    exact Console or CLI steps from the service's skill.
 2. **Show the order.** One numbered list, dependencies first: the resource, how it gets made
    (MCP tool, dev deploys, or Console/CLI steps) and its key settings, including Data Store
@@ -161,7 +166,8 @@ environment, on the `mcpServer` in `zcatalystai/buddy/connect.json`.
 
 ## 6. Commit the design
 
-`.claude/infra.md` or the `@infra.md` line in `.claude/CLAUDE.md` changed -> one commit for
+Make sure the `@infra.md` line is in `.claude/CLAUDE.md` (section 4). Then, when
+`.claude/infra.md` or that line changed -> one commit for
 the design by `${CLAUDE_PLUGIN_ROOT}/rules/commits.md`, before any code is written, so
 build never meets it as uncommitted work. Then hand back to whoever ran infra: goal's route
 goes on to `zcatalystai:plan`; `zcatalystai:fix` goes on with its own section 3.

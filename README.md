@@ -86,7 +86,8 @@ If another plugin also ships an agent named `buddy`, use the scoped name:
 | Explain | `explain` (agent) | Read-only tour: what the app does, how it is built, its Catalyst resources, how to run it; then answers your questions |
 
 Buddy always asks before it writes to disk (apart from its own state files under
-`zcatalystai/buddy/`), creates Catalyst resources (Development only),
+`zcatalystai/buddy/`, `.git/info/exclude`, and copying a `.env.example` to a missing
+`.env`), creates Catalyst resources (Development only),
 commits, pushes, creates a repo, or deploys - except that in build's Fully auto mode the
 plan you approved covers writing and committing its stages. It never pushes or deploys
 without asking, and never asks you to paste secrets into the chat.

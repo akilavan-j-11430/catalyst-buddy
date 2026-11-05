@@ -1,6 +1,6 @@
 ---
 name: plan
-description: Catalyst Buddy's code plan, after infra - turn an entire app or a feature into ordered stages (the routes, types, data access and screens of each, and the check that proves it), agreed with the dev in one pass and written to zcatalystai/buddy/plan.json (kept out of git) for build to run one by one; for a fix, the code change. Never adds a Catalyst resource. Used by goal and fix.
+description: Catalyst Buddy's code plan after infra: small ordered stages - routes, data, screens and a check each - approved once and written to zcatalystai/buddy/plan.json for build; for a fix, the code change.
 ---
 
 # Plan
@@ -40,19 +40,22 @@ Order the stages so each builds only on the ones before it.
 - **Entire app** - the first stage is the base: the layout, the home page and the sign-in
   screen, their look hallmark's at build time. Too big for the size limit -> two base
   stages: the tokens and layout, then the pages. When the base is already built
-  (`design.md` exists - build locks it after the base), there is no base stage. Then one
+  (`design.md` exists - build locks it in the last base stage), there is no base stage. Then one
   stage per thing the `## Domain` in `infra.md` says users do, starting with what they do
-  first. Every resource in `infra.md` is used by at least one stage; one that isn't ->
-  raise it with the dev.
-- **Feature** - as many stages as it takes to keep each one that small.
+  first. Leave out what the code already does - read its routes and pages first - and say
+  in one line which you left out. Every resource in `infra.md` is used by at least one
+  stage or by code that exists; one that isn't -> raise it with the dev.
+- **Feature** - as many stages as it takes to keep each one that small. Every resource
+  infra added for it is used by a stage; one that isn't -> raise it with the dev.
 
 For each stage name:
 
 | Part | What to name |
 |---|---|
 | Routes | method and path, request, response, Catalyst scopes |
-| Data | the domain types in `packages/types`, and the `resources.ts` handle and repository for each table it touches, with their methods |
+| Data | the domain types in `packages/types`, and the `resources.ts` handle and repository for each table it touches, with their methods; on the zoho-token kit, any Zoho scope it needs beyond `ZOHO_TOKEN_SCOPES` |
 | Screens | the `src/services/` functions and `ApiPath` entries, the pages and components, and the empty, loading and error state of every list or form |
+| Catalyst | a `waits for` resource in `infra.md` that this stage's code unblocks, if any |
 | Check | the user action that proves it works, and what it leaves in Catalyst |
 
 In a codebase that is not a starter-kit app (no `packages/node-utils`), name the parts in
@@ -80,8 +83,10 @@ plan file:
 }
 ```
 
+- `catalyst` - only on a stage that unblocks a `waits for` resource: that resource's name.
 - `base` - `true` on a base stage only (omit it otherwise); build runs its base steps for it.
-- `name` - also the stage's commit subject: imperative, what a user can now do.
+- `name` - also the stage's commit subject, in the imperative: what a user can now do, or for
+  a rename or move stage, what it renames or moves.
 - `status` - `todo` or `done`; build sets it, so a stopped build resumes at the first `todo`.
 - `mode` - not written by plan; build asks the dev and adds `auto`, `learn` or `review`
   before stage 1, so a resumed build keeps it.

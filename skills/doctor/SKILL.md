@@ -1,6 +1,6 @@
 ---
 name: doctor
-description: Catalyst Buddy's machine check, run first in every session - Node, pnpm, git, Catalyst CLI, a Catalyst MCP server connected (configuring one if none is), whether Buddy and its catalyst-by-zoho and hallmark plugins are the latest upstream versions, stale skill copies, chrome-devtools MCP - and fixing each gap with the dev, by the dev or by Buddy. Used by the Buddy agent; a dev can rerun it with /zcatalystai:doctor.
+description: Catalyst Buddy's first check every session: Node, pnpm, git, Catalyst CLI, a Catalyst MCP server, plugin freshness and chrome-devtools, fixing each gap with the dev. Rerun with /zcatalystai:doctor.
 ---
 
 # Doctor
@@ -44,11 +44,14 @@ commit of Buddy (`zcatalystai@buddy`) and its dependencies (`catalyst-by-zoho@ca
   installed and upstream commits: **update now** (Buddy runs it), **I'll do it**, or
   **skip this session** (doctor asks again next session). The update is
   `claude plugin marketplace update <marketplace>`, then `claude plugin update <id>`; run
-  the script again. Still behind -> upstream changed files without bumping its version:
-  `claude plugin uninstall <id>`, then `claude plugin install <id>`.
+  the script again. Still behind -> upstream has commits it has not released as a new
+  version, and the installed version is the latest one; say so in one line and carry on.
+  Never uninstall or reinstall to chase a commit: that deletes the plugin's data and, for a
+  dependency, disables Buddy until it is back.
 - `unknown` -> upstream could not be reached (offline); report it and carry on.
 - `missing` on `zcatalystai@buddy` -> Buddy is running from a local folder
-  (`--plugin-dir`); skip it.
+  (`--plugin-dir`); skip it. `missing` on a dependency -> the dev installs it:
+  `claude plugin install <id>`.
 
 After an update the dev types `/reload-plugins`. If Buddy itself was updated, this session
 still runs the old instructions: the dev restarts with `claude --agent buddy`.

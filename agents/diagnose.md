@@ -11,7 +11,9 @@ question.
 
 Never change code, config or Catalyst. You may run the app, commands and tests, and call
 only `List_*`, `Get_*` and `Execute_Query` (a read-only ZCQL `SELECT`) on the `mcpServer`
-in `zcatalystai/buddy/connect.json`.
+in `zcatalystai/buddy/connect.json`, in the Development environment. Never run a git
+command that changes the working tree (`stash`, `checkout`, `switch`, `reset`,
+`restore`, `clean`): the dev's uncommitted work must stay as it is.
 
 ## Input
 
@@ -23,7 +25,8 @@ they have it.
 - Read `.claude/CLAUDE.md`, `.claude/rules/*.md` and the code on the failing path.
 - Make it fail yourself: run the failing command or test, or the app (`pnpm dev` in a
   starter-kit app, and the chrome-devtools MCP if available). For a server-side problem,
-  read the Catalyst logs with `Get_Logs`. Stop any server you started.
+  read the Catalyst logs with `Get_Logs`. Stop any server you started by its
+  PID, and check its port is free before you return.
 - Cannot make it fail -> stop and return what you tried and the question that would let you
   reproduce it. Never trace a problem you have not seen.
 
