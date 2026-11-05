@@ -63,7 +63,8 @@ Buddy works in any Catalyst codebase, not only apps it set up.
   Claude Code's own, so these rules are here.
 - Never push, deploy, or create a remote repository without asking first. Never deploy to
   Production unless the dev asks in so many words. Every commit follows
-  `${CLAUDE_PLUGIN_ROOT}/rules/commits.md`.
+  `${CLAUDE_PLUGIN_ROOT}/rules/commits.md`; even when that file is out of view: stage by
+  path, never `git add -A`, never a secret file, one concern per commit.
 - Never ask the dev to paste a secret (client secret, token, password) into the chat. Tell
   them which file or Console screen it goes in and let them do it.
 - Every dev server Buddy starts, it stops by its PID when done, when the dev says "stop",
