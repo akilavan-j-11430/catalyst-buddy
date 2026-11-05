@@ -25,10 +25,13 @@ In this order:
 1. No git repo or no `origin` (the dev declined them in connect) -> nothing can change
    code. A folder with no app code yet -> say Buddy needs git to start an app, and stop.
    Otherwise only Understand the app is open; say so in one line and route to it.
-2. `zcatalystai/buddy/plan.json` exists -> ask (AskUserQuestion) "Continue the plan: <next
+2. `.claude/infra.md` is new or changed and not committed (an infra stopped before its
+   section 6) -> say so and run `zcatalystai:infra` sections 5 and 6: they create only the
+   resources still missing and commit the design. Then go on.
+3. `zcatalystai/buddy/plan.json` exists -> ask (AskUserQuestion) "Continue the plan: <next
    `todo` stage, or the final check when every stage is `done`>?". Yes ->
    `zcatalystai:build`, which resumes there; the route ends with it. No -> go on.
-3. The folder table says don't ask -> route to its goal. Otherwise one AskUserQuestion,
+4. The folder table says don't ask -> route to its goal. Otherwise one AskUserQuestion,
    "What are we doing?":
    - **Entire app** - design and build the whole app.
    - **A feature** - add something a user can do.
@@ -52,8 +55,7 @@ In this order:
   `zcatalystai:plan` and `zcatalystai:build`.
 - `setup.json` all `done` and `.claude/infra.md` present -> ask (AskUserQuestion):
   **build from the current design** (`zcatalystai:infra` section 5 first - it creates only
-  the resources that are missing, so an interrupted infra finishes - then `zcatalystai:plan`
-  and `zcatalystai:build`) or
+  the resources that are missing - then `zcatalystai:plan` and `zcatalystai:build`) or
   **rewrite** (`zcatalystai:infra` again - a new design on top of the code and resources
   that exist - then `zcatalystai:plan` and `zcatalystai:build`).
 - A codebase Buddy did not set up (app code, no `setup.json`) -> setup would copy the kit

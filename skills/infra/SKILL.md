@@ -161,7 +161,8 @@ environment, on the `mcpServer` in `zcatalystai/buddy/connect.json`.
 
 ## 6. Commit the design
 
-`.claude/infra.md` or the `@infra.md` line in `.claude/CLAUDE.md` changed -> one commit for
+Make sure the `@infra.md` line is in `.claude/CLAUDE.md` (section 4). Then, when
+`.claude/infra.md` or that line changed -> one commit for
 the design by `${CLAUDE_PLUGIN_ROOT}/rules/commits.md`, before any code is written, so
 build never meets it as uncommitted work. Then hand back to whoever ran infra: goal's route
 goes on to `zcatalystai:plan`; `zcatalystai:fix` goes on with its own section 3.
