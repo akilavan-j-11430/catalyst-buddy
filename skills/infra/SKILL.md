@@ -102,7 +102,8 @@ way distinct from the others, and show the table again.
 
 Show it in full and wait for a yes; change it and show it again if asked.
 
-- **Entire app** -> write `.claude/infra.md`; on a rewrite, replace it:
+- **Entire app** -> write `.claude/infra.md`; on a rewrite, replace it, still listing every
+  resource the project has - infra never deletes one:
 
   ```markdown
   # Infra

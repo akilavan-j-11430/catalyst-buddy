@@ -53,8 +53,8 @@ One AskUserQuestion, "What are we doing?":
   **build from the current design** (`zcatalystai:infra` section 5 first - it creates only
   the resources that are missing, so an interrupted infra finishes - then `zcatalystai:plan`
   and `zcatalystai:build`) or
-  **rewrite** (`zcatalystai:infra` again - the new `infra.md` replaces the old - then plan
-  and build).
+  **rewrite** (`zcatalystai:infra` again - a new design on top of the code and resources
+  that exist - then `zcatalystai:plan` and `zcatalystai:build`).
 - A codebase Buddy did not set up (app code, no `setup.json`) -> setup would copy the kit
   over its code. Say so, and offer to start the app in a new, empty folder instead.
 

@@ -37,8 +37,9 @@ A stage is the smallest thing a user can do end to end ("check in a pass"), not 
 
 Order the stages so each builds only on the ones before it.
 
-- **Entire app** - stage 1 is always the base: the layout, the home page and the sign-in
-  screen. Their look is hallmark's, at build time. Then one stage per thing the `## Domain` in
+- **Entire app** - stage 1 is the base: the layout, the home page and the sign-in screen.
+  When the base is already built (`design.md` exists - build locks it after the base),
+  there is no base stage. Their look is hallmark's, at build time. Then one stage per thing the `## Domain` in
   `infra.md` says users do, starting with what they do first. Every resource in `infra.md`
   is used by at least one stage; one that isn't -> raise it with the dev.
 - **Feature** - as many stages as it takes to keep each one that small.
