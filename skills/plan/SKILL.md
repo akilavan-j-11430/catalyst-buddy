@@ -37,11 +37,13 @@ A stage is the smallest thing a user can do end to end ("check in a pass"), not 
 
 Order the stages so each builds only on the ones before it.
 
-- **Entire app** - stage 1 is the base: the layout, the home page and the sign-in screen.
-  When the base is already built (`design.md` exists - build locks it after the base),
-  there is no base stage. Their look is hallmark's, at build time. Then one stage per thing the `## Domain` in
-  `infra.md` says users do, starting with what they do first. Every resource in `infra.md`
-  is used by at least one stage; one that isn't -> raise it with the dev.
+- **Entire app** - the first stage is the base: the layout, the home page and the sign-in
+  screen, their look hallmark's at build time. Too big for the size limit -> two base
+  stages: the tokens and layout, then the pages. When the base is already built
+  (`design.md` exists - build locks it after the base), there is no base stage. Then one
+  stage per thing the `## Domain` in `infra.md` says users do, starting with what they do
+  first. Every resource in `infra.md` is used by at least one stage; one that isn't ->
+  raise it with the dev.
 - **Feature** - as many stages as it takes to keep each one that small.
 
 For each stage name:
@@ -65,7 +67,6 @@ plan file:
 
 ```json
 {
-  "goal": "entire-app",
   "stages": [
     {
       "name": "Let staff check in a visitor pass",
@@ -79,7 +80,7 @@ plan file:
 }
 ```
 
-- `goal` - `entire-app` or `feature`; for `entire-app`, build treats stage 1 as the base.
+- `base` - `true` on a base stage only (omit it otherwise); build runs its base steps for it.
 - `name` - also the stage's commit subject: imperative, what a user can now do.
 - `status` - `todo` or `done`; build sets it, so a stopped build resumes at the first `todo`.
 - `mode` - not written by plan; build asks the dev and adds `auto`, `learn` or `review`

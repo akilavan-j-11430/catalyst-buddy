@@ -38,7 +38,7 @@ stage, in one line, and go:
 
 1. **Read** the files it names. If the code shows the stage cannot work as planned, stop,
    say why, and agree the change with the dev; update the stage in the plan file.
-2. **Implement** - section 3 for the base (stage 1 of an `entire-app` plan), section 4 for
+2. **Implement** - section 3 for a base stage (`"base": true`), section 4 for
    any other stage. Only what the stage names. When it grows past ~300 changed lines or ~10
    files, stop and agree with the dev how to split it in the plan file (`auto`: split it
    yourself and say so). `learn` -> section 2a.
@@ -49,7 +49,8 @@ stage, in one line, and go:
    push only if asked. `auto` -> commit without asking. `learn` and `review` -> the diff
    stat and the body's "Read in order" and "Look closely at" are the dev's review guide;
    wait for approval, and on a change request make it, verify again and show it again.
-   Then set its `status` to `done` in the plan file. After the base, also section 7.
+   Then set its `status` to `done` in the plan file. After the last base stage, also
+   section 7.
 
 Then the next `todo` stage. The dev can stop at any point; the next session resumes here.
 `auto` stops only when blocked: the same failure twice, or a stage that cannot work as
@@ -69,8 +70,8 @@ in the code blocks the commit.
 ## 3. The base
 
 No domain code yet - no repository classes or `resources.ts` entries; they come with the
-first stage that uses a resource. Walk the dev through the env values the README's "First
-run" section lists; values that are secrets, the dev types in themselves.
+first stage that uses a resource. In the first base stage, walk the dev through the env
+values the README's "First run" section lists; values that are secrets, the dev types in themselves.
 
 zoho-token kit: walk the dev through registering a **Server-based client** at the Zoho API
 Console for their data centre, with the Authorized Redirect URI
@@ -124,8 +125,8 @@ from the kit, which are not negotiable:
   `.claude/rules/web-data-access.md`.
 - Scope: the layout, the home page and the sign-in screen.
 
-Once the dev is happy with the base, ask hallmark to lock the system, so it writes
-`design.md` at the repo root and every later screen follows it.
+Once the dev is happy with the last base stage, ask hallmark to lock the system, so it
+writes `design.md` at the repo root and every later screen follows it.
 
 A feature stage: every new or changed screen goes through `hallmark:hallmark` in redesign or
 component mode, against the repo's `design.md` if it has one, and an empty, loading and
