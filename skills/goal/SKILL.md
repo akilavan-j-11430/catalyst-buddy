@@ -50,7 +50,9 @@ One AskUserQuestion, "What are we doing?":
 - `setup.json` all `done`, no `.claude/infra.md` -> `zcatalystai:infra`, then
   `zcatalystai:plan` and `zcatalystai:build`.
 - `setup.json` all `done` and `.claude/infra.md` present -> ask (AskUserQuestion):
-  **build from the current design** (`zcatalystai:plan`, then `zcatalystai:build`) or
+  **build from the current design** (`zcatalystai:infra` section 5 first - it creates only
+  the resources that are missing, so an interrupted infra finishes - then `zcatalystai:plan`
+  and `zcatalystai:build`) or
   **rewrite** (`zcatalystai:infra` again - the new `infra.md` replaces the old - then plan
   and build).
 - A codebase Buddy did not set up (app code, no `setup.json`) -> setup would copy the kit
