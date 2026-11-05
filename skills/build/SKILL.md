@@ -166,8 +166,9 @@ values). Then go on to the next stage.
 
 Every stage is done. Verify them all together, since a later stage can break an earlier
 one: run the checks in section 6 once, then, with one dev server, every stage's `check` in
-order. Something fails -> fix the cause, commit the fix by the same rules (`auto`: without asking, as for a stage), and run the
-whole verification again. All pass -> delete the plan file, and tell the dev in one line
+order, and a smoke of what earlier plans built - the home page, the ping, and each existing
+page opened once. Something fails -> fix the cause, commit the fix by the same rules
+(`auto`: without asking, as for a stage), and run the whole verification again. All pass -> delete the plan file, and tell the dev in one line
 what the app can now do.
 
 ## Deploying
