@@ -1,6 +1,6 @@
 ---
 name: connect
-description: Catalyst Buddy's every-session check, in any folder, that it is bound to a Catalyst project (catalyst init done - the dev runs it if not), which connected MCP server reaches that project (recorded in a gitignored zcatalystai/buddy/connect.json), and that the folder is a git repo with an origin remote - both mandatory. Used by the Buddy agent after doctor; a dev can rerun it with /zcatalystai:connect.
+description: Catalyst Buddy's every-session check, in any folder, that it is bound to a Catalyst project (catalyst init done - the dev runs it if not), which connected MCP server reaches that project (recorded in zcatalystai/buddy/connect.json, kept out of git), and that the folder is a git repo with an origin remote - required for goals that change code. Used by the Buddy agent after doctor; a dev can rerun it with /zcatalystai:connect.
 ---
 
 # Connect
@@ -21,9 +21,8 @@ session is summarised:
 }
 ```
 
-Server names differ from machine to machine, so the file is per machine: make sure the
-app's `.gitignore` lists `zcatalystai/buddy/connect.json` and `zcatalystai/buddy/plan.json`
-(plan's working file, also per checkout) - add the lines if not.
+Server names differ from machine to machine, so the file is per machine; section 3 keeps
+it, and plan's working file `zcatalystai/buddy/plan.json`, out of git.
 
 ## 1. catalyst init
 
@@ -98,6 +97,9 @@ reviews or rolls back, and the remote keeps it safe. Nothing about git goes in `
    `git init -b main`. A folder with code already in it -> also offer a baseline commit of
    what is there, so later diffs show only Buddy's changes; first make sure `.gitignore`
    keeps out `node_modules`, `.env` files and build output, and show `git status --short`.
+   Then make sure `.git/info/exclude` lists `zcatalystai/buddy/connect.json` and
+   `zcatalystai/buddy/plan.json` - add the lines if not. That file belongs to this clone, so
+   it changes nothing the dev commits and survives setup's kit copy.
 2. **Remote.** `git remote get-url origin`. Missing -> ask (AskUserQuestion) where the
    code goes: the URL of an existing empty repo; a new repo on GitHub (`gh`); or a new repo
    on zrepository (`zr`). For a new one, check `gh auth status` or `zr auth status` first,

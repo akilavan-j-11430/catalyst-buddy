@@ -1,6 +1,6 @@
 ---
 name: plan
-description: Catalyst Buddy's code plan, after infra - turn an entire app or a feature into ordered stages (the routes, types, data access and screens of each, and the check that proves it), agreed with the dev in one pass and written to zcatalystai/buddy/plan.json (gitignored) for build to run one by one; for a fix, the code change. Never adds a Catalyst resource. Used by goal and fix.
+description: Catalyst Buddy's code plan, after infra - turn an entire app or a feature into ordered stages (the routes, types, data access and screens of each, and the check that proves it), agreed with the dev in one pass and written to zcatalystai/buddy/plan.json (kept out of git) for build to run one by one; for a fix, the code change. Never adds a Catalyst resource. Used by goal and fix.
 ---
 
 # Plan
@@ -10,7 +10,7 @@ write, against the Catalyst resources `zcatalystai:infra` decided. Plan never ad
 Catalyst resource; a plan that needs one the design doesn't have -> back to
 `zcatalystai:infra`. Nothing changes on disk until the dev approves the plan.
 
-The plan file is `zcatalystai/buddy/plan.json`, gitignored: it is the working state of one
+The plan file is `zcatalystai/buddy/plan.json`, kept out of git by connect: it is the working state of one
 checkout, and lives only until `zcatalystai:build` has built and verified every stage.
 
 ## 1. Read
