@@ -17,7 +17,8 @@ design is committed (section 6).
 
 ## 1. Understand
 
-Read what exists first: `.claude/infra.md` if there is one, `.claude/CLAUDE.md`,
+Read what exists first: `.claude/infra.md` if there is one, `zcatalystai/buddy/setup.json`
+for an entire app (its title and description), `.claude/CLAUDE.md`,
 `.claude/rules/*.md`, `catalyst.json`, and the project's resources on the `mcpServer` in
 `zcatalystai/buddy/connect.json` (`List_*` tools).
 

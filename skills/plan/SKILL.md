@@ -82,7 +82,8 @@ plan file:
 ```
 
 - `base` - `true` on a base stage only (omit it otherwise); build runs its base steps for it.
-- `name` - also the stage's commit subject: imperative, what a user can now do.
+- `name` - also the stage's commit subject, in the imperative: what a user can now do, or for
+  a rename or move stage, what it renames or moves.
 - `status` - `todo` or `done`; build sets it, so a stopped build resumes at the first `todo`.
 - `mode` - not written by plan; build asks the dev and adds `auto`, `learn` or `review`
   before stage 1, so a resumed build keeps it.

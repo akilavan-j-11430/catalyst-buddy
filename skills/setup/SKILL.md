@@ -97,6 +97,6 @@ rg -n -i --hidden -g '!node_modules' -g '!pnpm-lock.yaml' -g '!.git' -g '!zcatal
 The only hits allowed are the two "Started from" lines. Fix any other the same way.
 
 Mark `rename` done, then commit the kit, the rename and `setup.json` together by
-`${CLAUDE_PLUGIN_ROOT}/rules/commits.md`, as `Start <title> from <kit>` - the one commit
-exempt from its size limit. Declined -> setup is not finished: the route ends here, and the next
-session offers the commit again. Push only if the dev asks.
+`${CLAUDE_PLUGIN_ROOT}/rules/commits.md`, as `Start <title> from <kit>` - one of the
+two commits exempt from its size limit. Declined -> setup is not finished: the route ends
+here, and the next session offers the commit again. Push only if the dev asks.

@@ -44,6 +44,5 @@ error text if they have it.
 
 ## 6. Wrap up
 
-One commit for the fix, by the commit rules in
-`${CLAUDE_PLUGIN_ROOT}/rules/commits.md`, its subject saying what was broken; push only if
-asked.
+One commit for the fix, by the commit rules in `${CLAUDE_PLUGIN_ROOT}/rules/commits.md`, its
+imperative subject saying what it fixes ("Fix ..."); push only if asked.

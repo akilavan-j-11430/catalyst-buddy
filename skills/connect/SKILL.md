@@ -30,7 +30,7 @@ Read `.catalystrc`. The active project (`actives.project` points at an `idx` in
 `projects`) gives the project ID (`id`) and name; the `id` of its Development entry in
 `env` is the org ID.
 
-- **Present** -> go to section 2.
+- **Present** -> go on to the `.env` copy below.
 - **Missing** (a new folder, a fresh clone, or a codebase never bound) -> the dev runs
   `catalyst init`; it is interactive, so Buddy starts nothing itself:
   1. `catalyst whoami`. Not logged in -> the dev runs `! catalyst login`.
@@ -41,7 +41,7 @@ Read `.catalystrc`. The active project (`actives.project` points at an `idx` in
      prompts need a real terminal - answers them, and says "done".
   4. Read `.catalystrc` again. Still missing -> show what happened and ask.
 
-Then copy each `.env.example` that has no `.env` beside it, and tell the dev which files
+Then, either way, copy each `.env.example` that has no `.env` beside it, and tell the dev which files
 need values. Values that are secrets, the dev types in themselves.
 
 ## 2. MCP server
