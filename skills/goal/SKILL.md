@@ -20,19 +20,20 @@ with no app code yet.
 
 ## 2. Ask
 
-`zcatalystai/buddy/plan.json` exists -> first ask (AskUserQuestion) "Continue the plan:
-<next `todo` stage, or the final check when every stage is `done`>?". Yes ->
-`zcatalystai:build`, which resumes there; the route ends with it. No -> go on.
+In this order:
 
-No git repo or no `origin` (the dev declined them in connect) -> don't ask: only
-Understand the app is open; say so in one line and route to it.
-
-One AskUserQuestion, "What are we doing?":
-
-- **Entire app** - design and build the whole app.
-- **A feature** - add something a user can do.
-- **A fix** - something is broken.
-- **Understand the app** - a tour and answers; nothing changes.
+1. No git repo or no `origin` (the dev declined them in connect) -> nothing can change
+   code. A folder with no app code yet -> say Buddy needs git to start an app, and stop.
+   Otherwise only Understand the app is open; say so in one line and route to it.
+2. `zcatalystai/buddy/plan.json` exists -> ask (AskUserQuestion) "Continue the plan: <next
+   `todo` stage, or the final check when every stage is `done`>?". Yes ->
+   `zcatalystai:build`, which resumes there; the route ends with it. No -> go on.
+3. The folder table says don't ask -> route to its goal. Otherwise one AskUserQuestion,
+   "What are we doing?":
+   - **Entire app** - design and build the whole app.
+   - **A feature** - add something a user can do.
+   - **A fix** - something is broken.
+   - **Understand the app** - a tour and answers; nothing changes.
 
 ## 3. Route
 
