@@ -32,8 +32,9 @@ resources; build writes the code that uses them.
 
 ## 2. Each stage
 
-Take the first stage with `"status": "todo"`. If the last commit's subject is that stage's
-`name`, the session stopped after committing it: set it `done` and take the next. Say which
+Take the first stage with `"status": "todo"`. A commit whose subject is exactly that
+stage's `name` already exists (`git log --format=%s | grep -Fx '<name>'`) -> the session
+stopped after committing it: set it `done` and take the next. Say which
 stage, in one line, and go:
 
 1. **Read** the files it names. If the code shows the stage cannot work as planned, stop,
