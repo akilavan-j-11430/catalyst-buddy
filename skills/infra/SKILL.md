@@ -95,8 +95,9 @@ by its own agent, so each brings its own idea:
 | Cons (complexity, limits, price) | | | |
 | How we'll know it works | | | |
 
-The dev picks one (AskUserQuestion) or asks for changes; make the change yourself, keep the
-way distinct from the others, and show the table again.
+The dev picks one (AskUserQuestion; with a single way, "go with it" or "change it") or asks
+for changes; make the change yourself, keep the way distinct from the others, and show the
+table again.
 
 ## 4. Write the design
 
