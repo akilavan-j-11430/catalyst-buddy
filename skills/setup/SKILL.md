@@ -50,14 +50,16 @@ Record `title` and `description`.
    (https://github.com/akilavan-j-11430/catalyst-zoho-token-mono-repo); no -> the basic kit
    (https://github.com/akilavan-j-11430/catalyst-basic-mono-repo). Say which and why in one
    line.
-2. Clone it next to the app, then copy it in - `git clone` refuses a non-empty folder:
+2. Clone it into a temporary folder inside the app, then copy it in - `git clone` refuses a
+   non-empty folder. From the app folder, with every path quoted:
 
    ```bash
-   rm -rf ../.<folder>-kit      # left over from an interrupted clone
-   git clone --depth 1 <kitUrl> ../.<folder>-kit
-   rm -rf ../.<folder>-kit/.git
-   cp -R ../.<folder>-kit/. ./
-   rm -rf ../.<folder>-kit
+   grep -qx '.kit-tmp/' .git/info/exclude || echo '.kit-tmp/' >> .git/info/exclude
+   rm -rf "./.kit-tmp"                      # left over from an interrupted clone
+   git clone --depth 1 "<kitUrl>" "./.kit-tmp"
+   rm -rf "./.kit-tmp/.git"
+   cp -R "./.kit-tmp/." "./"
+   rm -rf "./.kit-tmp"
    ```
 
 The kit's `.git` is deleted before the copy, so the app keeps the empty history connect
