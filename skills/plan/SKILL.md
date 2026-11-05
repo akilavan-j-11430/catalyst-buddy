@@ -53,7 +53,7 @@ For each stage name:
 | Part | What to name |
 |---|---|
 | Routes | method and path, request, response, Catalyst scopes |
-| Data | the domain types in `packages/types`, and the `resources.ts` handle and repository for each table it touches, with their methods |
+| Data | the domain types in `packages/types`, and the `resources.ts` handle and repository for each table it touches, with their methods; on the zoho-token kit, any Zoho scope it needs beyond `ZOHO_TOKEN_SCOPES` |
 | Screens | the `src/services/` functions and `ApiPath` entries, the pages and components, and the empty, loading and error state of every list or form |
 | Catalyst | a `waits for` resource in `infra.md` that this stage's code unblocks, if any |
 | Check | the user action that proves it works, and what it leaves in Catalyst |

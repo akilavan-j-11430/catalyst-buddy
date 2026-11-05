@@ -107,7 +107,9 @@ and its rules. The ones that matter most:
 - Web data through `src/services/` + react-query, forms through react-hook-form, paths from
   `ApiPath` (`web-data-access.md`).
 - For the zoho-token kit, Zoho API calls follow `zoho-token.md`: one `ZohoConnection`, a grant
-  per execution, the token fetched per request.
+  per execution, the token fetched per request. A stage that needs a new Zoho scope -> the
+  dev adds it to `ZOHO_TOKEN_SCOPES` in `apps/api/.env` and connects to Zoho again in the
+  app before the check.
 
 Before a ZCQL query, a Data Store write, or an auth check, load
 `catalyst-by-zoho:catalyst-datastore` or `catalyst-by-zoho:catalyst-authentication` - both
