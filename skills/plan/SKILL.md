@@ -1,6 +1,6 @@
 ---
 name: plan
-description: Catalyst Buddy's code plan, after infra - turn an entire app or a feature into ordered stages (the routes, types, data access and screens of each, and the check that proves it), agreed with the dev in one pass and written to plan.json in the plugin data for build to run one by one; for a fix, the code change. Never adds a Catalyst resource. Used by goal and fix.
+description: Catalyst Buddy's code plan after infra: small ordered stages - routes, data, screens and a check each - approved once and written to zcatalystai/buddy/plan.json for build; for a fix, the code change.
 ---
 
 # Plan
@@ -10,15 +10,13 @@ write, against the Catalyst resources `zcatalystai:infra` decided. Plan never ad
 Catalyst resource; a plan that needs one the design doesn't have -> back to
 `zcatalystai:infra`. Nothing changes on disk until the dev approves the plan.
 
-The plan file is `${CLAUDE_PLUGIN_DATA}/<folder>/plan.json`, where `<folder>` is this
-folder's absolute path with every character other than a letter, digit, `_` or `-`
-replaced by `-`. It lives outside the repo and only until `zcatalystai:build` has built and
-verified every stage.
+The plan file is `zcatalystai/buddy/plan.json`, kept out of git by connect: it is the working state of one
+checkout, and lives only until `zcatalystai:build` has built and verified every stage.
 
 ## 1. Read
 
-- The plan file. It exists with a `todo` stage -> ask whether to finish it first
-  (`zcatalystai:build`) or replace it.
+- The plan file, for an entire app or a feature. It exists -> goal already asked to
+  continue it and the dev said no, so the new plan replaces it. A fix never touches it.
 - `.claude/infra.md`, `.claude/CLAUDE.md`, every `.claude/rules/*.md`, and `design.md` if
   it exists. No `infra.md` -> the code is the design; read it.
 - The code the plan touches. In a starter-kit app:
@@ -39,19 +37,25 @@ A stage is the smallest thing a user can do end to end ("check in a pass"), not 
 
 Order the stages so each builds only on the ones before it.
 
-- **Entire app** - stage 1 is always the base: the layout, the home page and the sign-in
-  screen. Their look is hallmark's, at build time. Then one stage per thing the `## Domain` in
-  `infra.md` says users do, starting with what they do first. Every resource in `infra.md`
-  is used by at least one stage; one that isn't -> raise it with the dev.
-- **Feature** - as many stages as it takes to keep each one that small.
+- **Entire app** - the first stage is the base: the layout, the home page and the sign-in
+  screen, their look hallmark's at build time. Too big for the size limit -> two base
+  stages: the tokens and layout, then the pages. When the base is already built
+  (`design.md` exists - build locks it in the last base stage), there is no base stage. Then one
+  stage per thing the `## Domain` in `infra.md` says users do, starting with what they do
+  first. Leave out what the code already does - read its routes and pages first - and say
+  in one line which you left out. Every resource in `infra.md` is used by at least one
+  stage or by code that exists; one that isn't -> raise it with the dev.
+- **Feature** - as many stages as it takes to keep each one that small. Every resource
+  infra added for it is used by a stage; one that isn't -> raise it with the dev.
 
 For each stage name:
 
 | Part | What to name |
 |---|---|
 | Routes | method and path, request, response, Catalyst scopes |
-| Data | the domain types in `packages/types`, and the `resources.ts` handle and repository for each table it touches, with their methods |
+| Data | the domain types in `packages/types`, and the `resources.ts` handle and repository for each table it touches, with their methods; on the zoho-token kit, any Zoho scope it needs beyond `ZOHO_TOKEN_SCOPES` |
 | Screens | the `src/services/` functions and `ApiPath` entries, the pages and components, and the empty, loading and error state of every list or form |
+| Catalyst | a `waits for` resource in `infra.md` that this stage's code unblocks, if any |
 | Check | the user action that proves it works, and what it leaves in Catalyst |
 
 In a codebase that is not a starter-kit app (no `packages/node-utils`), name the parts in
@@ -66,10 +70,9 @@ plan file:
 
 ```json
 {
-  "goal": "entire-app",
   "stages": [
     {
-      "name": "Staff check in a visitor pass",
+      "name": "Let staff check in a visitor pass",
       "status": "todo",
       "routes": ["POST /api/v1/passes - { visitorName, hostId } -> Pass; scope: user"],
       "data": ["Pass type", "VisitorPass handle", "PassRepository.create"],
@@ -80,7 +83,10 @@ plan file:
 }
 ```
 
-- `goal` - `entire-app` or `feature`; for `entire-app`, build treats stage 1 as the base.
+- `catalyst` - only on a stage that unblocks a `waits for` resource: that resource's name.
+- `base` - `true` on a base stage only (omit it otherwise); build runs its base steps for it.
+- `name` - also the stage's commit subject, in the imperative: what a user can now do, or for
+  a rename or move stage, what it renames or moves.
 - `status` - `todo` or `done`; build sets it, so a stopped build resumes at the first `todo`.
 - `mode` - not written by plan; build asks the dev and adds `auto`, `learn` or `review`
   before stage 1, so a resumed build keeps it.

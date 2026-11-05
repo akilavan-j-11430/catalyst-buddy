@@ -1,6 +1,6 @@
 ---
 name: setup
-description: Catalyst Buddy's new-app setup, for the Entire app goal in a folder with no app code yet - ask what the app is and record its title and description, clone the starter kit into it, and rename the kit to the app. Infra, plan and build come next. Tracks its steps in zcatalystai/buddy/setup.json so an interrupted setup resumes. Used by the Buddy agent; a dev can rerun it with /zcatalystai:setup.
+description: Catalyst Buddy's new-app setup in an empty folder: title and description, clone and rename the starter kit, and commit it. Tracked in zcatalystai/buddy/setup.json so it resumes. Rerun with /zcatalystai:setup.
 ---
 
 # Setup
@@ -8,6 +8,10 @@ description: Catalyst Buddy's new-app setup, for the Entire app goal in a folder
 Runs only for the Entire app goal, in the app's own folder, named for the app (the folder
 name is the repo name). The folder has no app code yet - only what `catalyst init` wrote
 when `zcatalystai:connect` bound it to a Catalyst project.
+
+Guard, even when the dev runs `/zcatalystai:setup` by hand: no `setup.json` and the folder
+holds anything beyond `.git`, `.catalystrc`, `zcatalystai/` and an empty `catalyst.json`
+-> stop. The kit copy would overwrite that code; offer a new, empty folder instead.
 
 ## Progress
 
@@ -23,29 +27,21 @@ does not exist; it is committed with the app.
 ```
 
 Run the steps in order, starting at the first one that is not `done`. Mark a step `done`
-only after you have seen it work; if it fails, it stays `todo`.
+only after you have seen it work; if it fails, it stays `todo`. Setup is finished only once
+`setup.json` is committed (`git ls-files --error-unmatch zcatalystai/buddy/setup.json`):
+every step `done` but not committed -> go straight to the commit at the end of section 3.
 
 ## 1. app
 
-Find out what the app is, in one AskUserQuestion call with these four questions. Each offers
-its predefined answers; the dev can always type their own.
+Ask the dev, in plain text, for one or two sentences on what the app is for, with an
+example ("Gate staff scan fest passes and see who is inside"). Who uses it, its data and
+its size are infra's interview, not setup's.
 
-| Question | Answers |
-|---|---|
-| What kind of app is it? | Internal tool for staff / Portal for customers or partners / Public site or form / Automation with little or no UI |
-| What is the main thing it does? | Track and update records / Requests and approvals / Bookings and scheduling / Reports and dashboards |
-| Who signs in? | Staff of one company / Customers or partners / Anyone, with a social login / No one |
-| How big in the first year? | Under 50 users / 50 to 1,000 / 1,000 to 50,000 / More |
-
-Then ask the dev, in plain text, for one or two sentences on what it is for, with an
-example ("Gate staff scan fest passes and see who is inside").
-
-From the answers, propose three title and description pairs (AskUserQuestion). The title
+From that, propose three title and description pairs (AskUserQuestion). The title
 fits the folder name; the description is one sentence that ends with a full stop and
 becomes the page description and the README intro. The dev picks one or writes their own.
 
-Record `title` and `description`. The other answers are not recorded; they feed the next
-steps of this session.
+Record `title` and `description`.
 
 ## 2. clone
 
@@ -54,13 +50,16 @@ steps of this session.
    (https://github.com/akilavan-j-11430/catalyst-zoho-token-mono-repo); no -> the basic kit
    (https://github.com/akilavan-j-11430/catalyst-basic-mono-repo). Say which and why in one
    line.
-2. Clone it next to the app, then copy it in - `git clone` refuses a non-empty folder:
+2. Clone it into a temporary folder inside the app, then copy it in - `git clone` refuses a
+   non-empty folder. From the app folder, with every path quoted:
 
    ```bash
-   git clone --depth 1 <kitUrl> ../.<folder>-kit
-   rm -rf ../.<folder>-kit/.git
-   cp -R ../.<folder>-kit/. ./
-   rm -rf ../.<folder>-kit
+   grep -qx '.kit-tmp/' .git/info/exclude || echo '.kit-tmp/' >> .git/info/exclude
+   rm -rf "./.kit-tmp"                      # left over from an interrupted clone
+   git clone --depth 1 "<kitUrl>" "./.kit-tmp"
+   rm -rf "./.kit-tmp/.git"
+   cp -R "./.kit-tmp/." "./"
+   rm -rf "./.kit-tmp"
    ```
 
 The kit's `.git` is deleted before the copy, so the app keeps the empty history connect
@@ -91,8 +90,13 @@ the workspace names, the `@repo/*` scope, `.catalystrc`, and "Catalyst app" in c
 Then sweep:
 
 ```bash
-rg -n -i --hidden -g '!node_modules' -g '!pnpm-lock.yaml' -g '!.git' \
+rg -n -i --hidden -g '!node_modules' -g '!pnpm-lock.yaml' -g '!.git' -g '!zcatalystai' \
   '<kit>|starter kit|starter app|Catalyst App"|this is a template'
 ```
 
 The only hits allowed are the two "Started from" lines. Fix any other the same way.
+
+Mark `rename` done, then commit the kit, the rename and `setup.json` together by
+`${CLAUDE_PLUGIN_ROOT}/rules/commits.md`, as `Start <title> from <kit>` - one of the
+two commits exempt from its size limit. Declined -> setup is not finished: the route ends
+here, and the next session offers the commit again. Push only if the dev asks.

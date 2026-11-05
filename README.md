@@ -76,18 +76,21 @@ If another plugin also ships an agent named `buddy`, use the scoped name:
 | Step | Skill | What happens |
 |---|---|---|
 | Doctor | `doctor` | Every session: Node, pnpm, git, Catalyst CLI, a Catalyst MCP server connected (helps you configure one if none), plugins up to date, stale skill copies, chrome-devtools; fixes each gap with you or for you |
-| Setup | `setup` | New apps only: asks what the app is and records its title and description, asks which kit, clones it into the folder, renames the kit to the app |
-| Connect | `connect` | Every session: `catalyst init` done (binds the folder if not), which MCP server reaches its project, and a git repo with an `origin` remote (both required; it sets them up with you) |
+| Connect | `connect` | Every session: `catalyst init` done (binds the folder if not), which MCP server reaches its project, and a git repo with an `origin` remote (required to change code; it sets them up with you) |
 | Goal | `goal` | Every session: you pick entire app, a feature, a fix, or understand the app |
+| Setup | `setup` | New apps only: asks what the app is and records its title and description, asks which kit, clones it into the folder, renames the kit to the app, and commits it |
 | Infra | `infra` | For an app, a feature or a fix, the Catalyst side only: its footprint (none, existing, new), 2-3 ways to cover it with pros and cons and one recommended, the design you confirm written to `.claude/infra.md`, then its Catalyst resources created (dependencies first) |
-| Plan | `plan` | The code: an app or a feature as ordered stages - routes, types, data access, screens and the check of each - approved once and kept in `plan.json` in the plugin data; for a fix, the change |
-| Build | `build` | Asks the mode - Fully auto, Learn & Review (you write the parts that teach something) or Review only (each stage waits for your review) - then runs the stages in `plan.json` one by one: a new app's base (env values, hallmark UI, first commit), then each feature (code to the repo's rules, hallmark screens, verified in the browser); after a full verification it deletes `plan.json` |
-| Fix | `fix` | Takes the symptom from you; the `diagnose` agent reproduces it and finds the cause; then infra and plan design the fix, and fix applies it and verifies it with the same reproduction |
+| Plan | `plan` | The code: an app or a feature as ordered stages - routes, types, data access, screens and the check of each - approved once and kept in `zcatalystai/buddy/plan.json`, outside git; for a fix, the change |
+| Build | `build` | Asks the mode - Fully auto, Learn & Review (you write the parts that teach something) or Review only (each stage waits for your review) - then runs the stages in `plan.json` one by one: a new app's base (env values, hallmark UI), then each feature (code to the repo's rules, hallmark screens, verified in the browser); after a full verification it deletes `plan.json` |
+| Fix | `fix` | Takes the symptom from you; the `diagnose` agent reproduces it and finds the cause; infra joins only when Catalyst is involved, plan only for a change beyond one file; then fix applies it and verifies it with the same reproduction |
 | Explain | `explain` (agent) | Read-only tour: what the app does, how it is built, its Catalyst resources, how to run it; then answers your questions |
 
-Buddy always asks before it writes to disk, creates Catalyst resources (Development only),
-commits, pushes, creates a repo, or deploys. It never asks you to paste secrets into the
-chat.
+Buddy always asks before it writes to disk (apart from its own state files under
+`zcatalystai/buddy/`, `.git/info/exclude`, and copying a `.env.example` to a missing
+`.env`), creates Catalyst resources (Development only),
+commits, pushes, creates a repo, or deploys - except that in build's Fully auto mode the
+plan you approved covers writing and committing its stages. It never pushes or deploys
+without asking, and never asks you to paste secrets into the chat.
 
 ## Layout
 

@@ -1,6 +1,6 @@
 ---
 name: doctor
-description: Catalyst Buddy's machine check, run first in every session - Node, pnpm, git, Catalyst CLI, a Catalyst MCP server connected (configuring one if none is), whether Buddy and its catalyst-by-zoho and hallmark plugins are the latest upstream versions, stale skill copies, chrome-devtools MCP - and fixing each gap with the dev, by the dev or by Buddy. Used by the Buddy agent; a dev can rerun it with /zcatalystai:doctor.
+description: Catalyst Buddy's first check every session: Node, pnpm, git, Catalyst CLI, a Catalyst MCP server, plugin freshness and chrome-devtools, fixing each gap with the dev. Rerun with /zcatalystai:doctor.
 ---
 
 # Doctor
@@ -44,11 +44,14 @@ commit of Buddy (`zcatalystai@buddy`) and its dependencies (`catalyst-by-zoho@ca
   installed and upstream commits: **update now** (Buddy runs it), **I'll do it**, or
   **skip this session** (doctor asks again next session). The update is
   `claude plugin marketplace update <marketplace>`, then `claude plugin update <id>`; run
-  the script again. Still behind -> upstream changed files without bumping its version:
-  `claude plugin uninstall <id>`, then `claude plugin install <id>`.
+  the script again. Still behind -> upstream has commits it has not released as a new
+  version, and the installed version is the latest one; say so in one line and carry on.
+  Never uninstall or reinstall to chase a commit: that deletes the plugin's data and, for a
+  dependency, disables Buddy until it is back.
 - `unknown` -> upstream could not be reached (offline); report it and carry on.
 - `missing` on `zcatalystai@buddy` -> Buddy is running from a local folder
-  (`--plugin-dir`); skip it.
+  (`--plugin-dir`); skip it. `missing` on a dependency -> the dev installs it:
+  `claude plugin install <id>`.
 
 After an update the dev types `/reload-plugins`. If Buddy itself was updated, this session
 still runs the old instructions: the dev restarts with `claude --agent buddy`.
@@ -60,8 +63,11 @@ still runs the old instructions: the dev restarts with `claude --agent buddy`.
   each, ask who fixes it (AskUserQuestion): **Buddy runs it** - run the fix, then the check
   again - or **I'll do it** - give the exact command, wait, then run the check again.
   A command that prompts or opens a browser the dev always runs, as `! <command>`.
-- Checks 1, 2 and 3 must pass before Buddy goes on. A plugin the dev chose to skip is fine.
-  The rest: report, continue, and remind the dev at the step that needs them.
+- Checks 2, 3 and git (in check 1) must pass before Buddy goes on. Node 24 and pnpm must
+  pass only in an empty folder (a new app) or a starter-kit app (`packages/node-utils`); a
+  codebase on another runtime or version gets them reported, not required. A plugin the dev
+  chose to skip is fine. The rest: report, continue, and remind the dev at the step that
+  needs them.
 
 The fixes:
 

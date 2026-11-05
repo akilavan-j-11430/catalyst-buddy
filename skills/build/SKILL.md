@@ -1,23 +1,23 @@
 ---
 name: build
-description: Catalyst Buddy's build step - ask the build mode (Fully auto, Learn & Review, Review only), then run the stages in plan.json one by one in any Catalyst codebase (the base of a new app - env values, hallmark UI, first commit - then each feature stage: code to the repo's rules, hallmark screens, verified in the browser), against the Catalyst resources infra created; after a complete verification of every stage, delete plan.json. Used by goal after plan.
+description: Catalyst Buddy's build step: asks the mode (Fully auto, Learn & Review, Review only), builds the stages in plan.json one by one with a verified commit each, runs a final check and deletes plan.json. Used by goal after plan.
 ---
 
 # Build
 
 Runs the plan `zcatalystai:plan` wrote, one stage at a time. The plan file is
-`${CLAUDE_PLUGIN_DATA}/<folder>/plan.json`, where `<folder>` is this folder's absolute path
-with every character other than a letter, digit, `_` or `-` replaced by `-`. No plan file
+`zcatalystai/buddy/plan.json`. No plan file
 -> run `zcatalystai:plan` first. `zcatalystai:infra` has already created the Catalyst
 resources; build writes the code that uses them.
 
 ## 1. Know where you are
 
 - Read the plan file, `.claude/CLAUDE.md` (it imports `infra.md`), every
-  `.claude/rules/*.md`, and `design.md` if it exists. For a new app, title, description and
-  kit are in `zcatalystai/buddy/setup.json`.
-- `git status --short` and `git log --oneline -5`. If there is uncommitted work you did not
-  make, ask before touching those files.
+  `.claude/rules/*.md`, and `design.md` if it exists. The kit is the `Kit` line in
+  `.claude/infra.md`.
+- `git status --short` and `git log --oneline -5`. Uncommitted work -> show it and ask
+  whether it is the first `todo` stage half-built in an earlier session (continue from it)
+  or the dev's own work (leave it, and ask before touching those files).
 - **Mode.** The plan file has no `mode` -> ask once (AskUserQuestion) and write it there:
 
   | Mode | `mode` | The dev's part |
@@ -26,29 +26,35 @@ resources; build writes the code that uses them.
   | Learn & Review | `learn` | writes the parts of each stage that teach something, then reviews |
   | Review only | `review` | reviews each stage; the next starts only after it is approved and committed |
 
-  The dev can switch at any time by saying so; update `mode`. In every mode, pushing,
+  The dev can switch at any time by saying so; update `mode`. The switch applies from the
+  next stage, except `learn` -> `auto` mid-stage, where Buddy writes the open stubs itself. In every mode, pushing,
   deploying and anything the dev must do themselves (secrets, Console steps, hallmark's
   questions) still wait for the dev.
 
 ## 2. Each stage
 
-Take the first stage with `"status": "todo"`. Say which one, in one line, and go:
+Take the first stage with `"status": "todo"`. A commit whose subject is exactly that
+stage's `name` already exists (`git log --format=%s | grep -Fx '<name>'`) -> the session
+stopped after committing it: set it `done` and take the next. Say which
+stage, in one line, and go:
 
 1. **Read** the files it names. If the code shows the stage cannot work as planned, stop,
    say why, and agree the change with the dev; update the stage in the plan file.
-2. **Implement** - section 3 for the base (stage 1 of an `entire-app` plan), section 4 for
+2. **Implement** - section 3 for a base stage (`"base": true`), section 4 for
    any other stage. Only what the stage names. When it grows past ~300 changed lines or ~10
    files, stop and agree with the dev how to split it in the plan file (`auto`: split it
    yourself and say so). `learn` -> section 2a.
-3. **Screens** - section 5.
-4. **Verify** - section 6, with the stage's `check`.
+3. **Screens** - section 5; skip it when the stage names no screens.
+4. **Verify** - section 6, with the stage's `check`. A stage that unblocks a `waits for`
+   resource: before the check, ask the dev to deploy its code to Development
+   (`pnpm run deploy`), then run `zcatalystai:infra` section 5 for that resource.
 5. **Done** - one commit for the stage, by the commit rules in
-   `${CLAUDE_PLUGIN_ROOT}/rules/commits.md`, its subject naming what a user can now do;
+   `${CLAUDE_PLUGIN_ROOT}/rules/commits.md`, with the stage's `name` as its subject;
    push only if asked. `auto` -> commit without asking. `learn` and `review` -> the diff
    stat and the body's "Read in order" and "Look closely at" are the dev's review guide;
    wait for approval, and on a change request make it, verify again and show it again.
-   Then set its `status` to `done` in the plan file. The base wraps up as section 7 says
-   instead.
+   Then set its `status` to `done` in the plan file. After the last base stage, also
+   section 7.
 
 Then the next `todo` stage. The dev can stop at any point; the next session resumes here.
 `auto` stops only when blocked: the same failure twice, or a stage that cannot work as
@@ -59,17 +65,19 @@ planned. No `todo` stage left -> section 8.
 Before writing the stage, say who writes what. Buddy: the routine parts - wiring, types,
 route mounts, `ApiPath` entries, service functions, component scaffolds. The dev: one or
 two parts with a decision in them - a query, a business rule, a validation, a component's
-state. For each dev part, leave a stub that fails loudly until it is written, and give a
-brief: what it must do, the rule or `catalyst-by-zoho` skill that applies, one hint, and
-the check that proves it. Wait for the dev's "done", then review their code as a senior
-would - what is right, what to change and why - and let them make the change. A stub left
-in the code blocks the commit.
+state. Write Buddy's parts and run the Screens step first, so hallmark never touches the
+dev's code. Then, for each dev part, leave a stub that fails loudly until it is written,
+with the brief in it after the marker `BUDDY-LEARN:` - what it must do, the rule or
+`catalyst-by-zoho` skill that applies, one hint, and the check that proves it - and show
+the briefs. Wait for the dev's "done", then review their code as a senior would - what is
+right, what to change and why - and let them make the change. `rg -n "BUDDY-LEARN:"` finds
+the open stubs after a resume; any hit blocks the commit.
 
 ## 3. The base
 
 No domain code yet - no repository classes or `resources.ts` entries; they come with the
-first stage that uses a resource. Walk the dev through the env values the README's "First
-run" section lists; values that are secrets, the dev types in themselves.
+first stage that uses a resource. In the first base stage, walk the dev through the env
+values the README's "First run" section lists; values that are secrets, the dev types in themselves.
 
 zoho-token kit: walk the dev through registering a **Server-based client** at the Zoho API
 Console for their data centre, with the Authorized Redirect URI
@@ -99,7 +107,9 @@ and its rules. The ones that matter most:
 - Web data through `src/services/` + react-query, forms through react-hook-form, paths from
   `ApiPath` (`web-data-access.md`).
 - For the zoho-token kit, Zoho API calls follow `zoho-token.md`: one `ZohoConnection`, a grant
-  per execution, the token fetched per request.
+  per execution, the token fetched per request. A stage that needs a new Zoho scope -> the
+  dev adds it to `ZOHO_TOKEN_SCOPES` in `apps/api/.env` and connects to Zoho again in the
+  app before the check.
 
 Before a ZCQL query, a Data Store write, or an auth check, load
 `catalyst-by-zoho:catalyst-datastore` or `catalyst-by-zoho:catalyst-authentication` - both
@@ -108,9 +118,10 @@ strings, ZAID differing between environments).
 
 ## 5. Screens
 
-The base: invoke `hallmark:hallmark` on `apps/web`. It asks the dev its own questions
-(material, audience, use, tone); don't answer them for the dev. Give it these constraints
-from the kit, which are not negotiable:
+A base stage: invoke `hallmark:hallmark` on `apps/web` for what the stage names. In the
+first base stage it asks the dev its own questions (material, audience, use, tone); don't
+answer them for the dev, and reuse the answers in a second base stage. Give it these
+constraints from the kit, which are not negotiable:
 
 - Fonts and colours exist only as tokens in `apps/web/src/app/globals.css` (and the font
   loading in `apps/web/src/app/layout.tsx`). Never set a font family or a raw colour on a
@@ -121,15 +132,18 @@ from the kit, which are not negotiable:
   Bring it in line with the new typeface and colours by hand, as `typography.md` explains.
 - Data access in pages goes through `src/services/` and react-query -
   `.claude/rules/web-data-access.md`.
-- Scope: the layout, the home page and the sign-in screen.
+- Scope: what the stage names - the tokens and layout, the pages, or all of them.
 
-Once the dev is happy with the base, ask hallmark to lock the system, so it writes
-`design.md` at the repo root and every later screen follows it.
+In the last base stage, once the dev accepts its screens (`auto`: once hallmark's questions
+are answered), ask hallmark to lock the system, so it writes `design.md` at the repo root
+before the stage's commit; every later screen follows it.
 
 A feature stage: every new or changed screen goes through `hallmark:hallmark` in redesign or
-component mode, against the existing tokens in `globals.css` and the repo's `design.md`.
-Keep the kit's UI rules: no font family or raw colour on a component, no hand edits in
-`components/ui/`, and an empty, loading and error state for every list or form.
+component mode, against the repo's `design.md` if it has one, and an empty, loading and
+error state for every list or form. In a starter-kit app, also against the tokens in
+`globals.css`, with the kit's UI rules: no font family or raw colour on a component, no
+hand edits in `components/ui/`. In any other codebase, follow its own styling and
+components instead.
 
 ## 6. Verify
 
@@ -137,35 +151,32 @@ Keep the kit's UI rules: no font family or raw colour on a component, no hand ed
 pnpm build && pnpm typecheck && pnpm lint      # the base: pnpm install first
 ```
 
+In a codebase that is not a starter-kit app, run the build, lint and test scripts in its
+`package.json` instead, and start it the way its README says.
+
 Every step must pass. On a failure, show the output, fix the cause, and rerun from that step.
-Then run `pnpm dev` in the background, open the `proxy:` URL it prints with the
+Then run `pnpm dev` (or the codebase's own start command) in the background, open the
+`proxy:` URL it prints (or the URL it serves on) with the
 chrome-devtools MCP (if available), and run the stage's `check` as a user would: do the
 action, check the screen, check what it left in Catalyst (`CatalystbyZoho_Get_Rows` or a
 ZCQL query through MCP). For the base: a screenshot of the home page, and
 `<url>/api/v1/ping` returns `pong`. Take a screenshot of the main screen and stop the dev
-server. If anything fails, fix the cause and verify again - never mark a stage done that
+server by its PID, then check its port is free. If anything fails, fix the cause and verify again - never mark a stage done that
 you have not seen work.
 
-## 7. Wrap up the base
+## 7. After the base
 
-1. Show `git status --short`, then ask (`auto`: don't ask). On a yes:
-
-   ```bash
-   git add -A
-   git commit -m "Start <title> from <kit>"
-   ```
-
-   Push to `origin` only if the dev asks.
-2. Tell the dev, in a short list: `pnpm dev`, then open the `proxy:` URL it prints (usually
-   `http://localhost:3001`, not :3000 or :4000); `claude --agent buddy` from this folder to
-   keep building; and anything still open (Console steps, env values).
+Tell the dev, in a short list: `pnpm dev`, then open the `proxy:` URL it prints (usually
+`http://localhost:3001`, not :3000 or :4000), and anything still open (Console steps, env
+values). Then go on to the next stage.
 
 ## 8. Finish the plan
 
 Every stage is done. Verify them all together, since a later stage can break an earlier
 one: run the checks in section 6 once, then, with one dev server, every stage's `check` in
-order. Something fails -> fix the cause, commit the fix by the same rules, and run the
-whole verification again. All pass -> delete the plan file, and tell the dev in one line
+order, and a smoke of what earlier plans built - the home page, the ping, and each existing
+page opened once. Something fails -> fix the cause, commit the fix by the same rules
+(`auto`: without asking, as for a stage), and run the whole verification again. All pass -> delete the plan file, and tell the dev in one line
 what the app can now do.
 
 ## Deploying

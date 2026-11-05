@@ -1,6 +1,6 @@
 ---
 name: goal
-description: Catalyst Buddy's question after doctor and connect, and again after every finished task - what are we doing in this folder - build the entire app, add a feature, fix a problem, or understand the app - and route to the skill for it. Used by the Buddy agent.
+description: Catalyst Buddy's question after connect, and after every finished task: continue the plan, or entire app, feature, fix or understand the app - then route to the skills for it.
 ---
 
 # Goal
@@ -14,43 +14,55 @@ with no app code yet.
 
 | Folder | Ask? | Recommended |
 |---|---|---|
-| No app code yet - only what `catalyst init` wrote (no `package.json`, no git commit, no `setup.json`) | no - only a new app makes sense; say so in one line | Entire app |
-| Has `zcatalystai/buddy/setup.json`, with a step not `done` or no git commit yet | yes | Entire app ("continue setting up the app") |
-| Has a plan file with a `todo` stage | yes | the plan's `goal` ("continue the plan: <next stage>") |
+| No app code yet - nothing but `.git`, `.catalystrc`, `zcatalystai/` and a `catalyst.json` that lists no functions, AppSails or client (a Catalyst CLI project with `functions/` or `client/` and no root `package.json` is app code) | no - only a new app makes sense; say so in one line | Entire app |
+| Has `zcatalystai/buddy/setup.json` with a step not `done`, or not committed yet | no - setup must finish before any other goal; say so in one line | Entire app |
+| Has a committed `setup.json` and no `design.md` (the base is not built yet) | yes | Entire app ("continue building the app") |
 | Any other folder | yes | A feature |
-
-The plan file is `${CLAUDE_PLUGIN_DATA}/<folder>/plan.json`, where `<folder>` is this
-folder's absolute path with every character other than a letter, digit, `_` or `-`
-replaced by `-`.
 
 ## 2. Ask
 
-One AskUserQuestion, "What are we doing?":
+In this order:
 
-- **Entire app** - design and build the whole app.
-- **A feature** - add something a user can do.
-- **A fix** - something is broken.
-- **Understand the app** - a tour and answers; nothing changes.
+1. No git repo or no `origin` (the dev declined them in connect) -> nothing can change
+   code. A folder with no app code yet -> say Buddy needs git to start an app, and stop.
+   Otherwise only Understand the app is open; say so in one line and route to it.
+2. `.claude/infra.md` is new or changed and not committed (an infra stopped before its
+   section 6) -> say so and run `zcatalystai:infra` sections 5 and 6: they create only the
+   resources still missing and commit the design. Then go on.
+3. `zcatalystai/buddy/plan.json` exists -> ask (AskUserQuestion) "Continue the plan: <next
+   `todo` stage, or the final check when every stage is `done`>?". Yes ->
+   `zcatalystai:build`, which resumes there; the route ends with it. No -> say that a new
+   app or feature plan will replace it. Uncommitted work from its half-built stage -> ask
+   whether to keep it in the tree or park it with
+   `git stash push -u -m "buddy: <stage name>"` (the dev gets it back with `git stash pop`).
+   Then go on.
+4. The folder table says don't ask -> route to its goal. Otherwise one AskUserQuestion,
+   "What are we doing?":
+   - **Entire app** - design and build the whole app.
+   - **A feature** - add something a user can do.
+   - **A fix** - something is broken.
+   - **Understand the app** - a tour and answers; nothing changes.
 
 ## 3. Route
-
-A plan file with a `todo` stage and the dev picked its goal -> `zcatalystai:build`, which
-resumes at that stage. Otherwise:
 
 | Goal | Run |
 |---|---|
 | Entire app | See below. |
-| A feature | `zcatalystai:infra`, then `zcatalystai:plan`, then `zcatalystai:build`. A request that doesn't fit the app's `## Domain` in `.claude/infra.md` (a new kind of user, a different problem, the other kit) -> say so and offer Entire app instead. |
-| A fix | `zcatalystai:fix` (it runs `zcatalystai:infra` and `zcatalystai:plan` once it knows the cause) |
-| Understand the app | Start the `zcatalystai:explain` agent and show the dev its tour. Send each question the dev asks to that same agent (SendMessage) and show its answer. A change request -> offer the feature or fix goal. The route ends when the dev has no more questions. |
+| A feature | `zcatalystai:infra`, then `zcatalystai:plan`, then `zcatalystai:build`. A request that doesn't fit the app's `## Domain` in `.claude/infra.md` (a new kind of user, a different problem, the other kit) -> say so and offer Entire app instead. Several features where only some fit -> say which, and take the fitting ones as this feature. |
+| A fix | `zcatalystai:fix` (once it knows the cause it runs `zcatalystai:infra` and `zcatalystai:plan` when the fix needs them) |
+| Understand the app | Start the `zcatalystai:explain` agent and show the dev its tour. Send each question the dev asks to that same agent (SendMessage) and show its answer. The dev asks for a change -> with git and `origin`, route straight to A feature or A fix with their words as the request; without them, say Buddy needs git to change code. Otherwise the route ends when the dev has no more questions. |
 
-**Entire app:**
-- No app code yet, or `setup.json` present -> `zcatalystai:setup` (it resumes at its first
-  step not `done`), then:
-  - no git commit yet -> `zcatalystai:infra` if there is no `.claude/infra.md` yet, then
-    `zcatalystai:plan`, then `zcatalystai:build`, which runs every stage from the base on;
-  - the app is already built -> the dev chose a rewrite: run `zcatalystai:infra` again
-    (the new `infra.md` replaces the old), then `zcatalystai:plan` and `zcatalystai:build`.
+**Entire app** - progress is read from files only, never from git history:
+- No app code yet, or `setup.json` with a step not `done` or not committed yet ->
+  `zcatalystai:setup` (it resumes where it stopped), then `zcatalystai:infra`, `zcatalystai:plan` and
+  `zcatalystai:build`, which runs every stage from the base on.
+- `setup.json` all `done`, no `.claude/infra.md` -> `zcatalystai:infra`, then
+  `zcatalystai:plan` and `zcatalystai:build`.
+- `setup.json` all `done` and `.claude/infra.md` present -> ask (AskUserQuestion):
+  **build from the current design** (`zcatalystai:infra` section 5 first - it creates only
+  the resources that are missing - then `zcatalystai:plan` and `zcatalystai:build`) or
+  **rewrite** (`zcatalystai:infra` again - a new design on top of the code and resources
+  that exist - then `zcatalystai:plan` and `zcatalystai:build`).
 - A codebase Buddy did not set up (app code, no `setup.json`) -> setup would copy the kit
   over its code. Say so, and offer to start the app in a new, empty folder instead.
 
