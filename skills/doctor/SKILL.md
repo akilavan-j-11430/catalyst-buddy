@@ -60,8 +60,11 @@ still runs the old instructions: the dev restarts with `claude --agent buddy`.
   each, ask who fixes it (AskUserQuestion): **Buddy runs it** - run the fix, then the check
   again - or **I'll do it** - give the exact command, wait, then run the check again.
   A command that prompts or opens a browser the dev always runs, as `! <command>`.
-- Checks 1, 2 and 3 must pass before Buddy goes on. A plugin the dev chose to skip is fine.
-  The rest: report, continue, and remind the dev at the step that needs them.
+- Checks 2, 3 and git (in check 1) must pass before Buddy goes on. Node 24 and pnpm must
+  pass only in an empty folder (a new app) or a starter-kit app (`packages/node-utils`); a
+  codebase on another runtime or version gets them reported, not required. A plugin the dev
+  chose to skip is fine. The rest: report, continue, and remind the dev at the step that
+  needs them.
 
 The fixes:
 
