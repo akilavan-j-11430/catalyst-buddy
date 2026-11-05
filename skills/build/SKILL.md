@@ -13,8 +13,8 @@ resources; build writes the code that uses them.
 ## 1. Know where you are
 
 - Read the plan file, `.claude/CLAUDE.md` (it imports `infra.md`), every
-  `.claude/rules/*.md`, and `design.md` if it exists. For a new app, title, description and
-  kit are in `zcatalystai/buddy/setup.json`.
+  `.claude/rules/*.md`, and `design.md` if it exists. The kit is the `Kit` line in
+  `.claude/infra.md`.
 - `git status --short` and `git log --oneline -5`. Uncommitted work -> show it and ask
   whether it is the first `todo` stage half-built in an earlier session (continue from it)
   or the dev's own work (leave it, and ask before touching those files).
