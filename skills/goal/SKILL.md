@@ -15,7 +15,8 @@ with no app code yet.
 | Folder | Ask? | Recommended |
 |---|---|---|
 | No app code yet - nothing but `.git`, `.catalystrc`, `zcatalystai/` and a `catalyst.json` that lists no functions, AppSails or client (a Catalyst CLI project with `functions/` or `client/` and no root `package.json` is app code) | no - only a new app makes sense; say so in one line | Entire app |
-| Has `zcatalystai/buddy/setup.json` with a step not `done`, or not committed yet | yes | Entire app ("continue setting up the app") |
+| Has `zcatalystai/buddy/setup.json` with a step not `done`, or not committed yet | no - setup must finish before any other goal; say so in one line | Entire app |
+| Has a committed `setup.json` and no `design.md` (the base is not built yet) | yes | Entire app ("continue building the app") |
 | Any other folder | yes | A feature |
 
 ## 2. Ask

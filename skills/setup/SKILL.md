@@ -98,5 +98,5 @@ The only hits allowed are the two "Started from" lines. Fix any other the same w
 
 Mark `rename` done, then commit the kit, the rename and `setup.json` together by
 `${CLAUDE_PLUGIN_ROOT}/rules/commits.md`, as `Start <title> from <kit>` - the one commit
-exempt from its size limit. Declined -> setup is not finished, and the next session offers
-the commit again. Push only if the dev asks.
+exempt from its size limit. Declined -> setup is not finished: the route ends here, and the next
+session offers the commit again. Push only if the dev asks.
