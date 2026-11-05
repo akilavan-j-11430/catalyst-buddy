@@ -9,6 +9,10 @@ Runs only for the Entire app goal, in the app's own folder, named for the app (t
 name is the repo name). The folder has no app code yet - only what `catalyst init` wrote
 when `zcatalystai:connect` bound it to a Catalyst project.
 
+Guard, even when the dev runs `/zcatalystai:setup` by hand: no `setup.json` and the folder
+holds anything beyond `.git`, `.catalystrc`, `zcatalystai/` and an empty `catalyst.json`
+-> stop. The kit copy would overwrite that code; offer a new, empty folder instead.
+
 ## Progress
 
 `zcatalystai/buddy/setup.json` records each step. Create it with every step `todo` when it
