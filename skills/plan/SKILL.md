@@ -45,7 +45,8 @@ Order the stages so each builds only on the ones before it.
   first. Leave out what the code already does - read its routes and pages first - and say
   in one line which you left out. Every resource in `infra.md` is used by at least one
   stage or by code that exists; one that isn't -> raise it with the dev.
-- **Feature** - as many stages as it takes to keep each one that small.
+- **Feature** - as many stages as it takes to keep each one that small. Every resource
+  infra added for it is used by a stage; one that isn't -> raise it with the dev.
 
 For each stage name:
 

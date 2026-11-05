@@ -129,7 +129,8 @@ Show it in full and wait for a yes; change it and show it again if asked.
   `## Role`, and in a new `.claude/CLAUDE.md` holding only that line when there is none. The import is relative to `.claude/CLAUDE.md`, so
   every session loads it. Later sessions trust it, so it must stay true as the app grows.
 - **Feature or fix** with new resources -> add them to the `Resources` list in
-  `.claude/infra.md`. No `infra.md` yet (a codebase Buddy did not set up) -> create it with
+  `.claude/infra.md`. A feature that adds a kind of user or a job they do -> one sentence in
+  `## Domain`; scheduled or event-driven work -> a line in `Background work`. No `infra.md` yet (a codebase Buddy did not set up) -> create it with
   the sections the code and this request can fill, and attach it as above. An existing
   footprint with changed settings -> update those resources' lines; used as they are ->
   nothing changes here.
