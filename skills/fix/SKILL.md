@@ -31,7 +31,8 @@ error text if they have it.
 
 ## 4. Fix
 
-- Apply the change the dev approved, following the repo's rules and patterns.
+- Apply the code change the dev approved, following the repo's rules and patterns. A fix
+  that was all Catalyst (infra applied and committed it) -> nothing to apply; go to verify.
 - If uncommitted work you did not make touches the same files, ask before changing them.
 
 ## 5. Verify
@@ -44,5 +45,6 @@ error text if they have it.
 
 ## 6. Wrap up
 
-One commit for the fix, by the commit rules in `${CLAUDE_PLUGIN_ROOT}/rules/commits.md`, its
+A fix that was all Catalyst -> no commit here; infra already committed `infra.md`.
+Otherwise one commit for the fix, by the commit rules in `${CLAUDE_PLUGIN_ROOT}/rules/commits.md`, its
 imperative subject saying what it fixes ("Fix ..."); push only if asked.

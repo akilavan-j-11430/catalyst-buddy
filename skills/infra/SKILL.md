@@ -52,7 +52,7 @@ question ("Does this need to store anything new?").
 | Footprint | Meaning | How deep the design goes |
 |---|---|---|
 | **None** | code only; Catalyst is not touched | no Catalyst skills, no MCP calls |
-| **Existing** | uses resources the project already has | load the skill of each service it touches (`catalyst-by-zoho:<service>`) and read those resources with `List_*` / `Get_*` |
+| **Existing** | uses resources the project already has, as they are or with changed settings (a new column, a permission, a scope) | load the skill of each service it touches (`catalyst-by-zoho:<service>`) and read those resources with `List_*` / `Get_*` |
 | **New** | needs new resources or a new service - always the case for an entire app | as Existing, plus for every candidate service check fit, limits, data-centre availability (`dataCentre` in `connect.json`) and cost against its skill and `catalyst-by-zoho:catalyst-pricing` |
 
 Find the services that fit a need through `catalyst-by-zoho:catalyst-by-zoho`, which routes
@@ -131,12 +131,14 @@ Show it in full and wait for a yes; change it and show it again if asked.
 - **Feature or fix** with new resources -> add them to the `Resources` list in
   `.claude/infra.md`. No `infra.md` yet (a codebase Buddy did not set up) -> create it with
   the sections the code and this request can fill, and attach it as above. An existing
-  footprint changes nothing here.
+  footprint with changed settings -> update those resources' lines; used as they are ->
+  nothing changes here.
 
 ## 5. Create the resources
 
-Once the dev approved the design, create its new Catalyst resources - nothing to do when
-the footprint is existing. A new app on the zoho-token kit also needs the `ZohoConnection`
+Once the dev approved the design, create its new Catalyst resources and apply its changes
+to existing ones (the matching `Update_*` or `Create_Column` tool) - nothing to do when it
+uses resources as they are. A new app on the zoho-token kit also needs the `ZohoConnection`
 table (`REFERENCE_ID`, `REFRESH_TOKEN` encrypted, App User scope USER) and the default Cache
 segment, as `.claude/rules/zoho-token.md` says. Everything goes to the **Development**
 environment, on the `mcpServer` in `zcatalystai/buddy/connect.json`.
