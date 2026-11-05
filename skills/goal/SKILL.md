@@ -1,6 +1,6 @@
 ---
 name: goal
-description: Catalyst Buddy's question after doctor and connect, and again after every finished task - what are we doing in this folder - build the entire app, add a feature, fix a problem, or understand the app - and route to the skill for it. Used by the Buddy agent.
+description: Catalyst Buddy's question after connect, and after every finished task: continue the plan, or entire app, feature, fix or understand the app - then route to the skills for it.
 ---
 
 # Goal

@@ -1,6 +1,6 @@
 ---
 name: build
-description: Catalyst Buddy's build step - ask the build mode (Fully auto, Learn & Review, Review only), then run the stages in plan.json one by one in any Catalyst codebase (the base of a new app - env values, hallmark UI - then each feature stage: code to the repo's rules, hallmark screens, verified in the browser), against the Catalyst resources infra created; after a complete verification of every stage, delete plan.json. Used by goal after plan.
+description: Catalyst Buddy's build step: asks the mode (Fully auto, Learn & Review, Review only), builds the stages in plan.json one by one with a verified commit each, runs a final check and deletes plan.json. Used by goal after plan.
 ---
 
 # Build

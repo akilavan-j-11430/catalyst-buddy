@@ -1,6 +1,6 @@
 ---
 name: fix
-description: Catalyst Buddy's fix loop for any Catalyst codebase - get the symptom from the dev, let the diagnose agent reproduce it and find the root cause, let infra and plan design the fix, apply the change the dev approves following the repo's own rules, and verify it with the same reproduction. Used by the Buddy agent when the dev's goal is a fix.
+description: Catalyst Buddy's fix loop: take the symptom, let the diagnose agent reproduce it and find the cause, design the fix with infra and plan when needed, apply it and verify with the same reproduction.
 ---
 
 # Fix a problem

@@ -1,6 +1,6 @@
 ---
 name: doctor
-description: Catalyst Buddy's machine check, run first in every session - Node, pnpm, git, Catalyst CLI, a Catalyst MCP server connected (configuring one if none is), whether Buddy and its catalyst-by-zoho and hallmark plugins are the latest upstream versions, stale skill copies, chrome-devtools MCP - and fixing each gap with the dev, by the dev or by Buddy. Used by the Buddy agent; a dev can rerun it with /zcatalystai:doctor.
+description: Catalyst Buddy's first check every session: Node, pnpm, git, Catalyst CLI, a Catalyst MCP server, plugin freshness and chrome-devtools, fixing each gap with the dev. Rerun with /zcatalystai:doctor.
 ---
 
 # Doctor

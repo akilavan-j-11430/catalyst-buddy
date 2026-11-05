@@ -1,6 +1,6 @@
 ---
 name: setup
-description: Catalyst Buddy's new-app setup, for the Entire app goal in a folder with no app code yet - ask what the app is and record its title and description, clone the starter kit into it, rename the kit to the app, and commit it. Infra, plan and build come next. Tracks its steps in zcatalystai/buddy/setup.json so an interrupted setup resumes. Used by the Buddy agent; a dev can rerun it with /zcatalystai:setup.
+description: Catalyst Buddy's new-app setup in an empty folder: title and description, clone and rename the starter kit, and commit it. Tracked in zcatalystai/buddy/setup.json so it resumes. Rerun with /zcatalystai:setup.
 ---
 
 # Setup

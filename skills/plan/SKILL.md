@@ -1,6 +1,6 @@
 ---
 name: plan
-description: Catalyst Buddy's code plan, after infra - turn an entire app or a feature into ordered stages (the routes, types, data access and screens of each, and the check that proves it), agreed with the dev in one pass and written to zcatalystai/buddy/plan.json (kept out of git) for build to run one by one; for a fix, the code change. Never adds a Catalyst resource. Used by goal and fix.
+description: Catalyst Buddy's code plan after infra: small ordered stages - routes, data, screens and a check each - approved once and written to zcatalystai/buddy/plan.json for build; for a fix, the code change.
 ---
 
 # Plan

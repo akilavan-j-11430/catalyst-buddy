@@ -1,6 +1,6 @@
 ---
 name: infra
-description: Catalyst Buddy's Catalyst design for an entire app, a feature or a fix - work out the request's Catalyst footprint (none, existing resources, or new), always offer two or three ways to cover it on Catalyst with their pros and cons and one recommended (for a new footprint each way designed in parallel by its own infra-way agent, no two alike), write the agreed design to .claude/infra.md (imported by .claude/CLAUDE.md), and create its Catalyst resources once the dev approves. The code - routes and screens - is zcatalystai:plan's. Used by goal and fix.
+description: Catalyst Buddy's Catalyst design for an app, feature or fix: the footprint, two or three ways (parallel infra-way agents for new resources), .claude/infra.md, the resources created in Development, and the design committed.
 ---
 
 # Infra

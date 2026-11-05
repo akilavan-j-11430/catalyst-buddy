@@ -1,6 +1,6 @@
 ---
 name: connect
-description: Catalyst Buddy's every-session check, in any folder, that it is bound to a Catalyst project (catalyst init done - the dev runs it if not), which connected MCP server reaches that project (recorded in zcatalystai/buddy/connect.json, kept out of git), and that the folder is a git repo with an origin remote - required for goals that change code. Used by the Buddy agent after doctor; a dev can rerun it with /zcatalystai:connect.
+description: Catalyst Buddy's every-session check that the folder is bound to a Catalyst project, which MCP server reaches it (zcatalystai/buddy/connect.json), and that it is its own git repo with an origin. Rerun with /zcatalystai:connect.
 ---
 
 # Connect

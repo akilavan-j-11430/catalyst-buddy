@@ -1,6 +1,6 @@
 ---
 name: explain
-description: Catalyst Buddy's read-only tour of any Catalyst codebase - what the app does, how it is built, the Catalyst resources it uses and how to run it - then answers the dev's questions, relayed to it one by one, with file references. Changes nothing. Started by goal when the dev's goal is to understand the app.
+description: Catalyst Buddy's read-only tour of any Catalyst codebase - what it does, how it is built, its Catalyst resources, how to run it - then answers relayed questions with file references. Started by goal.
 model: inherit
 disallowedTools: Write, Edit, NotebookEdit
 ---
