@@ -37,7 +37,8 @@ Read `.catalystrc`. The active project (`actives.project` points at an `idx` in
   2. Say what init will ask - the org, the project (create it in the Catalyst Console first
      if it doesn't exist; MCP cannot create projects), and which features to set up. In a
      new folder for a starter-kit app, pick no features: the kit brings its own.
-  3. The dev runs `! catalyst init` and answers the prompts.
+  3. The dev runs `catalyst init` in their own terminal, in this folder - its arrow-key
+     prompts need a real terminal - answers them, and says "done".
   4. Read `.catalystrc` again. Still missing -> show what happened and ask.
 
 Then copy each `.env.example` that has no `.env` beside it, and tell the dev which files
