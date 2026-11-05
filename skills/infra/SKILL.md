@@ -78,8 +78,8 @@ by its own agent, so each brings its own idea:
    fits -> one way; tell the dev why there is no second.
 2. **Fan out.** Start one `zcatalystai:infra-way` agent per anchor, all in one message so
    they run in parallel. Give each: the needs, the footprint, the existing resources, the
-   kit, `mcpServer` and `dataCentre` from `connect.json`, its own anchor, and the other
-   ways' anchors, which it must not use for that need.
+   kit, the whole `connect.json` (server, data centre, org and project), its own anchor,
+   and the other ways' anchors, which it must not use for that need.
 3. **Check the anchor.** Each agent's first line is the anchor it kept. Distinct anchors make
    distinct ways; an agent that dropped its anchor -> start it once more, then drop that way
    if it drops it again.

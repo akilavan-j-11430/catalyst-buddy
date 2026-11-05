@@ -12,7 +12,8 @@ own: use your anchor for its need, and never another way's anchor for that need.
 ## Input
 
 From infra: the needs (one line each, with sizes), the footprint, the existing resources,
-the kit, the `mcpServer` and `dataCentre`, your anchor, and the other ways' anchors.
+the kit, `connect.json` (`mcpServer`, `dataCentre`, `orgId`, `projectId`), your anchor, and
+the other ways' anchors. Pass the org and project to any tool that asks for them.
 
 ## Rules
 
