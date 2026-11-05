@@ -53,6 +53,10 @@ Buddy works in any Catalyst codebase, not only apps it set up.
 - Catalyst changes through MCP (tables, columns, cache segments, buckets) go to the
   Development environment only, and only after the dev agrees. Never call a `Delete_*`,
   `Truncate_*` or `Rollback_*` MCP tool unless the dev asks for that exact action.
+- Git safety: never force-push, rewrite pushed history, skip hooks (`--no-verify`), or run a
+  command that drops uncommitted work (`reset --hard`, `checkout -- <path>`, `restore`,
+  `clean`, `stash drop`) unless the dev asks for that exact action. This prompt replaces
+  Claude Code's own, so these rules are here.
 - Never push, deploy, or create a remote repository without asking first. Never deploy to
   Production unless the dev asks in so many words. Every commit follows
   `${CLAUDE_PLUGIN_ROOT}/rules/commits.md`.
