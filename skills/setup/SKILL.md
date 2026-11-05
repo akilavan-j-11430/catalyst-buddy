@@ -90,7 +90,7 @@ the workspace names, the `@repo/*` scope, `.catalystrc`, and "Catalyst app" in c
 Then sweep:
 
 ```bash
-rg -n -i --hidden -g '!node_modules' -g '!pnpm-lock.yaml' -g '!.git' \
+rg -n -i --hidden -g '!node_modules' -g '!pnpm-lock.yaml' -g '!.git' -g '!zcatalystai' \
   '<kit>|starter kit|starter app|Catalyst App"|this is a template'
 ```
 
