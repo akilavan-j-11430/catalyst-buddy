@@ -12,7 +12,8 @@ are `zcatalystai:plan`'s.
 Input: the goal and what it is about - setup's title and description for an entire app,
 the dev's request for a feature, the reproduction and cause `zcatalystai:fix` found for a
 fix. Nothing changes on disk or in Catalyst until the dev approves the design; then it is
-written to `.claude/infra.md` (section 4) and its resources are created (section 5).
+written to `.claude/infra.md` (section 4), its resources are created (section 5), and the
+design is committed (section 6).
 
 ## 1. Understand
 
@@ -154,4 +155,10 @@ environment, on the `mcpServer` in `zcatalystai/buddy/connect.json`.
    again; the same failure twice -> stop and ask. Never call a `Delete_*`, `Truncate_*` or
    `Rollback_*` tool to clean up unless the dev asks for that exact action.
 4. **Report.** One table, `Resource | ID | Made by | Status`, and make sure each resource is in
-   the `Resources` list in `.claude/infra.md`. Then hand over to `zcatalystai:plan`.
+   the `Resources` list in `.claude/infra.md`.
+
+## 6. Commit the design
+
+`.claude/infra.md` or the `@infra.md` line in `.claude/CLAUDE.md` changed -> one commit for
+the design by `${CLAUDE_PLUGIN_ROOT}/rules/commits.md`, before any code is written, so
+build never meets it as uncommitted work. Then hand over to `zcatalystai:plan`.
