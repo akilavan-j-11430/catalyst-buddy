@@ -49,6 +49,7 @@ Record `title` and `description`.
 2. Clone it next to the app, then copy it in - `git clone` refuses a non-empty folder:
 
    ```bash
+   rm -rf ../.<folder>-kit      # left over from an interrupted clone
    git clone --depth 1 <kitUrl> ../.<folder>-kit
    rm -rf ../.<folder>-kit/.git
    cp -R ../.<folder>-kit/. ./
