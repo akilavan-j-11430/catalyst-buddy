@@ -11,7 +11,9 @@ One problem per pass. Work in the codebase as it is: its `.claude/CLAUDE.md`,
 ## 1. Symptom
 
 Get it from the dev: what they did, what they expected, what happened. Ask for the exact
-error text if they have it.
+error text if they have it. Seen only in Production -> say diagnose works in Development;
+ask the dev for the Production logs (Console) and the data or steps that trigger it, and
+pass them on so diagnose can reproduce it in Development.
 
 ## 2. Diagnose
 
